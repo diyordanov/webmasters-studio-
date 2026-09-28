@@ -5,7 +5,7 @@ import { NavLogo } from "./brand-motion";
 import { CONTACTS, NavCta } from "./chrome";
 
 const SECTIONS = [
-  { id: "top", label: "Начало", img: "/assets/world/scene-04-poster.png" },
+  { id: "top", label: "Начало", img: "/assets/og.jpg" },
   { id: "uslugi", label: "Услуги", img: "/assets/world/scene-03-poster.png" },
   { id: "proekti", label: "Проекти", img: "/assets/work/interior-900.webp" },
   { id: "za-kogo", label: "За кого", img: "/assets/work/local-900.webp" },
@@ -147,6 +147,10 @@ export function SiteHeader() {
                   0{hover + 1} / 0{SECTIONS.length} · {SECTIONS[hover].label}
                 </span>
               </div>
+              <a className="wm-island__cta" href="#kontakt" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
+                Заявете оферта
+                <ArrowUpRight size={20} strokeWidth={2} aria-hidden="true" />
+              </a>
               <div className="wm-island__contacts">
                 <a href={CONTACTS.office.href} tabIndex={open ? 0 : -1}>
                   <small>{CONTACTS.office.label}</small>

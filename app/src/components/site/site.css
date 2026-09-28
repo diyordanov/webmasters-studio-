@@ -505,3 +505,7 @@
 @media (prefers-reduced-motion: reduce) {
   .wm-island__panel, .wm-island__links li { transition: none !important; }
 }
+.wm-island__cta { display: none; }
+@media (max-width: 860px) {
+  .wm .wm-island__cta { display: flex; align-items: center; justify-content: space-between; height: 54px; padding: 0 20px; border-radius: 999px; background: var(--acc); color: var(--bg); font-weight: 600; }
+}
