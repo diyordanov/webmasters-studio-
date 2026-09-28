@@ -3,12 +3,20 @@ import { useEffect, useRef } from "react";
 import type { ScrollScrubScene } from "@/components/scroll-scrub/scroll-scrub";
 
 const FRAMES = 181;
+/** Decoded frames kept in memory at once. Everything else stays as small compressed blobs. */
+const CACHE = 10;
 const frameSrc = (i: number) => `/assets/world/m/f-${String(i + 1).padStart(3, "0")}.webp`;
 
+type Decoded = CanvasImageSource & { close?: () => void };
+
 /**
- * Mobile journey: the film plays as a pre-decoded image sequence on a canvas
- * pinned at the top of the screen (no video seeking, so no stutter), while the
- * chapter copy scrolls underneath it and never overlaps the animation.
+ * Mobile journey: the film plays as an image sequence on a canvas pinned at
+ * the top of the screen (no video seeking, so no stutter), while the chapter
+ * copy scrolls underneath it and never overlaps the animation.
+ *
+ * Memory: phones kill tabs that hold hundreds of decoded frames, so frames are
+ * downloaded as compressed blobs (~20 KB each) and only a small rolling cache
+ * of decoded bitmaps is kept around the current scroll position.
  */
 export function MobileJourney({ scenes, enabled }: { scenes: ScrollScrubScene[]; enabled: boolean }) {
   const rootRef = useRef<HTMLElement>(null);
@@ -21,47 +29,100 @@ export function MobileJourney({ scenes, enabled }: { scenes: ScrollScrubScene[];
     const ctx = canvas?.getContext("2d");
     if (!root || !canvas || !ctx) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const imgs: Array<HTMLImageElement | null> = new Array(FRAMES).fill(null);
-    const ready: boolean[] = new Array(FRAMES).fill(false);
+    const blobs: Array<Blob | null> = new Array(FRAMES).fill(null);
+    const decoded = new Map<number, Decoded>();
+    const decoding = new Set<number>();
     const chapters = Array.from(root.querySelectorAll<HTMLElement>("[data-mj-ch]"));
     const bar = root.querySelector<HTMLElement>("[data-mj-bar]");
     const count = root.querySelector<HTMLElement>("[data-mj-count]");
+    const abort = new AbortController();
     let alive = true;
     let cur = 0;
+    let want = 0;
     let drawn = -1;
     let active = -1;
     let raf = 0;
-    let pumpTimer = 0;
 
-    const nearest = (i: number) => {
+    const decode = async (i: number): Promise<Decoded | null> => {
+      const blob = blobs[i];
+      if (!blob) return null;
+      if (typeof createImageBitmap === "function") {
+        try {
+          return await createImageBitmap(blob);
+        } catch {
+          /* fall through to <img> decode */
+        }
+      }
+      const url = URL.createObjectURL(blob);
+      try {
+        const img = new Image();
+        img.src = url;
+        await img.decode();
+        return img;
+      } catch {
+        return null;
+      } finally {
+        URL.revokeObjectURL(url);
+      }
+    };
+
+    const nearestBlob = (i: number) => {
       for (let d = 0; d < FRAMES; d++) {
-        if (i - d >= 0 && ready[i - d]) return i - d;
-        if (i + d < FRAMES && ready[i + d]) return i + d;
+        if (i - d >= 0 && blobs[i - d]) return i - d;
+        if (i + d < FRAMES && blobs[i + d]) return i + d;
       }
       return -1;
     };
-    const draw = (i: number) => {
-      const n = nearest(i);
-      if (n < 0 || n === drawn) return;
-      const im = imgs[n];
-      if (!im) return;
-      ctx.drawImage(im, 0, 0, canvas.width, canvas.height);
-      drawn = n;
+
+    const evict = () => {
+      if (decoded.size <= CACHE) return;
+      const keys = Array.from(decoded.keys()).sort((a, b) => Math.abs(b - want) - Math.abs(a - want));
+      for (const k of keys) {
+        if (decoded.size <= CACHE) break;
+        if (k === drawn) continue;
+        decoded.get(k)?.close?.();
+        decoded.delete(k);
+      }
     };
-    const load = (i: number) => {
-      if (imgs[i]) return;
-      const im = new Image();
-      im.decoding = "async";
-      im.onload = () => {
-        ready[i] = true;
-        if (alive) {
-          drawn = -1;
-          draw(Math.round(cur));
+
+    const ensure = (i: number) => {
+      if (i < 0 || i >= FRAMES || decoded.has(i) || decoding.has(i) || !blobs[i]) return;
+      decoding.add(i);
+      void decode(i).then((bmp) => {
+        decoding.delete(i);
+        if (!alive || !bmp) {
+          bmp?.close?.();
+          return;
         }
-      };
-      im.src = frameSrc(i);
-      imgs[i] = im;
+        decoded.set(i, bmp);
+        evict();
+      });
     };
+
+    const draw = () => {
+      const n = nearestBlob(want);
+      if (n < 0) return;
+      ensure(n);
+      ensure(n + 1);
+      ensure(n - 1);
+      // Draw the requested frame if it is decoded, otherwise the closest decoded one.
+      let pick = -1;
+      let best = Infinity;
+      decoded.forEach((_, k) => {
+        const d = Math.abs(k - want);
+        if (d < best) {
+          best = d;
+          pick = k;
+        }
+      });
+      if (pick < 0 || pick === drawn) return;
+      const bmp = decoded.get(pick);
+      if (!bmp) return;
+      ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+      drawn = pick;
+    };
+
+    // Download compressed frames progressively: coarse first, then fill in.
     const order: number[] = [];
     const seen = new Set<number>();
     for (const step of [30, 10, 3, 1]) {
@@ -72,18 +133,28 @@ export function MobileJourney({ scenes, enabled }: { scenes: ScrollScrubScene[];
         }
       }
     }
-    let oi = 0;
-    const pump = () => {
-      if (!alive) return;
-      for (let k = 0; k < 8 && oi < order.length; k++) load(order[oi++]);
-      if (oi < order.length) pumpTimer = window.setTimeout(pump, 50);
+    const fetchAll = async () => {
+      let next = 0;
+      const worker = async () => {
+        while (alive && next < order.length) {
+          const i = order[next++];
+          try {
+            const res = await fetch(frameSrc(i), { signal: abort.signal });
+            if (res.ok) blobs[i] = await res.blob();
+          } catch {
+            return;
+          }
+        }
+      };
+      await Promise.all([worker(), worker(), worker(), worker()]);
     };
+    void fetchAll();
+
     const size = () => {
       const dpr = Math.min(2, window.devicePixelRatio || 1);
       canvas.width = Math.round(canvas.clientWidth * dpr);
       canvas.height = Math.round(canvas.clientHeight * dpr);
       drawn = -1;
-      draw(Math.round(cur));
     };
 
     const tick = () => {
@@ -95,7 +166,8 @@ export function MobileJourney({ scenes, enabled }: { scenes: ScrollScrubScene[];
       const p = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
       const target = p * (FRAMES - 1);
       cur += (target - cur) * (reduce ? 1 : 0.2);
-      draw(Math.round(cur));
+      want = Math.round(cur);
+      draw();
       if (bar) bar.style.transform = `scaleX(${p.toFixed(4)})`;
       let best = 0;
       let bd = Infinity;
@@ -114,16 +186,16 @@ export function MobileJourney({ scenes, enabled }: { scenes: ScrollScrubScene[];
       }
     };
 
-    load(0);
-    pump();
     size();
     window.addEventListener("resize", size);
     raf = requestAnimationFrame(tick);
     return () => {
       alive = false;
+      abort.abort();
       cancelAnimationFrame(raf);
-      window.clearTimeout(pumpTimer);
       window.removeEventListener("resize", size);
+      decoded.forEach((b) => b.close?.());
+      decoded.clear();
     };
   }, [enabled]);
 

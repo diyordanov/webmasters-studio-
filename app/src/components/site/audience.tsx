@@ -137,7 +137,7 @@ export function AudienceSection() {
           <div className="wm-deck" data-deck="">
             {NICHES.map((n, i) => (
               <figure className="wm-deck__card" key={n.name} data-deck-card="" style={{ "--d": i } as CSSProperties}>
-                <img src={n.img} alt={`Концепция на сайт: ${n.name}`} width={1800} height={1350} loading="lazy" />
+                <img src={n.img} srcSet={`${n.img.replace(".webp", "-900.webp")} 900w, ${n.img} 1800w`} sizes="(max-width: 860px) 100vw, 900px" alt={`Концепция на сайт: ${n.name}`} width={1800} height={1350} loading="lazy" />
                 <span className="wm-deck__glare" aria-hidden="true" />
               </figure>
             ))}

@@ -62,7 +62,7 @@ export function WorkSection() {
           {WORK.map((w) => (
             <article className="wm-work__card" key={w.title}>
               <div className="wm-work__media" data-par="">
-                <img src={w.img} alt={w.alt} width={1800} height={1350} loading="lazy" />
+                <img src={w.img} srcSet={`${w.img.replace(".webp", "-900.webp")} 900w, ${w.img} 1800w`} sizes="(max-width: 860px) 100vw, 900px" alt={w.alt} width={1800} height={1350} loading="lazy" />
               </div>
               <div className="wm-work__meta">
                 <h3>{w.title}</h3>

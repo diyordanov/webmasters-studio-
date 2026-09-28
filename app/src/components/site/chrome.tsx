@@ -95,18 +95,6 @@ export const CONTACTS = {
 
 const FOOT_SERVICES = ["Уеб разработка по поръчка", "Онлайн магазини", "SEO одит и оптимизация", "Google Ads", "Абонаментна поддръжка"];
 
-/** Footer mail CTA: oversized address, lime sweep underline, magnetic. */
-function MailCta() {
-  return (
-    <span className="wm-magnet" data-magnet="">
-      <a className="wm-mailcta" href={CONTACTS.email.href}>
-        {CONTACTS.email.display}
-        <ArrowUpRight size={36} strokeWidth={1.6} aria-hidden="true" />
-      </a>
-    </span>
-  );
-}
-
 /** Back-to-top: round outline button that fills on hover. */
 function TopCta() {
   return (
@@ -122,10 +110,6 @@ export function SiteFooter() {
   return (
     <footer className="wm-foot">
       <div className="wm-wrap">
-        <div className="wm-foot__cta">
-          <p className="wm-foot__ask">Имате проект наум? Пишете ни.</p>
-          <MailCta />
-        </div>
         <div className="wm-foot__grid">
           <div className="wm-foot__col">
             <h3 className="wm-mono">Контакти</h3>

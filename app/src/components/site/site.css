@@ -405,3 +405,15 @@
   .wm-chat__inline .wm-chat__bubble { max-width: 100%; font-size: 0.98rem; }
   .wm-chat__qs { gap: 8px; }
 }
+
+/* v6: one consistent section rhythm on mobile (the projects -> audience gap, ~72px per side) */
+@media (max-width: 860px) {
+  .wm-sec { padding: 72px 0; }
+  .wm-work__sticky { padding: 72px 0; }
+  .wm-deck__sticky { padding-top: 84px; }
+  .wm-mj__chapters { padding-bottom: 24px; }
+  .wm-mj__ch:last-child { min-height: 46svh; }
+  .wm-foot { padding-top: 72px; }
+  .wm-foot__grid { padding-top: 0; }
+}
+.wm-foot__grid { border-top: 0; }
