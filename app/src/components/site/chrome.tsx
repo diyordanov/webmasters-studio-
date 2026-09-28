@@ -1,7 +1,6 @@
 import { useEffect, type CSSProperties } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
-import { NavLogo } from "./brand-motion";
 
 export const NAV_LINKS = [
   { href: "#uslugi", label: "Услуги" },
@@ -10,26 +9,6 @@ export const NAV_LINKS = [
   { href: "#oferta", label: "Оферта" },
   { href: "#vaprosi", label: "Въпроси" },
 ];
-
-export function SiteNav() {
-  return (
-    <header className="wm-nav">
-      <div className="wm-nav__bar">
-        <a className="wm-brand" href="#top" aria-label="webmasters.bg, начало">
-          <NavLogo />
-        </a>
-        <nav className="wm-nav__links" aria-label="Основна навигация">
-          {NAV_LINKS.map((l) => (
-            <a key={l.href} href={l.href}>
-              {l.label}
-            </a>
-          ))}
-        </nav>
-        <NavCta />
-      </div>
-    </header>
-  );
-}
 
 /** Nav CTA: small outline pill that floods green on hover. */
 export function NavCta() {

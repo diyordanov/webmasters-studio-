@@ -3,70 +3,8 @@ import { useEffect, useRef } from "react";
 import { createFramePlayer } from "./frame-player";
 
 /** Icon → wordmark transition, rendered as transparent WebP frames. */
-export const REEL_FRAMES = 121;
 export const NAV_FRAMES = 61;
-const reelSrc = (i: number) => `/assets/brand/reel/f-${String(i + 1).padStart(3, "0")}.webp`;
 const navSrc = (i: number) => `/assets/brand/nav/f-${String(i + 1).padStart(3, "0")}.webp`;
-
-/**
- * Scroll-scrubbed brand reveal before the footer: the W icon unfolds into the
- * Web Masters Studio wordmark as the visitor scrolls. Frames have alpha, so
- * the reel sits on any background.
- */
-export function BrandReel() {
-  const secRef = useRef<HTMLElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const sec = secRef.current;
-    const canvas = canvasRef.current;
-    if (!sec || !canvas) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const player = createFramePlayer(canvas, REEL_FRAMES, reelSrc, {
-      onDraw: () => sec.classList.add("is-live"),
-    });
-    if (!player) return;
-    if (reduce) {
-      player.setFrame(REEL_FRAMES - 1);
-      return () => player.destroy();
-    }
-    let cur = 0;
-    let raf = 0;
-    const tick = () => {
-      raf = requestAnimationFrame(tick);
-      const r = sec.getBoundingClientRect();
-      const vh = window.innerHeight;
-      if (r.bottom < 0 || r.top > vh) return;
-      const span = r.height - vh;
-      const p = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
-      cur += (p * (REEL_FRAMES - 1) - cur) * 0.18;
-      player.setFrame(cur);
-      sec.style.setProperty("--reel-p", p.toFixed(4));
-    };
-    raf = requestAnimationFrame(tick);
-    const onResize = () => player.resize();
-    window.addEventListener("resize", onResize);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", onResize);
-      player.destroy();
-    };
-  }, []);
-
-  return (
-    <section className="wm-reel" ref={secRef} aria-label="Web Masters Studio">
-      <div className="wm-reel__sticky">
-        <div className="wm-reel__stage">
-          <img className="wm-reel__poster" src={reelSrc(0)} alt="" width={1280} height={720} loading="lazy" />
-          <canvas ref={canvasRef} className="wm-reel__canvas" aria-hidden="true" />
-        </div>
-        <span className="wm-reel__bar" aria-hidden="true">
-          <i />
-        </span>
-      </div>
-    </section>
-  );
-}
 
 /**
  * Nav logo: shows the W icon; on hover (desktop) it plays forward into the

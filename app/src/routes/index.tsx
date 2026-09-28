@@ -3,10 +3,10 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { ScrollScrub } from "@/components/scroll-scrub/scroll-scrub";
 import { AudienceSection } from "@/components/site/audience";
-import { BrandReel } from "@/components/site/brand-motion";
-import { SiteFooter, SiteMotion, SiteNav } from "@/components/site/chrome";
+import { SiteFooter, SiteMotion } from "@/components/site/chrome";
 import { ContactSection } from "@/components/site/contact";
 import { FaqSection } from "@/components/site/faq";
+import { SiteHeader } from "@/components/site/header";
 import { siteHead } from "@/components/site/head";
 import { MobileJourney } from "@/components/site/mobile-journey";
 import { OfferSection, ProcessSection, ServicesSection, WorkSection } from "@/components/site/sections";
@@ -43,7 +43,7 @@ function Hero() {
 function Index() {
   return (
     <div className="wm">
-      <SiteNav />
+      <SiteHeader />
       <main>
         <Hero />
         <ServicesSection />
@@ -53,7 +53,6 @@ function Index() {
         <OfferSection />
         <FaqSection />
         <ContactSection />
-        <BrandReel />
       </main>
       <SiteFooter />
       <SiteMotion />
