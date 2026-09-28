@@ -1,174 +1,189 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 import { NavLogo } from "./brand-motion";
-import { CONTACTS, NavCta } from "./chrome";
+import { CONTACTS } from "./chrome";
 
-const SECTIONS = [
-  { id: "top", label: "Начало", img: "/assets/og.jpg" },
-  { id: "uslugi", label: "Услуги", img: "/assets/world/scene-03-poster.png" },
-  { id: "proekti", label: "Проекти", img: "/assets/work/interior-900.webp" },
-  { id: "za-kogo", label: "За кого", img: "/assets/work/local-900.webp" },
-  { id: "proces", label: "Процес", img: "/assets/world/scene-02-poster.png" },
-  { id: "oferta", label: "Оферта", img: "/assets/work/promo-900.webp" },
-  { id: "vaprosi", label: "Въпроси", img: "/assets/work/photo-900.webp" },
-  { id: "kontakt", label: "Контакт", img: "/assets/work/dental-900.webp" },
+const LINKS = [
+  { id: "uslugi", label: "Услуги" },
+  { id: "proekti", label: "Проекти" },
+  { id: "za-kogo", label: "За кого" },
+  { id: "proces", label: "Процес" },
+  { id: "oferta", label: "Оферта" },
+  { id: "vaprosi", label: "Въпроси" },
 ];
 
-const RING = 2 * Math.PI * 15;
-
 /**
- * "Dynamic island" header: logo, island and CTA float as separate pieces.
- * The island shows the section you are in plus a scroll-progress ring, and
- * morphs into a large menu panel (a bottom sheet on phones).
+ * Header: a bare logo on the left and ONE capsule on the right that holds the
+ * section links, the menu toggle and the lime CTA together.
+ * - At the top of the page the capsule is expanded; after scrolling it folds
+ *   down to "Меню + Заявете оферта" and unfolds again on hover.
+ * - A soft highlight glides under the hovered link and rests on the section
+ *   you are in; a lime hairline along the capsule shows scroll progress.
+ * - On phones "Меню" opens a full-screen sheet with a circular reveal.
  */
 export function SiteHeader() {
-  const [open, setOpen] = useState(false);
-  const [section, setSection] = useState(0);
-  const [hover, setHover] = useState(0);
-  const [hidden, setHidden] = useState(false);
-  const ringRef = useRef<SVGCircleElement>(null);
-  const islandRef = useRef<HTMLDivElement>(null);
-  const openRef = useRef(open);
-  openRef.current = open;
+  const [compact, setCompact] = useState(false);
+  const [pinned, setPinned] = useState(false);
+  const [hovering, setHovering] = useState(false);
+  const [sheet, setSheet] = useState(false);
+  const [section, setSection] = useState(-1);
+  const ulRef = useRef<HTMLUListElement>(null);
+  const blobRef = useRef<HTMLLIElement>(null);
+  const progRef = useRef<HTMLElement>(null);
+  const hoverIdx = useRef(-1);
+  const expanded = !compact || pinned || hovering;
+
+  const moveBlob = useCallback((idx: number) => {
+    const ul = ulRef.current;
+    const blob = blobRef.current;
+    if (!ul || !blob) return;
+    const a = idx >= 0 ? ul.querySelectorAll<HTMLAnchorElement>("a")[idx] : null;
+    if (!a) {
+      blob.style.opacity = "0";
+      return;
+    }
+    blob.style.opacity = "1";
+    blob.style.width = `${a.offsetWidth}px`;
+    blob.style.transform = `translateX(${a.offsetLeft}px)`;
+  }, []);
 
   useEffect(() => {
     let raf = 0;
-    let lastY = window.scrollY;
-    let cur = -1;
-    let hid = false;
+    let wasCompact = false;
+    let cur = -2;
     const tick = () => {
       raf = requestAnimationFrame(tick);
       const y = window.scrollY;
       const vh = window.innerHeight;
       const max = Math.max(1, document.documentElement.scrollHeight - vh);
-      if (ringRef.current) ringRef.current.style.strokeDashoffset = String(RING * (1 - Math.min(1, y / max)));
-      let idx = 0;
-      SECTIONS.forEach((s, i) => {
-        const el = document.getElementById(s.id);
+      if (progRef.current) progRef.current.style.transform = `scaleX(${Math.min(1, y / max).toFixed(4)})`;
+      const c = y > 120;
+      if (c !== wasCompact) {
+        wasCompact = c;
+        setCompact(c);
+      }
+      let idx = -1;
+      LINKS.forEach((l, i) => {
+        const el = document.getElementById(l.id);
         if (el && el.getBoundingClientRect().top < vh * 0.4) idx = i;
       });
       if (idx !== cur) {
         cur = idx;
         setSection(idx);
       }
-      const dy = y - lastY;
-      if (Math.abs(dy) > 4) {
-        const h = dy > 0 && y > 240 && !openRef.current;
-        if (h !== hid) {
-          hid = h;
-          setHidden(h);
-        }
-        lastY = y;
-      }
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, []);
 
+  // Rest the highlight on the current section whenever nothing is hovered.
   useEffect(() => {
-    if (!open) return;
-    setHover(section);
+    if (hoverIdx.current < 0) {
+      const t = window.setTimeout(() => moveBlob(expanded ? section : -1), expanded ? 250 : 0);
+      return () => window.clearTimeout(t);
+    }
+    return undefined;
+  }, [section, expanded, moveBlob]);
+
+  useEffect(() => {
+    if (!sheet) return undefined;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    const onDown = (e: PointerEvent) => {
-      if (islandRef.current && !islandRef.current.contains(e.target as Node)) setOpen(false);
+      if (e.key === "Escape") setSheet(false);
     };
     window.addEventListener("keydown", onKey);
-    window.addEventListener("pointerdown", onDown);
+    document.documentElement.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", onKey);
-      window.removeEventListener("pointerdown", onDown);
+      document.documentElement.style.overflow = "";
     };
-  }, [open, section]);
+  }, [sheet]);
 
-  const current = SECTIONS[section];
+  const onToggle = () => {
+    if (window.matchMedia("(max-width: 860px)").matches) setSheet((s) => !s);
+    else setPinned((p) => !p);
+  };
+  const menuOpen = sheet || pinned;
 
   return (
     <>
-      <div className={`wm-scrim${open ? " is-open" : ""}`} aria-hidden="true" />
-      <header className={`wm-hdr${hidden ? " is-hidden" : ""}${open ? " is-open" : ""}`}>
-        <a className="wm-hdr__logo" href="#top" aria-label="Web Masters Studio, начало">
+      <header className={`wm-hdr2${expanded ? " is-expanded" : ""}${sheet ? " is-sheet" : ""}`}>
+        <a className="wm-hdr2__logo" href="#top" aria-label="Web Masters Studio, начало">
           <NavLogo />
         </a>
 
-        <div className="wm-island" ref={islandRef}>
-          <button
-            type="button"
-            className="wm-island__pill"
-            aria-expanded={open}
-            aria-controls="wm-menu"
-            onClick={() => setOpen((o) => !o)}
-          >
-            <svg className="wm-island__ring" viewBox="0 0 36 36" aria-hidden="true">
-              <circle cx="18" cy="18" r="15" />
-              <circle ref={ringRef} cx="18" cy="18" r="15" style={{ strokeDasharray: RING, strokeDashoffset: RING }} />
-            </svg>
-            <span className="wm-island__label">
-              <span key={current.id} className="wm-island__now">
-                <b>0{section + 1}</b> {current.label}
-              </span>
-            </span>
-            <span className="wm-island__menu">{open ? "Затвори" : "Меню"}</span>
-            <span className="wm-island__burger" aria-hidden="true">
-              <i />
-              <i />
-            </span>
-          </button>
-
-          <nav id="wm-menu" className="wm-island__panel" aria-label="Основна навигация" aria-hidden={!open}>
-            <ul className="wm-island__links">
-              {SECTIONS.map((s, i) => (
-                <li key={s.id} style={{ "--i": i } as CSSProperties}>
-                  <a
-                    href={`#${s.id}`}
-                    tabIndex={open ? 0 : -1}
-                    className={i === section ? "is-current" : undefined}
-                    onPointerEnter={() => setHover(i)}
-                    onFocus={() => setHover(i)}
-                    onClick={() => setOpen(false)}
-                  >
-                    <span className="wm-mono">0{i + 1}</span>
-                    <span className="wm-island__txt">{s.label}</span>
-                    <ArrowUpRight size={22} strokeWidth={1.8} aria-hidden="true" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <div className="wm-island__side">
-              <div className="wm-island__preview" aria-hidden="true">
-                {open
-                  ? SECTIONS.map((s, i) => (
-                      <img key={s.id} src={s.img} alt="" className={i === hover ? "is-on" : undefined} loading="lazy" />
-                    ))
-                  : null}
-                <span className="wm-island__cap wm-mono">
-                  0{hover + 1} / 0{SECTIONS.length} · {SECTIONS[hover].label}
-                </span>
-              </div>
-              <a className="wm-island__cta" href="#kontakt" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
-                Заявете оферта
-                <ArrowUpRight size={20} strokeWidth={2} aria-hidden="true" />
-              </a>
-              <div className="wm-island__contacts">
-                <a href={CONTACTS.office.href} tabIndex={open ? 0 : -1}>
-                  <small>{CONTACTS.office.label}</small>
-                  {CONTACTS.office.display}
-                </a>
-                <a href={CONTACTS.email.href} tabIndex={open ? 0 : -1}>
-                  <small>Имейл</small>
-                  {CONTACTS.email.display}
-                </a>
-              </div>
+        <div className="wm-bar" onPointerEnter={() => setHovering(true)} onPointerLeave={() => setHovering(false)}>
+          <nav className="wm-bar__links" aria-label="Основна навигация">
+            <div className="wm-bar__clip">
+              <ul
+                ref={ulRef}
+                onPointerLeave={() => {
+                  hoverIdx.current = -1;
+                  moveBlob(section);
+                }}
+              >
+                <li className="wm-bar__blob" ref={blobRef} aria-hidden="true" />
+                {LINKS.map((l, i) => (
+                  <li key={l.id} style={{ "--i": i } as CSSProperties}>
+                    <a
+                      href={`#${l.id}`}
+                      className={i === section ? "is-current" : undefined}
+                      tabIndex={expanded ? 0 : -1}
+                      onPointerEnter={() => {
+                        hoverIdx.current = i;
+                        moveBlob(i);
+                      }}
+                      onFocus={() => moveBlob(i)}
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </nav>
-        </div>
-
-        <div className="wm-hdr__cta">
-          <NavCta />
+          <button type="button" className="wm-bar__toggle" aria-expanded={menuOpen} onClick={onToggle}>
+            <span className="wm-bar__dots" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+              <i />
+            </span>
+            <span>{sheet ? "Затвори" : "Меню"}</span>
+          </button>
+          <a className="wm-bar__cta" href="#kontakt" onClick={() => setSheet(false)}>
+            <span className="wm-bar__cta-l">Заявете оферта</span>
+            <span className="wm-bar__cta-s">Оферта</span>
+            <ArrowUpRight size={18} strokeWidth={2.2} aria-hidden="true" />
+          </a>
+          <span className="wm-bar__prog" aria-hidden="true">
+            <i ref={progRef} />
+          </span>
         </div>
       </header>
+
+      <div className={`wm-sheet${sheet ? " is-open" : ""}`} aria-hidden={!sheet}>
+        <ul className="wm-sheet__links">
+          {[{ id: "top", label: "Начало" }, ...LINKS, { id: "kontakt", label: "Контакт" }].map((l, i) => (
+            <li key={l.id} style={{ "--i": i } as CSSProperties}>
+              <a href={`#${l.id}`} tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
+                <span className="wm-mono">0{i + 1}</span>
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div className="wm-sheet__foot">
+          <a href={CONTACTS.office.href} tabIndex={sheet ? 0 : -1}>
+            <small>{CONTACTS.office.label}</small>
+            {CONTACTS.office.display}
+          </a>
+          <a href={CONTACTS.email.href} tabIndex={sheet ? 0 : -1}>
+            <small>Имейл</small>
+            {CONTACTS.email.display}
+          </a>
+        </div>
+      </div>
     </>
   );
 }
