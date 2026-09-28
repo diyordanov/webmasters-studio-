@@ -1,6 +1,8 @@
 import { useEffect, type CSSProperties } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
+import { NavLogo } from "./brand-motion";
+
 export const NAV_LINKS = [
   { href: "#uslugi", label: "Услуги" },
   { href: "#proekti", label: "Проекти" },
@@ -14,10 +16,7 @@ export function SiteNav() {
     <header className="wm-nav">
       <div className="wm-nav__bar">
         <a className="wm-brand" href="#top" aria-label="webmasters.bg, начало">
-          <img src="/assets/brand/mark.webp" alt="" width={30} height={30} />
-          <span>
-            webmasters<b>.bg</b>
-          </span>
+          <NavLogo />
         </a>
         <nav className="wm-nav__links" aria-label="Основна навигация">
           {NAV_LINKS.map((l) => (

@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { ScrollScrub } from "@/components/scroll-scrub/scroll-scrub";
 import { AudienceSection } from "@/components/site/audience";
+import { BrandReel } from "@/components/site/brand-motion";
 import { SiteFooter, SiteMotion, SiteNav } from "@/components/site/chrome";
 import { ContactSection } from "@/components/site/contact";
 import { FaqSection } from "@/components/site/faq";
@@ -52,6 +53,7 @@ function Index() {
         <OfferSection />
         <FaqSection />
         <ContactSection />
+        <BrandReel />
       </main>
       <SiteFooter />
       <SiteMotion />

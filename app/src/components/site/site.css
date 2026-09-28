@@ -417,3 +417,30 @@
   .wm-foot__grid { padding-top: 0; }
 }
 .wm-foot__grid { border-top: 0; }
+
+/* v7: official brand motion (icon -> wordmark, transparent frames) */
+.wm-brand { gap: 0; }
+.wm-logo { position: relative; display: block; width: 120px; height: 48px; }
+.wm-logo__icon, .wm-logo__canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.wm-logo__canvas { opacity: 0; }
+.wm-logo.is-playing .wm-logo__canvas { opacity: 1; }
+.wm-logo.is-playing .wm-logo__icon { opacity: 0; }
+.wm-nav { mix-blend-mode: normal; }
+
+.wm-reel { position: relative; height: 240dvh; }
+.wm-reel__sticky { position: sticky; top: 0; height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; overflow: hidden; }
+.wm-reel__stage { position: relative; width: min(1200px, 92vw); aspect-ratio: 16 / 9; }
+.wm-reel__poster, .wm-reel__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.wm-reel__poster { object-fit: contain; }
+.wm-reel.is-live .wm-reel__poster { visibility: hidden; }
+.wm-reel__bar { width: min(220px, 40vw); height: 2px; background: var(--line); overflow: hidden; }
+.wm-reel__bar i { display: block; height: 100%; background: var(--acc); transform-origin: left; transform: scaleX(var(--reel-p, 0)); }
+@media (max-width: 860px) {
+  .wm-reel { height: 180svh; }
+  .wm-logo { width: 44px; height: 44px; }
+  .wm-logo__icon { object-fit: cover; object-position: 50% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wm-reel { height: auto; }
+  .wm-reel__sticky { position: static; height: auto; padding: 72px 0; }
+}
