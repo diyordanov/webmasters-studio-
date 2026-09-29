@@ -550,7 +550,7 @@
 
   .wm-sheet { position: fixed; inset: 0; z-index: 75; display: flex; flex-direction: column; gap: 18px; padding: 80px 20px calc(20px + env(safe-area-inset-bottom)); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; background: var(--bg); clip-path: circle(0px at calc(100% - 38px) 32px); visibility: hidden; transition: clip-path 0.8s var(--ease), visibility 0s linear 0.8s; --gx: 80%; --gy: 20%; }
   .wm-sheet.is-open { clip-path: circle(170vmax at calc(100% - 38px) 32px); visibility: visible; transition: clip-path 0.8s var(--ease), visibility 0s; }
-  .wm-sheet > * { position: relative; min-width: 0; }
+  .wm-sheet > * { position: relative; flex: none; min-width: 0; }
   .wm-sheet__bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
   .wm-sheet__grid { position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 44px 44px; opacity: 0.35; -webkit-mask-image: radial-gradient(120% 70% at 100% 0%, #000, transparent 70%); mask-image: radial-gradient(120% 70% at 100% 0%, #000, transparent 70%); }
   .wm-sheet__glow { position: absolute; top: -18vh; right: -30vw; width: 90vw; height: 90vw; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--acc) 22%, transparent), transparent 65%); filter: blur(20px); animation: wm-sheetglow 9s ease-in-out infinite alternate; }
@@ -585,7 +585,7 @@
 
   .wm .wm-sheet__feature { display: block; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--bg2); color: var(--ink); opacity: 0; transform: translate3d(0, 18px, 0) scale(0.97); transition: opacity 0.5s 0.5s, transform 0.8s var(--ease) 0.5s; }
   .wm-sheet.is-open .wm-sheet__feature { opacity: 1; transform: none; }
-  .wm-sheet__shots { position: relative; display: block; aspect-ratio: 16 / 8; overflow: hidden; }
+  .wm-sheet__shots { position: relative; display: block; aspect-ratio: 16 / 7; overflow: hidden; }
   .wm-sheet__shots img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.12); transition: opacity 0.9s, transform 3.6s linear; }
   .wm-sheet__shots img.is-on { opacity: 1; transform: scale(1); }
   .wm-sheet__shots::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, color-mix(in srgb, var(--bg2) 92%, transparent)); }
