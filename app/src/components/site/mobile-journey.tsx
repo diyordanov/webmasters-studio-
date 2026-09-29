@@ -216,7 +216,14 @@ export function MobileJourney({ scenes, enabled }: { scenes: ScrollScrubScene[];
       <div className="wm-mj__chapters">
         {scenes.map((s, i) => (
           <article className={`wm-mj__ch${i === 0 ? " is-active" : ""}`} key={s.id} data-mj-ch="">
-            {i === 0 && enabled ? <h1 className="wm-mj__title">{s.title}</h1> : <h2 className="wm-mj__title">{s.title}</h2>}
+            {/* Headings only once the mobile layout is active, so the page never carries a second set of H1/H2. */}
+            {!enabled ? (
+              <p className="wm-mj__title">{s.title}</p>
+            ) : i === 0 ? (
+              <h1 className="wm-mj__title">{s.title}</h1>
+            ) : (
+              <h2 className="wm-mj__title">{s.title}</h2>
+            )}
             <p className="wm-mj__body">{s.body}</p>
             {s.tags?.length ? (
               <ul className="wm-mj__tags">
