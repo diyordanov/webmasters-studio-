@@ -60,11 +60,11 @@ export function WorkSection() {
           <p className="wm-lead">Реални проекти, които изработихме за наши клиенти: от landing страници до онлайн магазини.</p>
         </div>
         <div className="wm-work__track" data-pan-track="">
-          {WORK.map((w) => (
-            <article className="wm-work__card" key={w.key}>
+          {WORK.map((w, i) => (
+            <article className="wm-work__card" key={w.key} style={{ "--dir": i % 2 ? -1 : 1 } as CSSProperties}>
               <a className="wm-work__link" href={w.url} target="_blank" rel="noopener" aria-label={`${w.title}: ${w.note} (отваря сайта)`}>
-                <div className="wm-work__media" data-par="">
-                  <img src={`/assets/work/${w.key}.webp`} srcSet={`/assets/work/${w.key}-900.webp 900w, /assets/work/${w.key}.webp 1800w`} sizes="(max-width: 860px) 100vw, 900px" alt={w.alt} width={1800} height={1125} loading="lazy" />
+                <div className="wm-work__media" data-tilt="">
+                  <img src={`/assets/work/${w.key}.webp`} srcSet={`/assets/work/${w.key}-900.webp 900w, /assets/work/${w.key}.webp 1600w`} sizes="(max-width: 860px) 100vw, 960px" alt={w.alt} width={1600} height={799} loading="lazy" />
                 </div>
                 <div className="wm-work__meta">
                   <h3>{w.title}</h3>

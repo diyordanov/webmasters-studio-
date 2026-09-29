@@ -163,6 +163,7 @@ export function SiteMotion() {
     const work = one("[data-pan]");
     const track = one("[data-pan-track]");
     const pars = all("[data-par]");
+    const tilts = all("[data-tilt]");
     const rail = one("[data-rail]");
     const drift = all("[data-drift]");
     const mags = all("[data-magnet]");
@@ -271,6 +272,15 @@ export function SiteMotion() {
         const cy = (r.top + r.height / 2 - vh / 2) / vh;
         const img = el.querySelector<HTMLElement>("img");
         if (img) img.style.transform = `translate3d(${(cx * -46).toFixed(1)}px,${(cy * -24).toFixed(1)}px,0) scale(1.1)`;
+      }
+      // Project mockups: a 3D tilt that eases toward the viewer as the card nears the centre.
+      for (const el of tilts) {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200 || r.right < -200 || r.left > vw + 200) continue;
+        const cx = Math.max(-1, Math.min(1, (r.left + r.width / 2 - vw / 2) / vw));
+        const cy = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh));
+        setP(el, "--tx", Number(cx.toFixed(3)));
+        setP(el, "--ty", Number(cy.toFixed(3)));
       }
       for (const el of splits) {
         const r = el.getBoundingClientRect();
