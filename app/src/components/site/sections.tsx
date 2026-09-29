@@ -6,11 +6,11 @@ import { SplitHeading } from "./split";
 import { SiteLink } from "./link";
 
 const SERVICES = [
-  { icon: "/assets/icons/icon-1.png", title: "Уеб разработка по поръчка", text: "Уникален дизайн и код, изградени около вашия бизнес, без готови шаблони.", stack: "React · Vite · TypeScript · Tailwind" },
-  { icon: "/assets/icons/icon-2.png", title: "Онлайн магазини", text: "WordPress и WooCommerce магазини, които управлявате сами, без програмист за всяка промяна.", stack: "WordPress · WooCommerce" },
-  { icon: "/assets/icons/icon-3.png", title: "SEO одит и оптимизация", text: "Технически одит, структура, скорост и съдържание, за да ви намират клиентите в Google.", stack: "Search Console · Core Web Vitals" },
-  { icon: "/assets/icons/icon-4.png", title: "Google Ads", text: "Кампании с ясна структура, проследяване на конверсии и редовна оптимизация на бюджета.", stack: "Търсене · Ремаркетинг" },
-  { icon: "/assets/icons/icon-5.png", title: "Абонаментна поддръжка", text: "Обновления, сигурност, архиви и промени по сайта, без да мислите за тях.", stack: "Месечен абонамент" },
+  { icon: "/assets/icons/icon-1.webp", title: "Уеб разработка по поръчка", text: "Уникален дизайн и код, изградени около вашия бизнес, без готови шаблони.", stack: "React · Vite · TypeScript · Tailwind" },
+  { icon: "/assets/icons/icon-2.webp", title: "Онлайн магазини", text: "WordPress и WooCommerce магазини, които управлявате сами, без програмист за всяка промяна.", stack: "WordPress · WooCommerce" },
+  { icon: "/assets/icons/icon-3.webp", title: "SEO одит и оптимизация", text: "Технически одит, структура, скорост и съдържание, за да ви намират клиентите в Google.", stack: "Search Console · Core Web Vitals" },
+  { icon: "/assets/icons/icon-4.webp", title: "Google Ads", text: "Кампании с ясна структура, проследяване на конверсии и редовна оптимизация на бюджета.", stack: "Търсене · Ремаркетинг" },
+  { icon: "/assets/icons/icon-5.webp", title: "Абонаментна поддръжка", text: "Обновления, сигурност, архиви и промени по сайта, без да мислите за тях.", stack: "Месечен абонамент" },
 ];
 
 export function ServicesSection({ more = false }: { more?: boolean }) {

@@ -139,7 +139,17 @@ export function MobileJourney({ scenes, enabled }: { scenes: ScrollScrubScene[];
         }
       }
     }
+    // Slow or data-saving connections get every second frame (half the data, still smooth).
+    const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    const lite = !!conn && (conn.saveData === true || /(^|-)(2g|3g)$/.test(conn.effectiveType ?? ""));
+    if (lite) {
+      for (let i = order.length - 1; i >= 0; i--) if (order[i] % 2 === 1) order.splice(i, 1);
+    }
     const fetchAll = async () => {
+      // Let the page itself finish loading before the frames compete for bandwidth.
+      if (document.readyState !== "complete") {
+        await new Promise<void>((resolve) => window.addEventListener("load", () => resolve(), { once: true }));
+      }
       let next = 0;
       const worker = async () => {
         while (alive && next < order.length) {

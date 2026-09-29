@@ -82,7 +82,7 @@ export function ContactSection() {
     <section className="wm-sec" id="kontakt" aria-labelledby="kontakt-h">
       <div className="wm-wrap wm-contact">
         <div>
-          <img className="wm-contact__icon" data-drift="-0.1" src="/assets/icons/icon-6.png" alt="" width={64} height={64} />
+          <img className="wm-contact__icon" data-drift="-0.1" src="/assets/icons/icon-6.webp" alt="" width={64} height={64} />
           <SplitHeading id="kontakt-h" text="Разкажете ни за проекта." />
           <p className="wm-lead">
             Попълнете формата и ще се свържем с вас, за да уточним детайлите. Срещата може да е на живо или онлайн.
