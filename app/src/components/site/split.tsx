@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { Fragment, type CSSProperties } from "react";
 
 /**
  * Headline whose words rise out of a mask as the heading scrolls into view.
@@ -10,10 +10,14 @@ export function SplitHeading({ id, text, className = "wm-h2" }: { id?: string; t
   const words = text.split(" ");
   return (
     <h2 className={`${className} wm-split`} id={id} data-split="" aria-label={text}>
+      {/* Real spaces between words so search engines and copy/paste read normal text. */}
       {words.map((w, i) => (
-        <span className="wm-split__w" key={`${w}-${i}`} aria-hidden="true">
-          <span style={{ "--i": i } as CSSProperties}>{w}</span>
-        </span>
+        <Fragment key={`${w}-${i}`}>
+          {i > 0 ? " " : null}
+          <span className="wm-split__w" aria-hidden="true">
+            <span style={{ "--i": i } as CSSProperties}>{w}</span>
+          </span>
+        </Fragment>
       ))}
     </h2>
   );
