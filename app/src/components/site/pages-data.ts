@@ -157,10 +157,11 @@ export const TEAM: Array<{ name: string; first: string; role: string; text: stri
   },
   {
     name: "Камелия Йорданова",
-    first: "Камелия",
+    first: "Ками",
     role: "Търговски представител",
     text: "Камелия е търговски представител на Web masters и първият контакт за новите ни клиенти. Тя изслушва нуждите на бизнеса ви и ви насочва към решението, което ще донесе най-добри резултати.",
     initials: "КЙ",
+    photo: "/assets/team/kameliya",
   },
 ];
 
