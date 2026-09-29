@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { ChevronDown } from "lucide-react";
 
 import { submitLead } from "@/lib/api/contact.functions";
 
@@ -121,11 +122,14 @@ export function ContactSection() {
             </div>
             <div className="wm-field">
               <label htmlFor="f-service">Услуга</label>
-              <select id="f-service" name="service" defaultValue={SERVICES[0]}>
-                {SERVICES.map((s) => (
-                  <option key={s}>{s}</option>
-                ))}
-              </select>
+              <div className="wm-select">
+                <select id="f-service" name="service" defaultValue={SERVICES[0]}>
+                  {SERVICES.map((s) => (
+                    <option key={s}>{s}</option>
+                  ))}
+                </select>
+                <ChevronDown size={18} strokeWidth={2.2} aria-hidden="true" />
+              </div>
             </div>
           </div>
           <div className="wm-field">
