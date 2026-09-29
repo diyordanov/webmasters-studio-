@@ -6,6 +6,7 @@ import { siteHead } from "./head";
 import { SiteHeader } from "./header";
 import { PACKAGES, PROJECT_CATS, PROJECTS, STATS, TEAM, TESTIMONIALS, VALUES, type ProjectCat } from "./pages-data";
 import { SplitHeading } from "./split";
+import { SiteLink } from "./link";
 
 /** Shared shell for every page: header, content, footer and the motion loop. */
 export function SitePage({ current, children }: { current: NavHref; children: ReactNode }) {
@@ -57,7 +58,7 @@ export function PageHero({ current, title, lead, children }: { current: NavHref;
       <span className="wm-phero__glow" aria-hidden="true" />
       <div className="wm-wrap wm-phero__inner">
         <nav className="wm-phero__crumbs wm-mono" aria-label="Навигационна пътека">
-          <a href="/">Начало</a>
+          <SiteLink href="/">Начало</SiteLink>
           <span aria-hidden="true">/</span>
           <span aria-current="page">{label}</span>
         </nav>
@@ -85,12 +86,12 @@ export function PageHero({ current, title, lead, children }: { current: NavHref;
 /** Small lime pill link used in page heroes. */
 export function PillLink({ href, children, external }: { href: string; children: ReactNode; external?: boolean }) {
   return (
-    <a className="wm-pill" href={href} {...(external ? { target: "_blank", rel: "noopener" } : {})}>
+    <SiteLink className="wm-pill" href={href} {...(external ? { target: "_blank", rel: "noopener" } : {})}>
       {children}
       <span className="wm-pill__disc" aria-hidden="true">
         <ArrowUpRight size={16} strokeWidth={2.2} />
       </span>
-    </a>
+    </SiteLink>
   );
 }
 
@@ -125,10 +126,10 @@ export function PackagesSection() {
                   </li>
                 ))}
               </ul>
-              <a className="wm-pkg__cta" href="/kontakti">
+              <SiteLink className="wm-pkg__cta" href="/kontakti">
                 Поискайте оферта
                 <ArrowUpRight size={18} strokeWidth={2} aria-hidden="true" />
-              </a>
+              </SiteLink>
             </article>
           ))}
         </div>
@@ -224,9 +225,9 @@ export function ProjectsGrid() {
             return (
               <li key={p.name} style={{ "--i": Math.min(i, 16) } as CSSProperties}>
                 {p.url ? (
-                  <a href={p.url} target="_blank" rel="noopener" aria-label={`${p.name}: ${p.note} (отваря сайта)`}>
+                  <SiteLink href={p.url} target="_blank" rel="noopener" aria-label={`${p.name}: ${p.note} (отваря сайта)`}>
                     {inner}
-                  </a>
+                  </SiteLink>
                 ) : (
                   <div>{inner}</div>
                 )}

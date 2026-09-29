@@ -3,6 +3,7 @@ import { ArrowUpRight, Check } from "lucide-react";
 
 import { OfferCta } from "./chrome";
 import { SplitHeading } from "./split";
+import { SiteLink } from "./link";
 
 const SERVICES = [
   { icon: "/assets/icons/icon-1.png", title: "Уеб разработка по поръчка", text: "Уникален дизайн и код, изградени около вашия бизнес, без готови шаблони.", stack: "React · Vite · TypeScript · Tailwind" },
@@ -20,9 +21,9 @@ export function ServicesSection({ more = false }: { more?: boolean }) {
           <SplitHeading id="uslugi-h" text="Всичко за онлайн присъствието ви." />
           <p className="wm-lead">Пет услуги, един екип. Започваме от целта на бизнеса, а технологията избираме след това.</p>
           {more ? (
-            <a className="wm-draw" href="/uslugi">
+            <SiteLink className="wm-draw" href="/uslugi">
               Всички услуги и пакети
-            </a>
+            </SiteLink>
           ) : null}
           <div className="wm-svc__count" aria-hidden="true">
             <span data-svc-count="">01</span>
@@ -65,16 +66,16 @@ export function WorkSection({ more = false }: { more?: boolean }) {
           <div className="wm-work__intro">
             <p className="wm-lead">Реални проекти, които изработихме за наши клиенти: от landing страници до онлайн магазини.</p>
             {more ? (
-              <a className="wm-draw" href="/proekti">
+              <SiteLink className="wm-draw" href="/proekti">
                 Всички проекти
-              </a>
+              </SiteLink>
             ) : null}
           </div>
         </div>
         <div className="wm-work__track" data-pan-track="">
           {WORK.map((w, i) => (
             <article className="wm-work__card" key={w.key} style={{ "--dir": i % 2 ? -1 : 1 } as CSSProperties}>
-              <a className="wm-work__link" href={w.url} target="_blank" rel="noopener" aria-label={`${w.title}: ${w.note} (отваря сайта)`}>
+              <SiteLink className="wm-work__link" href={w.url} target="_blank" rel="noopener" aria-label={`${w.title}: ${w.note} (отваря сайта)`}>
                 <div className="wm-work__media" data-mock="">
                   <span className="wm-work__win">
                     <img src={`/assets/work/${w.key}.webp`} srcSet={`/assets/work/${w.key}-900.webp 900w, /assets/work/${w.key}.webp 1600w`} sizes="(max-width: 860px) 100vw, 960px" alt={w.alt} width={1600} height={799} loading="lazy" />
@@ -87,7 +88,7 @@ export function WorkSection({ more = false }: { more?: boolean }) {
                     <ArrowUpRight size={15} strokeWidth={2} aria-hidden="true" />
                   </span>
                 </div>
-              </a>
+              </SiteLink>
             </article>
           ))}
         </div>

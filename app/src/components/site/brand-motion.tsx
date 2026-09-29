@@ -22,8 +22,9 @@ export function NavLogo() {
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!fine || reduce) return;
-    const player = createFramePlayer(canvas, NAV_FRAMES, navSrc, { cache: 16, workers: 2 });
-    if (!player) return;
+    // Frames download only on the first hover, so pages don't pay for them up front.
+    let player: ReturnType<typeof createFramePlayer> = null;
+    let ready = false;
     let cur = 0;
     let target = 0;
     let raf = 0;
@@ -31,12 +32,22 @@ export function NavLogo() {
       const dir = Math.sign(target - cur);
       cur += dir * 1.1;
       if ((dir > 0 && cur >= target) || (dir < 0 && cur <= target)) cur = target;
-      player.setFrame(cur);
-      wrap.classList.toggle("is-playing", cur > 0.5);
+      player?.setFrame(cur);
+      wrap.classList.toggle("is-playing", ready && cur > 0.5);
       if (cur !== target) raf = requestAnimationFrame(step);
       else raf = 0;
     };
     const go = (t: number) => {
+      if (!player) {
+        player = createFramePlayer(canvas, NAV_FRAMES, navSrc, {
+          cache: 16,
+          workers: 2,
+          onDraw: () => {
+            ready = true;
+            wrap.classList.toggle("is-playing", cur > 0.5);
+          },
+        });
+      }
       target = t;
       if (!raf) raf = requestAnimationFrame(step);
     };
@@ -52,7 +63,7 @@ export function NavLogo() {
       link.removeEventListener("pointerleave", leave);
       link.removeEventListener("focus", enter);
       link.removeEventListener("blur", leave);
-      player.destroy();
+      player?.destroy();
     };
   }, []);
 

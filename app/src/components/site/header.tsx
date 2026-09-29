@@ -3,6 +3,7 @@ import { ArrowUpRight, Mail, Phone } from "lucide-react";
 
 import { NavLogo } from "./brand-motion";
 import { CONTACTS, NAV_LINKS, type NavHref } from "./chrome";
+import { SiteLink } from "./link";
 
 
 
@@ -104,20 +105,20 @@ export function SiteHeader({ current }: { current: NavHref }) {
     <>
       <header className={`wm-top${scrolled ? " is-scrolled" : ""}${sheet ? " is-sheet" : ""}`}>
         <div className="wm-top__inner">
-          <a className="wm-top__logo" href="/" aria-label="Web Masters Studio, начало" onClick={() => setSheet(false)}>
+          <SiteLink className="wm-top__logo" href="/" aria-label="Web Masters Studio, начало" onClick={() => setSheet(false)}>
             <NavLogo />
-          </a>
+          </SiteLink>
           <nav className="wm-top__links" aria-label="Основна навигация">
             {NAV_LINKS.map((l) => (
-              <a key={l.href} href={l.href} className={l.href === current ? "is-current" : undefined} aria-current={l.href === current ? "page" : undefined}>
+              <SiteLink key={l.href} href={l.href} className={l.href === current ? "is-current" : undefined} aria-current={l.href === current ? "page" : undefined}>
                 {l.label}
-              </a>
+              </SiteLink>
             ))}
           </nav>
-          <a className="wm-top__cta" href="/kontakti">
+          <SiteLink className="wm-top__cta" href="/kontakti">
             Заявете оферта
             <ArrowUpRight size={16} strokeWidth={2.2} aria-hidden="true" />
-          </a>
+          </SiteLink>
           <button
             type="button"
             className="wm-top__burger"
@@ -157,7 +158,7 @@ export function SiteHeader({ current }: { current: NavHref }) {
           {NAV_LINKS.map((l, i) => {
             const isCurrent = l.href === current;
             return (
-              <a
+              <SiteLink
                 key={l.href}
                 href={l.href}
                 tabIndex={sheet ? 0 : -1}
@@ -172,12 +173,12 @@ export function SiteHeader({ current }: { current: NavHref }) {
                 </span>
                 {isCurrent ? <span className="wm-sheet__here wm-mono">тук сте</span> : null}
                 <ArrowUpRight className="wm-sheet__arrow" size={18} strokeWidth={2} aria-hidden="true" />
-              </a>
+              </SiteLink>
             );
           })}
         </nav>
 
-        <a className="wm-sheet__feature" href="/proekti" tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
+        <SiteLink className="wm-sheet__feature" href="/proekti" tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
           <span className="wm-sheet__shots" aria-hidden="true">
             {FEATURED.map((f, i) => (
               <img key={f.img} src={sheet ? f.img : undefined} alt="" width={900} height={562} className={i === slide ? "is-on" : undefined} />
@@ -193,24 +194,24 @@ export function SiteHeader({ current }: { current: NavHref }) {
               <i key={f.img} className={i === slide ? "is-on" : i < slide ? "is-done" : undefined} />
             ))}
           </span>
-        </a>
+        </SiteLink>
 
         <div className="wm-sheet__foot">
-          <a className="wm-sheet__cta" href="/kontakti" tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
+          <SiteLink className="wm-sheet__cta" href="/kontakti" tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
             Заявете оферта
             <span className="wm-sheet__ctadisc">
               <ArrowUpRight size={18} strokeWidth={2.2} aria-hidden="true" />
             </span>
-          </a>
+          </SiteLink>
           <div className="wm-sheet__contacts">
-            <a href={CONTACTS.office.href} tabIndex={sheet ? 0 : -1} aria-label={`Обадете се: ${CONTACTS.office.display}`}>
+            <SiteLink href={CONTACTS.office.href} tabIndex={sheet ? 0 : -1} aria-label={`Обадете се: ${CONTACTS.office.display}`}>
               <Phone size={16} strokeWidth={2} aria-hidden="true" />
               <span>Обадете се</span>
-            </a>
-            <a href={CONTACTS.email.href} tabIndex={sheet ? 0 : -1} aria-label={`Пишете ни: ${CONTACTS.email.display}`}>
+            </SiteLink>
+            <SiteLink href={CONTACTS.email.href} tabIndex={sheet ? 0 : -1} aria-label={`Пишете ни: ${CONTACTS.email.display}`}>
               <Mail size={16} strokeWidth={2} aria-hidden="true" />
               <span>Пишете ни</span>
-            </a>
+            </SiteLink>
           </div>
         </div>
       </div>

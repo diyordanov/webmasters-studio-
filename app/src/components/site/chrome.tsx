@@ -1,5 +1,6 @@
 import { useEffect, type CSSProperties } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { SiteLink } from "./link";
 
 
 /** Site pages, in menu order. */
@@ -20,9 +21,9 @@ export const CONSULT_URL = "https://calendly.com/dimo-uordanov/45min";
 export function NavCta() {
   return (
     <span className="wm-magnet" data-magnet="">
-      <a className="wm-navcta" href="/kontakti">
+      <SiteLink className="wm-navcta" href="/kontakti">
         Заявете оферта
-      </a>
+      </SiteLink>
     </span>
   );
 }
@@ -31,12 +32,12 @@ export function NavCta() {
 export function MagnetCta() {
   return (
     <span className="wm-magnet" data-magnet="">
-      <a className="wm-magcta" href="/kontakti">
+      <SiteLink className="wm-magcta" href="/kontakti">
         Заявете оферта
         <span className="wm-magcta__disc" aria-hidden="true">
           <ArrowRight size={18} strokeWidth={2.2} />
         </span>
-      </a>
+      </SiteLink>
     </span>
   );
 }
@@ -44,19 +45,19 @@ export function MagnetCta() {
 /** Secondary hero action: plain link whose underline draws on hover. */
 export function DrawLink() {
   return (
-    <a className="wm-draw" href="/proekti">
+    <SiteLink className="wm-draw" href="/proekti">
       Вижте проектите
-    </a>
+    </SiteLink>
   );
 }
 
 /** Offer CTA: full-width block bar with a travelling arrow. */
 export function OfferCta() {
   return (
-    <a className="wm-blockcta" href="/kontakti">
+    <SiteLink className="wm-blockcta" href="/kontakti">
       <span>Заявете оферта</span>
       <ArrowUpRight size={24} strokeWidth={2} aria-hidden="true" />
-    </a>
+    </SiteLink>
   );
 }
 
@@ -83,9 +84,9 @@ const FOOT_SERVICES = ["Уеб разработка по поръчка", "Он�
 function TopCta() {
   return (
     <span className="wm-magnet" data-magnet="">
-      <a className="wm-topcta" href="#top" aria-label="Нагоре">
+      <SiteLink className="wm-topcta" href="#top" aria-label="Нагоре">
         <ArrowUpRight size={22} strokeWidth={2} aria-hidden="true" style={{ transform: "rotate(-45deg)" }} />
-      </a>
+      </SiteLink>
     </span>
   );
 }
@@ -97,36 +98,36 @@ export function SiteFooter() {
         <div className="wm-foot__grid">
           <div className="wm-foot__col">
             <h3 className="wm-mono">Контакти</h3>
-            <a href={CONTACTS.office.href}>
+            <SiteLink href={CONTACTS.office.href}>
               <small>{CONTACTS.office.label}</small>
               {CONTACTS.office.display}
-            </a>
-            <a href={CONTACTS.manager.href}>
+            </SiteLink>
+            <SiteLink href={CONTACTS.manager.href}>
               <small>{CONTACTS.manager.label}</small>
               {CONTACTS.manager.display}
-            </a>
-            <a href={CONTACTS.email.href}>
+            </SiteLink>
+            <SiteLink href={CONTACTS.email.href}>
               <small>Имейл</small>
               {CONTACTS.email.display}
-            </a>
+            </SiteLink>
           </div>
           <nav className="wm-foot__col" aria-label="Бързи връзки">
             <h3 className="wm-mono">Бързи връзки</h3>
             {NAV_LINKS.map((l) => (
-              <a key={l.href} href={l.href}>
+              <SiteLink key={l.href} href={l.href}>
                 {l.label}
-              </a>
+              </SiteLink>
             ))}
-            <a href={CONSULT_URL} target="_blank" rel="noopener">
+            <SiteLink href={CONSULT_URL} target="_blank" rel="noopener">
               Безплатна консултация
-            </a>
+            </SiteLink>
           </nav>
           <div className="wm-foot__col">
             <h3 className="wm-mono">Услуги</h3>
             {FOOT_SERVICES.map((s) => (
-              <a key={s} href="/uslugi">
+              <SiteLink key={s} href="/uslugi">
                 {s}
-              </a>
+              </SiteLink>
             ))}
           </div>
           <div className="wm-foot__col">

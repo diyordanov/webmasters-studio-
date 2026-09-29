@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 import { SplitHeading } from "./split";
+import { SiteLink } from "./link";
 
 const FAQ = [
   ["Работите ли с договор и фактура?", "Да. За всеки проект подписваме договор, в който подробно описваме условията, етапите и сроковете, и издаваме фактура."],
@@ -107,10 +108,10 @@ export function FaqSection() {
             </div>
             <div className="wm-chat__foot">
               <span>Не намирате отговор?</span>
-              <a className="wm-ask" href="/kontakti">
+              <SiteLink className="wm-ask" href="/kontakti">
                 Попитайте ни
                 <ArrowUpRight size={18} strokeWidth={2} aria-hidden="true" />
-              </a>
+              </SiteLink>
             </div>
           </div>
         </div>
