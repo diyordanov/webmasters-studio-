@@ -68,7 +68,6 @@ export function SiteHeader({ current }: { current: NavHref }) {
 
   useEffect(() => {
     if (!sheet) return undefined;
-    setSlide(0);
     const id = window.setInterval(() => setSlide((n) => (n + 1) % FEATURED.length), 3200);
     return () => window.clearInterval(id);
   }, [sheet]);
@@ -125,7 +124,10 @@ export function SiteHeader({ current }: { current: NavHref }) {
             aria-expanded={sheet}
             aria-controls="wm-sheet"
             aria-label={sheet ? "Затвори менюто" : "Отвори менюто"}
-            onClick={() => setSheet((s) => !s)}
+            onClick={() => {
+              if (!sheet) setSlide(0);
+              setSheet(!sheet);
+            }}
           >
             <i />
             <i />

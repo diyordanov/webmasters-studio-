@@ -144,10 +144,8 @@ export function StatsSection() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return undefined;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setP(1);
-      return undefined;
-    }
+    // Reduced motion: keep the final values (p stays 0, which renders the full numbers).
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
     let raf = 0;
     const io = new IntersectionObserver(
       ([e]) => {
