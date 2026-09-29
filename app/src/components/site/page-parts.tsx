@@ -293,20 +293,61 @@ export function ValuesSection() {
   );
 }
 
-/** Team: monogram cards; the monogram fills lime and the card lifts on hover. */
+/**
+ * Team: tall portrait cards. The cut-out portrait stands in front of the
+ * person's first name set huge in outline; the card tilts toward the pointer,
+ * the name drifts the other way, and the portrait moves from muted to full
+ * colour as it lifts. Without a photo, a large outlined monogram takes its place.
+ */
 export function TeamSection() {
+  const tilt = (e: PointerEvent<HTMLElement>) => {
+    if (e.pointerType !== "mouse") return;
+    const el = e.currentTarget;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--rx", (((e.clientY - r.top) / r.height - 0.5) * -8).toFixed(2));
+    el.style.setProperty("--ry", (((e.clientX - r.left) / r.width - 0.5) * 10).toFixed(2));
+  };
+  const reset = (e: PointerEvent<HTMLElement>) => {
+    e.currentTarget.style.setProperty("--rx", "0");
+    e.currentTarget.style.setProperty("--ry", "0");
+  };
   return (
     <section className="wm-sec wm-sec--tight" id="ekip" aria-labelledby="ekip-h">
       <div className="wm-wrap">
-        <SplitHeading id="ekip-h" text="Събрахме се, за да творим заедно." />
-        <div className="wm-team">
+        <div className="wm-grid-head">
+          <SplitHeading id="ekip-h" text="Събрахме се, за да творим заедно." />
+          <p className="wm-lead">Малък екип, в който всеки отговаря за своята част: стратегия и маркетинг, дизайн и връзката с вас.</p>
+        </div>
+        <div className="wm-crew">
           {TEAM.map((m, i) => (
-            <article className="wm-member" key={m.name} style={{ "--i": i } as CSSProperties}>
-              <span className="wm-member__mono" aria-hidden="true">
-                {m.initials}
-              </span>
+            <article className="wm-crew__card" key={m.name} style={{ "--i": i } as CSSProperties}>
+              <div className="wm-crew__stage" onPointerMove={tilt} onPointerLeave={reset}>
+                <span className="wm-crew__idx wm-mono" aria-hidden="true">
+                  0{i + 1}
+                </span>
+                <span className="wm-crew__word" aria-hidden="true">
+                  {m.first}
+                </span>
+                <span className="wm-crew__glow" aria-hidden="true" />
+                {m.photo ? (
+                  <img
+                    className="wm-crew__photo"
+                    src={`${m.photo}.webp`}
+                    srcSet={`${m.photo}-520.webp 520w, ${m.photo}.webp 900w`}
+                    sizes="(max-width: 860px) 90vw, 400px"
+                    alt={`${m.name}, ${m.role.toLowerCase()} в Уеб Мастърс Студио`}
+                    width={900}
+                    height={1125}
+                    loading="lazy"
+                  />
+                ) : (
+                  <span className="wm-crew__mono" aria-hidden="true">
+                    {m.initials}
+                  </span>
+                )}
+                <span className="wm-crew__role">{m.role}</span>
+              </div>
               <h3>{m.name}</h3>
-              <span className="wm-mono">{m.role}</span>
               <p>{m.text}</p>
             </article>
           ))}
