@@ -646,6 +646,8 @@
 .wm-phero__grid { position: absolute; inset: 0; z-index: -2; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 64px 64px; opacity: 0.45; -webkit-mask-image: radial-gradient(90% 80% at 70% 20%, #000, transparent 75%); mask-image: radial-gradient(90% 80% at 70% 20%, #000, transparent 75%); }
 .wm-phero__glow { position: absolute; left: 0; top: 0; z-index: -1; width: 720px; height: 720px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--acc) 20%, transparent), transparent 62%); transform: translate3d(calc(var(--gx) - 360px), calc(var(--gy) - 360px), 0); transition: transform 1.2s var(--ease); pointer-events: none; }
 .wm-phero__inner { position: relative; }
+/* Desktop: the hero fills the first screen, so the font swapping in can't push the sections below. */
+@media (min-width: 861px) { .wm-phero { display: flex; flex-direction: column; justify-content: flex-start; min-height: max(640px, 100svh); } .wm-phero__inner { width: min(1240px, 100% - 2 * var(--pad)); } }
 .wm-phero__crumbs { display: flex; gap: 10px; align-items: center; }
 .wm .wm-phero__crumbs a { color: var(--muted); transition: color 0.3s; }
 .wm .wm-phero__crumbs a:hover { color: var(--acc); }

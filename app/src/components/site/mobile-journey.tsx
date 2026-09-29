@@ -219,7 +219,7 @@ export function MobileJourney({ scenes, enabled }: { scenes: ScrollScrubScene[];
     <section className="wm-mj" ref={rootRef} aria-label="Как изграждаме сайт">
       <div className="wm-mj__stage">
         <div className="wm-mj__frame">
-          <img className="wm-mj__poster" src={frameSrc(0)} alt="" width={960} height={540} />
+          <img className="wm-mj__poster" src={frameSrc(0)} alt="" width={960} height={540} fetchPriority="high" decoding="async" />
           <canvas ref={canvasRef} className="wm-mj__canvas" aria-hidden="true" />
         </div>
       </div>

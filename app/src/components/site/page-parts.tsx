@@ -334,8 +334,8 @@ export function TeamSection() {
                   <img
                     className="wm-crew__photo"
                     src={`${m.photo}.webp`}
-                    srcSet={`${m.photo}-520.webp 520w, ${m.photo}.webp 900w`}
-                    sizes="(max-width: 860px) 90vw, 400px"
+                    srcSet={`${m.photo}-400.webp 400w, ${m.photo}-520.webp 520w, ${m.photo}.webp 900w`}
+                    sizes="(max-width: 860px) 88vw, (max-width: 1080px) 45vw, 380px"
                     alt={`${m.name}, ${m.role.toLowerCase()} в Уеб Мастърс Студио`}
                     width={900}
                     height={1125}
