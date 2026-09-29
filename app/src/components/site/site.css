@@ -66,8 +66,9 @@
 .wm-work__card { --dir: 1; flex: none; width: min(70vw, 960px, calc((100dvh - 300px) * 16 / 9)); }
 .wm-work__media { --tx: 0; --ty: 0; position: relative; isolation: isolate; display: grid; place-items: center; aspect-ratio: 16 / 9; perspective: 1700px; }
 .wm-work__media::after { content: ""; position: absolute; left: 12%; right: 12%; bottom: 2%; height: 18%; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--acc) 26%, transparent), transparent); filter: blur(18px); pointer-events: none; z-index: -1; }
-.wm-work__media img { display: block; width: 90%; height: auto; border-radius: 1.4% / 2.8%; transform-origin: 50% 50%; transform: rotateX(calc(4deg + var(--ty) * -4deg)) rotateY(calc(var(--dir) * 16deg + var(--tx) * -22deg)) rotateZ(calc(var(--dir) * -1deg)); filter: drop-shadow(calc(var(--dir) * 5px) 0 0 var(--acc)) drop-shadow(0 0 22px color-mix(in srgb, var(--acc) 30%, transparent)) drop-shadow(0 34px 38px rgba(0, 0, 0, 0.55)); transition: transform 0.9s var(--ease), filter 0.5s; will-change: transform; }
-.wm-work__card:hover .wm-work__media img { transform: rotateX(2deg) rotateY(calc(var(--dir) * 5deg)) rotateZ(0deg) scale(1.03); }
+.wm-work__win { display: block; width: 90%; border-radius: 1.5% / 3%; transform-origin: 50% 50%; transform: rotateX(calc(4deg + var(--ty) * -4deg)) rotateY(calc(var(--dir) * 16deg + var(--tx) * -22deg)) rotateZ(calc(var(--dir) * -1deg)); box-shadow: calc(var(--dir) * 5px) 0 0 var(--acc), 0 0 26px color-mix(in srgb, var(--acc) 28%, transparent), 0 36px 60px rgba(0, 0, 0, 0.55); transition: transform 0.9s var(--ease), box-shadow 0.5s; will-change: transform; }
+.wm-work__win img { display: block; width: 100%; height: auto; border-radius: inherit; }
+.wm-work__card:hover .wm-work__win { transform: rotateX(2deg) rotateY(calc(var(--dir) * 5deg)) rotateZ(0deg) scale(1.03); }
 .wm a.wm-work__link { display: block; color: inherit; }
 .wm-work__meta .wm-mono { display: inline-flex; align-items: center; gap: 6px; }
 .wm-work__meta svg { color: var(--acc); transition: transform 0.5s var(--ease); }

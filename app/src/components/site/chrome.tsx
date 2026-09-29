@@ -163,7 +163,7 @@ export function SiteMotion() {
     const work = one("[data-pan]");
     const track = one("[data-pan-track]");
     const pars = all("[data-par]");
-    const tilts = all("[data-tilt]");
+    const mocks = all("[data-mock]");
     const rail = one("[data-rail]");
     const drift = all("[data-drift]");
     const mags = all("[data-magnet]");
@@ -274,7 +274,7 @@ export function SiteMotion() {
         if (img) img.style.transform = `translate3d(${(cx * -46).toFixed(1)}px,${(cy * -24).toFixed(1)}px,0) scale(1.1)`;
       }
       // Project mockups: a 3D tilt that eases toward the viewer as the card nears the centre.
-      for (const el of tilts) {
+      for (const el of mocks) {
         const r = el.getBoundingClientRect();
         if (r.bottom < -200 || r.top > vh + 200 || r.right < -200 || r.left > vw + 200) continue;
         const cx = Math.max(-1, Math.min(1, (r.left + r.width / 2 - vw / 2) / vw));
