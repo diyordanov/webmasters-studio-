@@ -729,10 +729,10 @@
 .wm-crew { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2.4vw, 32px); margin-top: clamp(40px, 5vw, 64px); }
 .wm-crew__card { --rx: 0; --ry: 0; }
 .wm-crew__card:nth-child(2) { margin-top: clamp(0px, 5vw, 72px); }
-.wm-crew__stage { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid var(--line); border-radius: 26px; background: radial-gradient(120% 90% at 50% 110%, color-mix(in srgb, var(--acc) 22%, transparent), transparent 60%), linear-gradient(180deg, var(--bg3), var(--bg2)); transform: perspective(1100px) rotateX(calc(var(--rx) * 1deg)) rotateY(calc(var(--ry) * 1deg)); transition: transform 0.5s var(--ease), border-color 0.5s; isolation: isolate; }
+.wm-crew__stage { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid var(--line); border-radius: 26px; background: radial-gradient(120% 90% at 50% 110%, color-mix(in srgb, var(--acc) 22%, transparent), transparent 60%), linear-gradient(180deg, var(--bg3), var(--bg2)); transform: perspective(1100px) rotateX(calc(var(--rx) * 1deg)) rotateY(calc(var(--ry) * 1deg)); transition: transform 0.5s var(--ease), border-color 0.5s; isolation: isolate; container-type: inline-size; }
 .wm-crew__card:hover .wm-crew__stage { border-color: color-mix(in srgb, var(--acc) 55%, transparent); }
 .wm-crew__idx { position: absolute; top: 18px; left: 20px; z-index: 3; color: var(--acc); }
-.wm-crew__word { position: absolute; left: 50%; top: 9%; z-index: 0; font-size: clamp(4.2rem, 9vw, 8rem); font-weight: 700; line-height: 0.9; letter-spacing: -0.06em; white-space: nowrap; color: transparent; -webkit-text-stroke: 1.5px color-mix(in srgb, var(--acc) 55%, transparent); transform: translate3d(calc(-50% + var(--ry) * -2.4px), calc(var(--rx) * 2px), 0); transition: transform 0.6s var(--ease), color 0.6s; }
+.wm-crew__word { position: absolute; left: 50%; top: 9%; z-index: 0; font-size: min(38cqi, calc(158cqi / var(--len, 4))); font-weight: 700; line-height: 0.9; letter-spacing: -0.06em; white-space: nowrap; color: transparent; -webkit-text-stroke: 1.5px color-mix(in srgb, var(--acc) 55%, transparent); transform: translate3d(calc(-50% + var(--ry) * -2.4px), calc(var(--rx) * 2px), 0); transition: transform 0.6s var(--ease), color 0.6s; }
 .wm-crew__card:hover .wm-crew__word { color: color-mix(in srgb, var(--acc) 14%, transparent); }
 .wm-crew__glow { position: absolute; left: 50%; bottom: -30%; z-index: 0; width: 90%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--acc) 38%, transparent), transparent 62%); transform: translateX(-50%) scale(0.85); opacity: 0.55; transition: transform 0.8s var(--ease), opacity 0.6s; }
 .wm-crew__card:hover .wm-crew__glow { transform: translateX(-50%) scale(1.05); opacity: 1; }
@@ -777,7 +777,6 @@
   .wm-consult { flex-direction: column; align-items: flex-start; }
   .wm-crew { grid-template-columns: 1fr; }
   .wm-crew__photo { filter: none; transform: none; }
-  .wm-crew__word { font-size: 5.4rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .wm-phero__track, .wm-quotes__track, .wm-plist li { animation: none; }

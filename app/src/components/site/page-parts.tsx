@@ -320,7 +320,7 @@ export function TeamSection() {
         </div>
         <div className="wm-crew">
           {TEAM.map((m, i) => (
-            <article className="wm-crew__card" key={m.name} style={{ "--i": i } as CSSProperties}>
+            <article className="wm-crew__card" key={m.name} style={{ "--i": i, "--len": m.first.length } as CSSProperties}>
               <div className="wm-crew__stage" onPointerMove={tilt} onPointerLeave={reset}>
                 <span className="wm-crew__idx wm-mono" aria-hidden="true">
                   0{i + 1}
