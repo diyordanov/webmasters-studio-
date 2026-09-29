@@ -162,8 +162,8 @@
 
 /* split headlines: words rise out of a mask, driven by --p (defaults to shown) */
 .wm-split { --p: 1; }
-.wm-split__w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.1em; margin-bottom: -0.1em; }
-.wm-split__w > span { display: inline-block; transform-origin: 0 100%; --k: clamp(0, calc(var(--p) * 1.9 - var(--i) * 0.16), 1); transform: translate3d(0, calc((1 - var(--k)) * 108%), 0) rotate(calc((1 - var(--k)) * 7deg)); will-change: transform; }
+.wm-split__w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.18em; margin-bottom: -0.18em; }
+.wm-split__w > span { display: inline-block; transform-origin: 0 100%; --k: clamp(0, calc(var(--p) * (1.4 + var(--n, 4) * 0.16) - var(--i) * 0.16), 1); transform: translate3d(0, calc((1 - var(--k)) * 108%), 0) rotate(calc((1 - var(--k)) * 7deg)); will-change: transform; }
 
 /* services: live counter + active row + cursor spotlight */
 .wm-svc__count { display: flex; align-items: baseline; gap: 10px; margin-top: 48px; font-size: clamp(4.5rem, 9vw, 8.5rem); font-weight: 600; letter-spacing: -0.07em; line-height: 0.85; }

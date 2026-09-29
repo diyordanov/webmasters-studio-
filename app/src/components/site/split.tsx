@@ -9,7 +9,7 @@ import { Fragment, type CSSProperties } from "react";
 export function SplitHeading({ id, text, className = "wm-h2", as: Tag = "h2" }: { id?: string; text: string; className?: string; as?: "h1" | "h2" }) {
   const words = text.split(" ");
   return (
-    <Tag className={`${className} wm-split`} id={id} data-split="" aria-label={text}>
+    <Tag className={`${className} wm-split`} id={id} data-split="" aria-label={text} style={{ "--n": words.length } as CSSProperties}>
       {/* Real spaces between words so search engines and copy/paste read normal text. */}
       {words.map((w, i) => (
         <Fragment key={`${w}-${i}`}>
