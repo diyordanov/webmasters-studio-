@@ -118,7 +118,13 @@ export function MobileJourney({ scenes, enabled }: { scenes: ScrollScrubScene[];
       if (pick < 0 || pick === drawn) return;
       const bmp = decoded.get(pick);
       if (!bmp) return;
-      ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+      // Cover-fit: the frame is taller than 16:9 on phones, so crop the sides.
+      const iw = (bmp as { width: number }).width || 960;
+      const ih = (bmp as { height: number }).height || 540;
+      const k = Math.max(canvas.width / iw, canvas.height / ih);
+      const dw = iw * k;
+      const dh = ih * k;
+      ctx.drawImage(bmp, (canvas.width - dw) / 2, (canvas.height - dh) / 2, dw, dh);
       drawn = pick;
     };
 
@@ -205,15 +211,6 @@ export function MobileJourney({ scenes, enabled }: { scenes: ScrollScrubScene[];
         <div className="wm-mj__frame">
           <img className="wm-mj__poster" src={frameSrc(0)} alt="" width={960} height={540} />
           <canvas ref={canvasRef} className="wm-mj__canvas" aria-hidden="true" />
-        </div>
-        <div className="wm-mj__meta" aria-hidden="true">
-          <span className="wm-mono" data-mj-count="">
-            01
-          </span>
-          <span className="wm-mj__bar">
-            <i data-mj-bar="" />
-          </span>
-          <span className="wm-mono">0{scenes.length}</span>
         </div>
       </div>
       <div className="wm-mj__chapters">

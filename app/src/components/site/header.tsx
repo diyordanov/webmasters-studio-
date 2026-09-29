@@ -62,7 +62,10 @@ export function SiteHeader() {
       const vh = window.innerHeight;
       const max = Math.max(1, document.documentElement.scrollHeight - vh);
       if (progRef.current) progRef.current.style.transform = `scaleX(${Math.min(1, y / max).toFixed(4)})`;
-      const s = y > 40;
+      // On phones the hero film sits behind the header, so keep the bar clear while it is on screen.
+      const hero = document.querySelector<HTMLElement>(".wm-mj");
+      const overHero = !!hero && hero.offsetParent !== null && hero.getBoundingClientRect().bottom > 90;
+      const s = y > 40 && !overHero;
       if (s !== was) {
         was = s;
         setScrolled(s);

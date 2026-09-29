@@ -247,15 +247,12 @@
   .wm-desk { display: none; }
   .wm-mj { display: block; position: relative; }
 }
-.wm-mj__stage { position: sticky; top: 0; z-index: 3; padding: 82px 0 12px; background: var(--bg); }
-.wm-mj__stage::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 56px; background: linear-gradient(var(--bg), transparent); pointer-events: none; }
-.wm-mj__frame { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: var(--bg2); }
+.wm-mj__stage { position: sticky; top: 0; z-index: 3; padding: 0; background: var(--bg); }
+.wm-mj__stage::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 48px; background: linear-gradient(var(--bg), transparent); pointer-events: none; }
+.wm-mj__frame { position: relative; width: 100%; height: min(calc(100vw * 0.92), 62svh); overflow: hidden; background: var(--bg); -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 100%); mask-image: linear-gradient(180deg, #000 62%, transparent 100%); }
+.wm-mj__frame::before { content: ""; position: absolute; inset: 0 0 auto; z-index: 2; height: 110px; background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 70%, transparent), transparent); pointer-events: none; }
 .wm-mj__poster, .wm-mj__canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .wm-mj__canvas { z-index: 1; }
-.wm-mj__meta { display: flex; align-items: center; gap: 12px; padding: 14px 20px 0; }
-.wm-mj__meta [data-mj-count] { color: var(--acc); }
-.wm-mj__bar { flex: 1; height: 2px; overflow: hidden; background: var(--line); }
-.wm-mj__bar i { display: block; height: 100%; background: var(--acc); transform-origin: left; transform: scaleX(0); }
 .wm-mj__chapters { position: relative; z-index: 1; padding: 8px 20px 18svh; }
 .wm-mj__ch { display: flex; flex-direction: column; justify-content: center; min-height: 58svh; padding: 28px 0; opacity: 0.22; transform: translate3d(0, 18px, 0) scale(0.98); transform-origin: left center; transition: opacity 0.5s, transform 0.8s var(--ease); }
 .wm-mj__ch.is-active { opacity: 1; transform: none; }
