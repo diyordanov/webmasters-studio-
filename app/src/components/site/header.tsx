@@ -2,16 +2,9 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
 
 import { NavLogo } from "./brand-motion";
-import { CONTACTS } from "./chrome";
+import { CONTACTS, NAV_LINKS, type NavHref } from "./chrome";
 
-const LINKS = [
-  { id: "uslugi", label: "Услуги" },
-  { id: "proekti", label: "Проекти" },
-  { id: "za-kogo", label: "За кого" },
-  { id: "proces", label: "Процес" },
-  { id: "oferta", label: "Оферта" },
-  { id: "vaprosi", label: "Въпроси" },
-];
+
 
 const FEATURED = [
   { img: "/assets/work/tonchev-900.webp", title: "Tonchev Design", note: "Landing page с калкулатор" },
@@ -20,7 +13,6 @@ const FEATURED = [
   { img: "/assets/work/feedermania-900.webp", title: "Feedermania", note: "Онлайн магазин с над 500 продукта" },
   { img: "/assets/work/yug-900.webp", title: "Yug Property", note: "Сайт с онлайн резервации" },
 ];
-const SHEET_LINKS = [{ id: "top", label: "Начало" }, ...LINKS, { id: "kontakt", label: "Контакт" }];
 
 /** Current time in Sofia, refreshed while the menu is open. */
 function useSofiaTime(on: boolean) {
@@ -40,14 +32,13 @@ function useSofiaTime(on: boolean) {
  * Header: logo, then the links right next to it, CTA on the far right.
  * No frames: the bar is transparent over the hero and turns into a soft
  * blurred navy strip after scrolling, with a lime scroll-progress hairline.
- * Links get a sliding underline and the current section is marked.
+ * Links get a sliding underline and the current page is marked.
  * On phones a hamburger opens a full-screen menu with a moving strip of
  * project visuals under the links.
  */
-export function SiteHeader() {
+export function SiteHeader({ current }: { current: NavHref }) {
   const [scrolled, setScrolled] = useState(false);
   const [sheet, setSheet] = useState(false);
-  const [section, setSection] = useState(-1);
   const [slide, setSlide] = useState(0);
   const progRef = useRef<HTMLElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
@@ -56,7 +47,6 @@ export function SiteHeader() {
   useEffect(() => {
     let raf = 0;
     let was = false;
-    let cur = -2;
     const tick = () => {
       raf = requestAnimationFrame(tick);
       const y = window.scrollY;
@@ -70,15 +60,6 @@ export function SiteHeader() {
       if (s !== was) {
         was = s;
         setScrolled(s);
-      }
-      let idx = -1;
-      LINKS.forEach((l, i) => {
-        const el = document.getElementById(l.id);
-        if (el && el.getBoundingClientRect().top < vh * 0.4) idx = i;
-      });
-      if (idx !== cur) {
-        cur = idx;
-        setSection(idx);
       }
     };
     raf = requestAnimationFrame(tick);
@@ -124,17 +105,17 @@ export function SiteHeader() {
     <>
       <header className={`wm-top${scrolled ? " is-scrolled" : ""}${sheet ? " is-sheet" : ""}`}>
         <div className="wm-top__inner">
-          <a className="wm-top__logo" href="#top" aria-label="Web Masters Studio, начало" onClick={() => setSheet(false)}>
+          <a className="wm-top__logo" href="/" aria-label="Web Masters Studio, начало" onClick={() => setSheet(false)}>
             <NavLogo />
           </a>
           <nav className="wm-top__links" aria-label="Основна навигация">
-            {LINKS.map((l, i) => (
-              <a key={l.id} href={`#${l.id}`} className={i === section ? "is-current" : undefined}>
+            {NAV_LINKS.map((l) => (
+              <a key={l.href} href={l.href} className={l.href === current ? "is-current" : undefined} aria-current={l.href === current ? "page" : undefined}>
                 {l.label}
               </a>
             ))}
           </nav>
-          <a className="wm-top__cta" href="#kontakt">
+          <a className="wm-top__cta" href="/kontakti">
             Заявете оферта
             <ArrowUpRight size={16} strokeWidth={2.2} aria-hidden="true" />
           </a>
@@ -171,14 +152,15 @@ export function SiteHeader() {
         </div>
 
         <nav className="wm-sheet__links" aria-label="Мобилна навигация">
-          {SHEET_LINKS.map((l, i) => {
-            const current = i - 1 === section && section >= 0;
+          {NAV_LINKS.map((l, i) => {
+            const isCurrent = l.href === current;
             return (
               <a
-                key={l.id}
-                href={`#${l.id}`}
+                key={l.href}
+                href={l.href}
                 tabIndex={sheet ? 0 : -1}
-                className={current ? "is-current" : undefined}
+                className={isCurrent ? "is-current" : undefined}
+                aria-current={isCurrent ? "page" : undefined}
                 style={{ "--i": i } as CSSProperties}
                 onClick={() => setSheet(false)}
               >
@@ -186,14 +168,14 @@ export function SiteHeader() {
                 <span className="wm-sheet__label">
                   <span>{l.label}</span>
                 </span>
-                {current ? <span className="wm-sheet__here wm-mono">тук сте</span> : null}
+                {isCurrent ? <span className="wm-sheet__here wm-mono">тук сте</span> : null}
                 <ArrowUpRight className="wm-sheet__arrow" size={18} strokeWidth={2} aria-hidden="true" />
               </a>
             );
           })}
         </nav>
 
-        <a className="wm-sheet__feature" href="#proekti" tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
+        <a className="wm-sheet__feature" href="/proekti" tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
           <span className="wm-sheet__shots" aria-hidden="true">
             {FEATURED.map((f, i) => (
               <img key={f.img} src={sheet ? f.img : undefined} alt="" width={900} height={562} className={i === slide ? "is-on" : undefined} />
@@ -212,7 +194,7 @@ export function SiteHeader() {
         </a>
 
         <div className="wm-sheet__foot">
-          <a className="wm-sheet__cta" href="#kontakt" tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
+          <a className="wm-sheet__cta" href="/kontakti" tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
             Заявете оферта
             <span className="wm-sheet__ctadisc">
               <ArrowUpRight size={18} strokeWidth={2.2} aria-hidden="true" />

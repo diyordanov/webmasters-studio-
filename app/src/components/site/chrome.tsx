@@ -2,19 +2,25 @@ import { useEffect, type CSSProperties } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 
+/** Site pages, in menu order. */
 export const NAV_LINKS = [
-  { href: "#uslugi", label: "Услуги" },
-  { href: "#proekti", label: "Проекти" },
-  { href: "#proces", label: "Процес" },
-  { href: "#oferta", label: "Оферта" },
-  { href: "#vaprosi", label: "Въпроси" },
-];
+  { href: "/", label: "Начало" },
+  { href: "/uslugi", label: "Услуги" },
+  { href: "/proekti", label: "Проекти" },
+  { href: "/za-nas", label: "За нас" },
+  { href: "/kontakti", label: "Контакти" },
+] as const;
+
+export type NavHref = (typeof NAV_LINKS)[number]["href"];
+
+/** Free 45-minute consultation booking. */
+export const CONSULT_URL = "https://calendly.com/dimo-uordanov/45min";
 
 /** Nav CTA: small outline pill that floods green on hover. */
 export function NavCta() {
   return (
     <span className="wm-magnet" data-magnet="">
-      <a className="wm-navcta" href="#kontakt">
+      <a className="wm-navcta" href="/kontakti">
         Заявете оферта
       </a>
     </span>
@@ -25,7 +31,7 @@ export function NavCta() {
 export function MagnetCta() {
   return (
     <span className="wm-magnet" data-magnet="">
-      <a className="wm-magcta" href="#kontakt">
+      <a className="wm-magcta" href="/kontakti">
         Заявете оферта
         <span className="wm-magcta__disc" aria-hidden="true">
           <ArrowRight size={18} strokeWidth={2.2} />
@@ -38,7 +44,7 @@ export function MagnetCta() {
 /** Secondary hero action: plain link whose underline draws on hover. */
 export function DrawLink() {
   return (
-    <a className="wm-draw" href="#proekti">
+    <a className="wm-draw" href="/proekti">
       Вижте проектите
     </a>
   );
@@ -47,7 +53,7 @@ export function DrawLink() {
 /** Offer CTA: full-width block bar with a travelling arrow. */
 export function OfferCta() {
   return (
-    <a className="wm-blockcta" href="#kontakt">
+    <a className="wm-blockcta" href="/kontakti">
       <span>Заявете оферта</span>
       <ArrowUpRight size={24} strokeWidth={2} aria-hidden="true" />
     </a>
@@ -111,12 +117,14 @@ export function SiteFooter() {
                 {l.label}
               </a>
             ))}
-            <a href="#kontakt">Контакт</a>
+            <a href={CONSULT_URL} target="_blank" rel="noopener">
+              Безплатна консултация
+            </a>
           </nav>
           <div className="wm-foot__col">
             <h3 className="wm-mono">Услуги</h3>
             {FOOT_SERVICES.map((s) => (
-              <a key={s} href="#uslugi">
+              <a key={s} href="/uslugi">
                 {s}
               </a>
             ))}
@@ -178,7 +186,7 @@ export function SiteMotion() {
     const peekRows = all("[data-peek]");
 
     const magState = mags.map(() => ({ x: 0, y: 0 }));
-    const lastP = new Map<HTMLElement, string>();
+    const lastP = new Map<HTMLElement, Map<string, string>>();
     const mouse = { x: -9999, y: -9999 };
     const tilt = { x: 0, y: 0, tx: 0, ty: 0 };
     const pk = { x: 0, y: 0, vx: 0 };
@@ -192,9 +200,10 @@ export function SiteMotion() {
     };
     const setP = (el: HTMLElement, name: string, v: number) => {
       const val = v.toFixed(3);
-      const key = `${name}:${val}`;
-      if (lastP.get(el) === key) return;
-      lastP.set(el, key);
+      let m = lastP.get(el);
+      if (!m) lastP.set(el, (m = new Map()));
+      if (m.get(name) === val) return;
+      m.set(name, val);
       el.style.setProperty(name, val);
     };
 

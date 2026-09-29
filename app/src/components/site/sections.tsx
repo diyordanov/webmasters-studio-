@@ -12,13 +12,18 @@ const SERVICES = [
   { icon: "/assets/icons/icon-5.png", title: "Абонаментна поддръжка", text: "Обновления, сигурност, архиви и промени по сайта, без да мислите за тях.", stack: "Месечен абонамент" },
 ];
 
-export function ServicesSection() {
+export function ServicesSection({ more = false }: { more?: boolean }) {
   return (
     <section className="wm-sec" id="uslugi" aria-labelledby="uslugi-h">
       <div className="wm-wrap wm-svc">
         <div className="wm-svc__head">
           <SplitHeading id="uslugi-h" text="Всичко за онлайн присъствието ви." />
           <p className="wm-lead">Пет услуги, един екип. Започваме от целта на бизнеса, а технологията избираме след това.</p>
+          {more ? (
+            <a className="wm-draw" href="/uslugi">
+              Всички услуги и пакети
+            </a>
+          ) : null}
           <div className="wm-svc__count" aria-hidden="true">
             <span data-svc-count="">01</span>
             <small>/ 05</small>
@@ -51,13 +56,20 @@ const WORK = [
   { key: "yug", title: "Yug Property", note: "Сайт с онлайн резервации", url: "https://yugproperty.com/", alt: "Сайт на Yug Property с апартаменти и онлайн резервации" },
 ];
 
-export function WorkSection() {
+export function WorkSection({ more = false }: { more?: boolean }) {
   return (
     <section className="wm-work" id="proekti" data-pan="" aria-labelledby="proekti-h">
       <div className="wm-work__sticky">
         <div className="wm-wrap wm-work__head">
           <SplitHeading id="proekti-h" text="Сайтове, създадени за конкретен бизнес." />
-          <p className="wm-lead">Реални проекти, които изработихме за наши клиенти: от landing страници до онлайн магазини.</p>
+          <div className="wm-work__intro">
+            <p className="wm-lead">Реални проекти, които изработихме за наши клиенти: от landing страници до онлайн магазини.</p>
+            {more ? (
+              <a className="wm-draw" href="/proekti">
+                Всички проекти
+              </a>
+            ) : null}
+          </div>
         </div>
         <div className="wm-work__track" data-pan-track="">
           {WORK.map((w, i) => (

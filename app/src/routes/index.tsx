@@ -3,12 +3,11 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { ScrollScrub } from "@/components/scroll-scrub/scroll-scrub";
 import { AudienceSection } from "@/components/site/audience";
-import { SiteFooter, SiteMotion } from "@/components/site/chrome";
 import { ContactSection } from "@/components/site/contact";
 import { FaqSection } from "@/components/site/faq";
-import { SiteHeader } from "@/components/site/header";
 import { siteHead } from "@/components/site/head";
 import { MobileJourney } from "@/components/site/mobile-journey";
+import { SitePage } from "@/components/site/page-parts";
 import { OfferSection, ProcessSection, ServicesSection, WorkSection } from "@/components/site/sections";
 import "@/components/site/site.css";
 import { scrollScrubScenes, scrollScrubTheme } from "@/scroll-scrub-scenes";
@@ -42,20 +41,15 @@ function Hero() {
 
 function Index() {
   return (
-    <div className="wm">
-      <SiteHeader />
-      <main>
-        <Hero />
-        <ServicesSection />
-        <WorkSection />
-        <AudienceSection />
-        <ProcessSection />
-        <OfferSection />
-        <FaqSection />
-        <ContactSection />
-      </main>
-      <SiteFooter />
-      <SiteMotion />
-    </div>
+    <SitePage current="/">
+      <Hero />
+      <ServicesSection more />
+      <WorkSection more />
+      <AudienceSection />
+      <ProcessSection />
+      <OfferSection />
+      <FaqSection />
+      <ContactSection />
+    </SitePage>
   );
 }

@@ -6,10 +6,10 @@ import { Fragment, type CSSProperties } from "react";
  * derives its own staggered offset in CSS. Without JS `--p` defaults to 1, so
  * the text is always fully rendered.
  */
-export function SplitHeading({ id, text, className = "wm-h2" }: { id?: string; text: string; className?: string }) {
+export function SplitHeading({ id, text, className = "wm-h2", as: Tag = "h2" }: { id?: string; text: string; className?: string; as?: "h1" | "h2" }) {
   const words = text.split(" ");
   return (
-    <h2 className={`${className} wm-split`} id={id} data-split="" aria-label={text}>
+    <Tag className={`${className} wm-split`} id={id} data-split="" aria-label={text}>
       {/* Real spaces between words so search engines and copy/paste read normal text. */}
       {words.map((w, i) => (
         <Fragment key={`${w}-${i}`}>
@@ -19,6 +19,6 @@ export function SplitHeading({ id, text, className = "wm-h2" }: { id?: string; t
           </span>
         </Fragment>
       ))}
-    </h2>
+    </Tag>
   );
 }
