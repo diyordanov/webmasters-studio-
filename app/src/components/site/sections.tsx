@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { Check } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 
 import { OfferCta } from "./chrome";
 import { SplitHeading } from "./split";
@@ -44,10 +44,11 @@ export function ServicesSection() {
 }
 
 const WORK = [
-  { img: "/assets/work/interior.webp", title: "Интериорно студио", note: "Портфолио и запитвания", alt: "Концепция на сайт за интериорно студио със светла дневна и арка" },
-  { img: "/assets/work/dental.webp", title: "Дентална клиника", note: "Услуги и записване на час", alt: "Концепция на сайт за дентална клиника със светъл кабинет" },
-  { img: "/assets/work/photo.webp", title: "Фотограф", note: "Галерия и резервации", alt: "Концепция на сайт за фотограф с галерия от портрети" },
-  { img: "/assets/work/promo.webp", title: "Рекламни продукти", note: "Каталог и онлайн поръчки", alt: "Концепция на онлайн каталог с рекламни продукти" },
+  { key: "tonchev", title: "Tonchev Design", note: "Landing page с калкулатор", url: "https://tonchevdesign.bg/", alt: "Сайт на Tonchev Design за опънати тавани с калкулатор за цена" },
+  { key: "elan", title: "Design Escape Academy", note: "Продажбена страница за събития", url: "https://academy.elandeluxedesign.com/", alt: "Продажбена страница на Design Escape Academy от Elan Deluxe Design" },
+  { key: "tumbarkov", title: "Димитър Тумбарков", note: "Комплексен сайт", url: "https://tumbarkov.com/", alt: "Сайт на Димитър Тумбарков с книги, консултации и магазин" },
+  { key: "feedermania", title: "Feedermania", note: "Онлайн магазин с над 500 продукта", url: "https://feedermaniabg.com/", alt: "Онлайн магазин Feedermania за риболовни принадлежности" },
+  { key: "yug", title: "Yug Property", note: "Сайт с онлайн резервации", url: "https://yugproperty.com/", alt: "Сайт на Yug Property с апартаменти и онлайн резервации" },
 ];
 
 export function WorkSection() {
@@ -56,18 +57,23 @@ export function WorkSection() {
       <div className="wm-work__sticky">
         <div className="wm-wrap wm-work__head">
           <SplitHeading id="proekti-h" text="Сайтове, създадени за конкретен бизнес." />
-          <p className="wm-lead">Всяка концепция започва от нишата: какво търсят клиентите ви и как да го намерят бързо.</p>
+          <p className="wm-lead">Реални проекти, които изработихме за наши клиенти: от landing страници до онлайн магазини.</p>
         </div>
         <div className="wm-work__track" data-pan-track="">
           {WORK.map((w) => (
-            <article className="wm-work__card" key={w.title}>
-              <div className="wm-work__media" data-par="">
-                <img src={w.img} srcSet={`${w.img.replace(".webp", "-900.webp")} 900w, ${w.img} 1800w`} sizes="(max-width: 860px) 100vw, 900px" alt={w.alt} width={1800} height={1350} loading="lazy" />
-              </div>
-              <div className="wm-work__meta">
-                <h3>{w.title}</h3>
-                <span className="wm-mono">{w.note}</span>
-              </div>
+            <article className="wm-work__card" key={w.key}>
+              <a className="wm-work__link" href={w.url} target="_blank" rel="noopener" aria-label={`${w.title}: ${w.note} (отваря сайта)`}>
+                <div className="wm-work__media" data-par="">
+                  <img src={`/assets/work/${w.key}.webp`} srcSet={`/assets/work/${w.key}-900.webp 900w, /assets/work/${w.key}.webp 1800w`} sizes="(max-width: 860px) 100vw, 900px" alt={w.alt} width={1800} height={1125} loading="lazy" />
+                </div>
+                <div className="wm-work__meta">
+                  <h3>{w.title}</h3>
+                  <span className="wm-mono">
+                    {w.note}
+                    <ArrowUpRight size={15} strokeWidth={2} aria-hidden="true" />
+                  </span>
+                </div>
+              </a>
             </article>
           ))}
         </div>

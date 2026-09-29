@@ -63,10 +63,16 @@
 .wm-work__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
 .wm-work__head .wm-lead { margin: 0; max-width: 40ch; }
 .wm-work__track { display: flex; gap: clamp(20px, 3vw, 40px); width: max-content; padding-inline: var(--pad); will-change: transform; }
-.wm-work__card { flex: none; width: min(70vw, 900px, calc((100dvh - 300px) * 4 / 3)); }
-.wm-work__media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); border-radius: calc(var(--r) * 2); background: var(--bg2); }
+.wm-work__card { flex: none; width: min(70vw, 960px, calc((100dvh - 300px) * 16 / 10)); }
+.wm-work__media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid var(--line); border-radius: calc(var(--r) * 2); background: var(--bg2); }
 .wm-work__media img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); will-change: transform; transition: filter 0.5s; }
 .wm-work__card:hover .wm-work__media img { filter: brightness(1.08); }
+.wm a.wm-work__link { display: block; color: inherit; }
+.wm-work__meta .wm-mono { display: inline-flex; align-items: center; gap: 6px; }
+.wm-work__meta svg { color: var(--acc); transition: transform 0.5s var(--ease); }
+.wm-work__card:hover .wm-work__meta svg { transform: rotate(45deg); }
+.wm-work__media { transition: border-color 0.4s; }
+.wm-work__card:hover .wm-work__media { border-color: color-mix(in srgb, var(--acc) 55%, transparent); }
 .wm-work__meta { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-top: 18px; }
 .wm-work__meta h3 { margin: 0; font-size: clamp(1.2rem, 1.8vw, 1.6rem); font-weight: 600; letter-spacing: -0.035em; }
 
@@ -581,7 +587,7 @@
 
   .wm .wm-sheet__feature { display: block; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--bg2); color: var(--ink); opacity: 0; transform: translate3d(0, 18px, 0) scale(0.97); transition: opacity 0.5s 0.5s, transform 0.8s var(--ease) 0.5s; }
   .wm-sheet.is-open .wm-sheet__feature { opacity: 1; transform: none; }
-  .wm-sheet__shots { position: relative; display: block; aspect-ratio: 16 / 7; overflow: hidden; }
+  .wm-sheet__shots { position: relative; display: block; aspect-ratio: 16 / 8; overflow: hidden; }
   .wm-sheet__shots img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.12); transition: opacity 0.9s, transform 3.6s linear; }
   .wm-sheet__shots img.is-on { opacity: 1; transform: scale(1); }
   .wm-sheet__shots::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, color-mix(in srgb, var(--bg2) 92%, transparent)); }
@@ -589,7 +595,7 @@
   .wm-sheet__cap .wm-mono { color: var(--acc); font-size: 0.66rem; }
   .wm-sheet__cap strong { font-size: 1rem; letter-spacing: -0.02em; }
   .wm-sheet__cap small { color: var(--muted); font-size: 0.78rem; }
-  .wm-sheet__bars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 0 14px 12px; }
+  .wm-sheet__bars { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; padding: 0 14px 12px; }
   .wm-sheet__bars i { position: relative; height: 2px; overflow: hidden; border-radius: 2px; background: var(--line); }
   .wm-sheet__bars i::after { content: ""; position: absolute; inset: 0; background: var(--acc); transform: scaleX(0); transform-origin: left; }
   .wm-sheet__bars i.is-done::after { transform: scaleX(1); }

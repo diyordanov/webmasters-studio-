@@ -14,10 +14,11 @@ const LINKS = [
 ];
 
 const FEATURED = [
-  { img: "/assets/work/interior-900.webp", title: "Интериорно студио", note: "Портфолио и запитвания" },
-  { img: "/assets/work/dental-900.webp", title: "Дентална клиника", note: "Услуги и записване на час" },
-  { img: "/assets/work/photo-900.webp", title: "Фотограф", note: "Галерия и резервации" },
-  { img: "/assets/work/promo-900.webp", title: "Рекламни продукти", note: "Каталог и онлайн поръчки" },
+  { img: "/assets/work/tonchev-900.webp", title: "Tonchev Design", note: "Landing page с калкулатор" },
+  { img: "/assets/work/elan-900.webp", title: "Design Escape Academy", note: "Продажбена страница за събития" },
+  { img: "/assets/work/tumbarkov-900.webp", title: "Димитър Тумбарков", note: "Комплексен сайт" },
+  { img: "/assets/work/feedermania-900.webp", title: "Feedermania", note: "Онлайн магазин с над 500 продукта" },
+  { img: "/assets/work/yug-900.webp", title: "Yug Property", note: "Сайт с онлайн резервации" },
 ];
 const SHEET_LINKS = [{ id: "top", label: "Начало" }, ...LINKS, { id: "kontakt", label: "Контакт" }];
 
@@ -195,7 +196,7 @@ export function SiteHeader() {
         <a className="wm-sheet__feature" href="#proekti" tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
           <span className="wm-sheet__shots" aria-hidden="true">
             {FEATURED.map((f, i) => (
-              <img key={f.img} src={sheet ? f.img : undefined} alt="" width={900} height={675} className={i === slide ? "is-on" : undefined} />
+              <img key={f.img} src={sheet ? f.img : undefined} alt="" width={900} height={562} className={i === slide ? "is-on" : undefined} />
             ))}
           </span>
           <span className="wm-sheet__cap">
