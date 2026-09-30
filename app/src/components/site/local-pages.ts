@@ -10,10 +10,20 @@
  */
 
 export type LocalFaq = { q: string; a: string[]; h3?: string; bullets?: string[]; after?: string[] };
-export type LocalProject = { name: string; note: string; url?: string };
+export type LocalProject = { name: string; note: string; url?: string; img?: string };
+
+/** Small code-drawn illustration shown on a service card. */
+export type Motif =
+  | "plan" | "channels" | "ads" | "radius" | "rank" | "palette" | "site"
+  | "chat" | "offer" | "flow" | "media" | "ask" | "shield"
+  | "orders" | "pay" | "delivery" | "cart"
+  | "pillars" | "mappack" | "gauge" | "doc" | "links";
+
+/** Large visual on the right of the page hero. */
+export type HeroKind = "sites" | "ads" | "chat" | "shop" | "serp";
 
 export type LocalBlock =
-  | { type: "text"; id: string; h2: string; kicker?: string; paras?: string[]; bullets?: string[]; h3s?: Array<{ h3: string; paras?: string[]; bullets?: string[] }>; after?: string[] }
+  | { type: "text"; id: string; h2: string; visual?: Motif; layout?: "steps" | "checks"; kicker?: string; paras?: string[]; bullets?: string[]; h3s?: Array<{ h3: string; paras?: string[]; bullets?: string[] }>; after?: string[] }
   | { type: "features"; id: string; h2: string; paras?: string[]; items: Array<{ title: string; text: string }> }
   | { type: "packages"; id: string; intro?: string; items: Array<{ name: string; sub: string; days: string; features: string[] }> }
   | { type: "faq"; id: string; h2: string; sub?: string; kicker?: string; items: LocalFaq[] }
@@ -31,6 +41,8 @@ export type LocalPageData = {
   intro: string[];
   cta?: string;
   image?: { src: string; alt: string };
+  hero: HeroKind;
+  stats: Array<{ v: string; l: string }>;
   service: { name: string; type: string };
   modified: string;
   blocks: LocalBlock[];
@@ -45,6 +57,8 @@ const IZRABOTKA: LocalPageData = {
   teaser: "Сайтове и онлайн магазини за бизнеси във Варна и цялата страна",
   cta: "Безплатен примерен дизайн",
   image: { src: "/assets/work/tonchev.webp", alt: "Изработка на уеб сайт и онлайн магазин | Варна, София, Пловдив, Бургас, Русе" },
+  hero: "sites",
+  stats: [{ v: "24 ч", l: "безплатен примерен дизайн" }, { v: "5–21", l: "работни дни за изработка" }, { v: "50+", l: "завършени проекта" }, { v: "100%", l: "с договор и фактура" }],
   service: { name: "Изработка на уеб сайт Варна", type: "Изработка на уебсайт" },
   modified: "2026-09-30",
   intro: [
@@ -150,12 +164,12 @@ const IZRABOTKA: LocalPageData = {
       id: "proekti",
       h2: "Изработени уеб сайтове от нашето портфолио",
       items: [
-        { name: "Walora", note: "Дигитална агенция", url: "https://dev.walora.at/" },
-        { name: "Zakopane Summer", note: "Вили под наем", url: "https://zakopanesummer.com/" },
-        { name: "SOLAR STRING", note: "Монтаж на фотоволтаични системи", url: "https://solarstring.bg/" },
-        { name: "Bashgabions", note: "Изработка на габиони", url: "https://bashgabions.com/" },
-        { name: "Тумбарков", note: "Сайт за курсове и консултации", url: "https://tumbarkov.com/" },
-        { name: "Агро Зона", note: "Сайт за агроаптека", url: "https://www.agrozone.bg/" },
+        { name: "Tonchev Design", note: "Опънати тавани – сайт с калкулатор", url: "https://tonchevdesign.bg/", img: "/assets/work/tonchev" },
+        { name: "Zakopane Summer", note: "Вили под наем", url: "https://zakopanesummer.com/", img: "/assets/work/sites/zakopane" },
+        { name: "SOLAR STRING", note: "Монтаж на фотоволтаични системи", url: "https://solarstring.bg/", img: "/assets/work/sites/solarstring" },
+        { name: "Bashgabions", note: "Изработка на габиони", url: "https://bashgabions.com/", img: "/assets/work/sites/bashgabions" },
+        { name: "Тумбарков", note: "Сайт за курсове и консултации", url: "https://tumbarkov.com/", img: "/assets/work/tumbarkov" },
+        { name: "Агро Зона", note: "Сайт за агроаптека", url: "https://www.agrozone.bg/", img: "/assets/work/sites/agrozone" },
       ],
     },
     { type: "testimonials", id: "otzivi", h2: "Споделено от бизнес клиенти", only: 4 },
@@ -170,6 +184,8 @@ const MARKETING: LocalPageData = {
   h1: "Маркетинг агенция Варна, която мисли като собственик на бизнес",
   crumb: "Маркетинг агенция Варна",
   teaser: "Google Ads, Facebook реклама и SEO за местни фирми",
+  hero: "ads",
+  stats: [{ v: "90", l: "дни план с ясни цели" }, { v: "1", l: "човек за контакт" }, { v: "0", l: "дълги договори" }, { v: "100%", l: "акаунти на ваше име" }],
   service: { name: "Маркетинг агенция Варна", type: "Дигитален маркетинг" },
   modified: "2026-09-30",
   intro: [
@@ -181,6 +197,7 @@ const MARKETING: LocalPageData = {
     {
       type: "text",
       id: "marketingova-agentsiya",
+      visual: "plan",
       h2: "Маркетингова агенция",
       kicker: "Без голям офис и без дълги договори.",
       paras: [
@@ -192,6 +209,7 @@ const MARKETING: LocalPageData = {
     {
       type: "text",
       id: "internet-marketing",
+      visual: "channels",
       h2: "Агенция за интернет маркетинг",
       paras: [
         "Хората във Варна търсят всичко в телефона си. „Зъболекар Бриз“, „ремонт на климатик Владиславово“, „ресторант до Морската градина“. Ако не се показвате там, клиентът отива при съседа.",
@@ -201,6 +219,7 @@ const MARKETING: LocalPageData = {
     {
       type: "text",
       id: "google-ads",
+      visual: "ads",
       h2: "Реклама в Google (Google Ads)",
       paras: [
         "Google Ads е най-бързият начин да се появите пред човек, който търси точно вашата услуга. Пример: някой пише „счетоводител Варна“. Ако рекламата ви е там и сайтът е ясен, той звъни още същия ден.",
@@ -211,6 +230,7 @@ const MARKETING: LocalPageData = {
     {
       type: "text",
       id: "facebook-instagram",
+      visual: "radius",
       h2: "Реклама във Facebook и Instagram",
       paras: [
         "Във Facebook и Instagram хората не търсят – те разглеждат. Затова тук продаваме с картинка, видео и добра оферта. Работи чудесно за ресторанти, салони, магазини, хотели и събития.",
@@ -220,7 +240,8 @@ const MARKETING: LocalPageData = {
     {
       type: "text",
       id: "seo",
-      h2: "SEO оптимизация",
+      h2: "SEO оптимизация"
+      visual: "rank",,
       paras: [
         "Рекламата спира, когато спре бюджетът. SEO остава. Когато сайтът ви е на първа страница в Google за „вашата услуга + Варна“, клиентите идват всеки ден, без да плащате за клик.",
         "Правим техническа проверка, оправяме скоростта, пишем текстове, които отговарят на реални въпроси, и подреждаме профила ви в Google Maps. Повече има на страницата за [SEO оптимизация Варна](/seo-optimizatsiya-varna/).",
@@ -229,6 +250,7 @@ const MARKETING: LocalPageData = {
     {
       type: "text",
       id: "izrabotka-na-sayt",
+      visual: "site",
       h2: "Изработка на уебсайт",
       paras: [
         "Всяка реклама води към сайт. Ако сайтът е бавен или объркан, парите изтичат. Затова правим и сайтове – бързи, ясни и направени да продават.",
@@ -238,6 +260,7 @@ const MARKETING: LocalPageData = {
     {
       type: "text",
       id: "dizayn",
+      visual: "palette",
       h2: "Графичен дизайн и лого",
       paras: [
         "Добрият маркетинг има лице. Нашият дизайнер прави лога, визия за социалните мрежи, банери и печатни материали, които изглеждат като един бранд. Клиентите ви запомнят по-лесно и ви вярват повече.",
@@ -246,6 +269,7 @@ const MARKETING: LocalPageData = {
     {
       type: "text",
       id: "sezon",
+      layout: "steps",
       h2: "Маркетинг във Варна през сезона и извън него",
       paras: [
         "Варна е особен град. През лятото Златни пясъци, Св. Св. Константин и Елена и центърът са пълни с туристи. През зимата градът е по-тих и живее с местните хора.",
@@ -256,6 +280,7 @@ const MARKETING: LocalPageData = {
     {
       type: "text",
       id: "kak-da-izberete",
+      layout: "checks",
       h2: "Как да изберете добра маркетинг агенция във Варна",
       paras: ["Често ни питат: „Коя е най-добрата маркетинг агенция във Варна?“ Честният отговор е: тази, която ви показва резултати с числа и не ви заключва в дълъг договор."],
       bullets: [
@@ -271,12 +296,12 @@ const MARKETING: LocalPageData = {
       id: "klienti",
       h2: "Фирми, които ни се довериха",
       items: [
-        { name: "MG Computers", note: "Онлайн магазин, SEO и реклама в Google и Facebook", url: "https://mgcomputers.bg/" },
-        { name: "Учебен център Варна", note: "Езикови курсове за деца и възрастни", url: "https://uc-varna.eu/" },
-        { name: "Kristin Therapy", note: "Рехабилитация и масажи във Варна", url: "https://kristin-therapy.com/" },
-        { name: "Villa Utopia", note: "Луксозна вила на Черноморието", url: "https://villa-utopia.bg/" },
-        { name: "Burger Revolution", note: "Верига за бургери", url: "https://burger-revolution.com/" },
-        { name: "BBB Marketing", note: "Агенция за дигитален маркетинг", url: "https://bbb-marketing.com/" },
+        { name: "MG Computers", note: "Онлайн магазин, SEO и реклама в Google и Facebook", url: "https://mgcomputers.bg/", img: "/assets/work/sites/mgcomputers" },
+        { name: "Академията", note: "Курсове и занимания за деца", url: "https://akademiyata.bg/", img: "/assets/work/sites/akademiyata" },
+        { name: "Kristin Therapy", note: "Рехабилитация и масажи във Варна", url: "https://kristin-therapy.com/", img: "/assets/work/sites/kristin" },
+        { name: "Yug property", note: "Сайт с онлайн резервации", url: "https://yugproperty.com/", img: "/assets/work/yug" },
+        { name: "Burger Revolution", note: "Верига за бургери", url: "https://burger-revolution.com/", img: "/assets/work/sites/burger" },
+        { name: "Feedermania", note: "Онлайн магазин с над 500 продукта", url: "https://feedermaniabg.com/", img: "/assets/work/feedermania" },
       ],
     },
     { type: "testimonials", id: "otzivi", h2: "Какво казват клиентите ни" },
@@ -303,6 +328,8 @@ const AI: LocalPageData = {
   h1: "AI агенция Варна: изкуствен интелект, който върши реална работа",
   crumb: "AI агенция Варна",
   teaser: "AI чатботове, асистенти и автоматизации",
+  hero: "chat",
+  stats: [{ v: "24/7", l: "отговор на клиенти" }, { v: "2–4", l: "седмици пилотен проект" }, { v: "BG / EN", l: "езици на асистента" }, { v: "100%", l: "преглед от човек" }],
   service: { name: "AI агенция Варна", type: "Внедряване на изкуствен интелект" },
   modified: "2026-09-30",
   intro: [
@@ -314,6 +341,7 @@ const AI: LocalPageData = {
     {
       type: "text",
       id: "ai-chatbot",
+      visual: "chat",
       h2: "AI чатбот за сайт",
       paras: [
         "Клиентите пишат вечер и през уикенда. Ако не отговорите бързо, питат конкурента. AI чатботът отговаря веднага, 24 часа в денонощието, на български и на английски.",
@@ -324,6 +352,7 @@ const AI: LocalPageData = {
     {
       type: "text",
       id: "ai-prodazhbi",
+      visual: "offer",
       h2: "AI асистент за продажби",
       paras: [
         "Търговците губят много време в писане на оферти и напомняния. AI асистентът подготвя първа версия на офертата, напомня за клиент, който не е отговорил, и обобщава разговора след среща.",
@@ -333,6 +362,7 @@ const AI: LocalPageData = {
     {
       type: "text",
       id: "avtomatizatsia",
+      visual: "flow",
       h2: "Автоматизация на бизнес процеси",
       paras: [
         "Много малки фирми работят с Excel, имейл и хартия. Данните се пренасят на ръка от едно място на друго. Там стават грешки и се губят часове.",
@@ -343,6 +373,7 @@ const AI: LocalPageData = {
     {
       type: "text",
       id: "ai-sadarzhanie",
+      visual: "media",
       h2: "AI съдържание, снимки и видео",
       paras: [
         "Социалните мрежи искат постоянно ново съдържание. С AI правим текстове, продуктови снимки и кратки видеа много по-бързо и по-евтино от класическа фотосесия.",
@@ -352,6 +383,7 @@ const AI: LocalPageData = {
     {
       type: "text",
       id: "ai-tarsene",
+      visual: "ask",
       h2: "Оптимизация за ChatGPT и AI търсене",
       paras: [
         "Все повече хора питат ChatGPT или Google: „Коя е добра фирма за … във Варна?“ AI системите препоръчват бизнеси, за които намират ясна и надеждна информация.",
@@ -361,6 +393,7 @@ const AI: LocalPageData = {
     {
       type: "text",
       id: "zashto-sega",
+      layout: "steps",
       h2: "Защо бизнесът във Варна да започне с AI сега",
       paras: [
         "Във Варна много фирми работят сезонно. През лятото хотели, ресторанти и агенции за имоти получават десетки съобщения на ден, често на няколко езика. Точно тогава AI асистентът спасява екипа.",
@@ -371,6 +404,7 @@ const AI: LocalPageData = {
     {
       type: "text",
       id: "sigurnost",
+      visual: "shield",
       h2: "Сигурност на данните",
       paras: [
         "Вашите данни остават ваши. Работим с доверени платформи, не качваме лични данни на клиенти без нужда и ви казваме ясно къде стои информацията. Всичко е описано в договора.",
@@ -402,6 +436,8 @@ const SHOP: LocalPageData = {
   crumb: "Изработка на онлайн магазин Варна",
   teaser: "WooCommerce магазини с плащане с карта и куриери",
   image: { src: "/assets/work/feedermania.webp", alt: "Изработка на онлайн магазин Варна – онлайн магазин Feedermania с над 500 продукта" },
+  hero: "shop",
+  stats: [{ v: "21", l: "работни дни до старт" }, { v: "0 лв.", l: "месечна такса за платформа" }, { v: "Еконт", l: "и Спиди в поръчката" }, { v: "50/50", l: "плащане по договор" }],
   service: { name: "Изработка на онлайн магазин Варна", type: "Изработка на онлайн магазин" },
   modified: "2026-09-30",
   intro: [
@@ -413,6 +449,7 @@ const SHOP: LocalPageData = {
     {
       type: "text",
       id: "onlayn-magazin",
+      visual: "cart",
       h2: "Изработка на онлайн магазин",
       paras: [
         "Всеки магазин започва с разговор: какво продавате, колко продукта имате, как доставяте и как искате да ви плащат. След това правим дизайн по вашия бранд и ви го показваме, преди да пишем код.",
@@ -423,6 +460,7 @@ const SHOP: LocalPageData = {
     {
       type: "text",
       id: "woocommerce",
+      visual: "orders",
       h2: "WooCommerce магазин",
       paras: [
         "Работим основно с WordPress и WooCommerce – най-популярната платформа за онлайн магазини в света. Добавяте продукти, сменяте цени и пускате промоции сами, без програмист.",
@@ -432,6 +470,7 @@ const SHOP: LocalPageData = {
     {
       type: "text",
       id: "plashtane",
+      visual: "pay",
       h2: "Плащане с карта и наложен платеж",
       paras: [
         "В България много хора още плащат с наложен платеж, но плащането с карта расте всяка година. Добрият магазин дава и двете.",
@@ -441,6 +480,7 @@ const SHOP: LocalPageData = {
     {
       type: "text",
       id: "kurieri",
+      visual: "delivery",
       h2: "Интеграция с Еконт и Спиди",
       paras: [
         "Клиентите искат да изберат офис или автомат на куриера направо в поръчката. Свързваме Еконт и Спиди, така че цената на доставката се смята сама, а товарителницата се прави с един клик.",
@@ -450,6 +490,7 @@ const SHOP: LocalPageData = {
     {
       type: "text",
       id: "seo-magazin",
+      visual: "rank",
       h2: "SEO оптимизация на онлайн магазин",
       paras: [
         "Магазин без посетители е като обект в задънена улица. Още при изработката подреждаме категориите, адресите на продуктите и описанията така, че Google да ги разбира.",
@@ -459,6 +500,7 @@ const SHOP: LocalPageData = {
     {
       type: "text",
       id: "poddrazhka",
+      visual: "shield",
       h2: "Поддръжка на онлайн магазин",
       paras: ["Магазинът има нужда от грижа: обновления, архиви, сигурност, нови продукти. Предлагаме абонаментна поддръжка, за да не мислите за това."],
       bullets: ["Редовни обновления и архиви", "Защита от атаки и спам", "Помощ при нови продукти и промоции", "Бърза реакция при проблем"],
@@ -466,6 +508,7 @@ const SHOP: LocalPageData = {
     {
       type: "text",
       id: "koga",
+      visual: "plan",
       h2: "Кога да пуснете онлайн магазин във Варна",
       paras: [
         "Ако продавате подаръци, дрехи или техника, пуснете магазина поне два месеца преди Black Friday и Коледа. Ако сте в туризма или продавате летни продукти, магазинът трябва да е готов до април, преди сезона по морето.",
@@ -477,12 +520,12 @@ const SHOP: LocalPageData = {
       id: "magazini",
       h2: "Онлайн магазини, които сме направили",
       items: [
-        { name: "Feedermania", note: "Онлайн магазин с над 500 продукта", url: "https://feedermaniabg.com/" },
-        { name: "Агро Зона", note: "Онлайн агроаптека", url: "https://www.agrozone.bg/" },
-        { name: "OM Computers", note: "Нови и реновирани лаптопи и компютри", url: "https://omcomputers.bg/" },
-        { name: "Imarketbg", note: "Онлайн магазин", url: "https://imarketbg.com/" },
-        { name: "Reklamni Materiali", note: "Двуезичен каталог с рекламни продукти", url: "https://reklamnimateriali.eu/" },
-        { name: "Lollipop", note: "Бижута и аксесоари", url: "https://lollipophh.com/" },
+        { name: "Feedermania", note: "Онлайн магазин с над 500 продукта", url: "https://feedermaniabg.com/", img: "/assets/work/feedermania" },
+        { name: "Агро Зона", note: "Онлайн агроаптека", url: "https://www.agrozone.bg/", img: "/assets/work/sites/agrozone" },
+        { name: "OM Computers", note: "Нови и реновирани лаптопи и компютри", url: "https://omcomputers.bg/", img: "/assets/work/sites/omcomputers" },
+        { name: "Imarketbg", note: "Онлайн магазин", url: "https://imarketbg.com/", img: "/assets/work/sites/imarket" },
+        { name: "Reklamni Materiali", note: "Двуезичен каталог с рекламни продукти", url: "https://reklamnimateriali.eu/", img: "/assets/work/sites/reklamni" },
+        { name: "MG Computers", note: "Магазин за принтери и компютри", url: "https://mgcomputers.bg/", img: "/assets/work/sites/mgcomputers" },
       ],
     },
     { type: "testimonials", id: "otzivi", h2: "Какво казват клиентите ни" },
@@ -509,6 +552,8 @@ const SEO: LocalPageData = {
   h1: "SEO оптимизация Варна: да ви намират, когато ви търсят",
   crumb: "SEO оптимизация Варна",
   teaser: "Локално SEO, Google Maps и технически одит",
+  hero: "serp",
+  stats: [{ v: "2–4", l: "месеца до първите позиции" }, { v: "3", l: "стълба: техника, текст, авторитет" }, { v: "1×", l: "отчет всеки месец" }, { v: "0", l: "купени спам връзки" }],
   service: { name: "SEO оптимизация Варна", type: "SEO оптимизация" },
   modified: "2026-09-30",
   intro: [
@@ -520,6 +565,7 @@ const SEO: LocalPageData = {
     {
       type: "text",
       id: "seo-optimizatsiya",
+      visual: "pillars",
       h2: "SEO оптимизация",
       paras: [
         "SEO е работата, която кара Google да ви вярва. Тя има три части: техника (сайтът да е бърз и чист), съдържание (текстове, които отговарят на въпросите на хората) и авторитет (други сайтове и клиенти, които говорят за вас).",
@@ -529,6 +575,7 @@ const SEO: LocalPageData = {
     {
       type: "text",
       id: "lokalno-seo",
+      visual: "mappack",
       h2: "Локално SEO и Google Business Profile",
       paras: ["Когато някой напише „фризьор Варна“ или „ВиК майстор Чайка“, Google показва карта с три фирми. Оттам идват най-много обаждания. Това място се печели с добре подреден профил в Google."],
       bullets: [
@@ -542,6 +589,7 @@ const SEO: LocalPageData = {
     {
       type: "text",
       id: "tehnicheski-odit",
+      visual: "gauge",
       h2: "Технически SEO одит",
       paras: [
         "Първо проверяваме сайта отвътре. Колко бързо зарежда на телефон? Има ли счупени страници? Вижда ли Google всичко, което трябва?",
@@ -552,6 +600,7 @@ const SEO: LocalPageData = {
     {
       type: "text",
       id: "seo-tekstove",
+      visual: "doc",
       h2: "SEO текстове и съдържание",
       paras: [
         "Google иска да отговори на въпроса на човека. Затова пишем текстове, които отговарят – ясно и на прост език. Колко струва, колко време отнема, какво да направя, ако…",
@@ -561,12 +610,14 @@ const SEO: LocalPageData = {
     {
       type: "text",
       id: "vrazki",
+      visual: "links",
       h2: "Връзки и цитирания",
       paras: ["Когато други сайтове пишат за вас, Google ви вярва повече. Търсим честни връзки: местни каталози, партньори, медии и браншови организации. Никакви купени мрежи от спам сайтове – те вредят повече, отколкото помагат."],
     },
     {
       type: "text",
       id: "seo-magazin",
+      visual: "cart",
       h2: "SEO за онлайн магазини",
       paras: [
         "При магазините играта е различна. Категориите, филтрите и продуктите трябва да са подредени така, че Google да не се обърква. Пишем уникални описания, оправяме дублирани страници и свързваме магазина с Google Merchant Center.",
@@ -576,6 +627,7 @@ const SEO: LocalPageData = {
     {
       type: "text",
       id: "ai-tarsene",
+      visual: "ask",
       h2: "Оптимизация за AI търсене (ChatGPT и Google AI)",
       paras: [
         "Хората вече питат ChatGPT и Google AI: „Коя е добра фирма за … във Варна?“ AI препоръчва бизнеси, за които има ясна информация, добри отзиви и полезни отговори.",
@@ -585,6 +637,7 @@ const SEO: LocalPageData = {
     {
       type: "text",
       id: "kolko-vreme",
+      layout: "steps",
       h2: "Колко време отнема SEO във Варна",
       paras: [
         "Честният отговор е: зависи от конкуренцията. За много местни услуги първите позиции идват за 2–4 месеца. За силно конкурентни думи като „хотел Варна“ или „адвокат Варна“ – по-дълго.",
@@ -597,12 +650,12 @@ const SEO: LocalPageData = {
       id: "klienti",
       h2: "Фирми, които ни се довериха",
       items: [
-        { name: "MG Computers", note: "SEO и реклама в Google и Facebook", url: "https://mgcomputers.bg/" },
-        { name: "Kristin Therapy", note: "Рехабилитация и масажи във Варна", url: "https://kristin-therapy.com/" },
-        { name: "Учебен център Варна", note: "Езикови курсове за деца и възрастни", url: "https://uc-varna.eu/" },
-        { name: "Академията", note: "Курсове и записване за деца", url: "https://akademiyata.bg/" },
-        { name: "Lion Trans", note: "Внос на коли от САЩ", url: "https://liontrans.bg/" },
-        { name: "Solar String", note: "Фотоволтаични системи", url: "https://solarstring.bg/" },
+        { name: "MG Computers", note: "SEO и реклама в Google и Facebook", url: "https://mgcomputers.bg/", img: "/assets/work/sites/mgcomputers" },
+        { name: "Kristin Therapy", note: "Рехабилитация и масажи във Варна", url: "https://kristin-therapy.com/", img: "/assets/work/sites/kristin" },
+        { name: "Yug property", note: "Сайт с онлайн резервации", url: "https://yugproperty.com/", img: "/assets/work/yug" },
+        { name: "Академията", note: "Курсове и записване за деца", url: "https://akademiyata.bg/", img: "/assets/work/sites/akademiyata" },
+        { name: "Tonchev Design", note: "Опънати тавани – сайт с калкулатор", url: "https://tonchevdesign.bg/", img: "/assets/work/tonchev" },
+        { name: "Solar String", note: "Фотоволтаични системи", url: "https://solarstring.bg/", img: "/assets/work/sites/solarstring" },
       ],
     },
     { type: "testimonials", id: "otzivi", h2: "Какво казват клиентите ни" },
