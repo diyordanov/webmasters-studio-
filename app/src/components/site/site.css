@@ -793,3 +793,17 @@
   .wm-phero__track, .wm-quotes__track, .wm-plist li { animation: none; }
   .wm-crew__stage, .wm-crew__photo, .wm-crew__word { transition: none; }
 }
+
+/* ===== v12: phone headings — smaller type and full width so they stay on 1–2 lines ===== */
+@media (max-width: 860px) {
+  .wm-h2 { max-width: none; font-size: clamp(1.75rem, 7.6vw, 2.3rem); line-height: 1.04; letter-spacing: -0.045em; }
+  .wm-phero__title { max-width: none; font-size: clamp(2rem, 8.8vw, 2.6rem); line-height: 1.02; letter-spacing: -0.05em; }
+  .wm-mj__title { font-size: clamp(1.9rem, 8.4vw, 2.5rem); line-height: 1.02; }
+  .wm-consult__title { font-size: clamp(1.5rem, 6.4vw, 1.9rem); }
+  .wm-offer .wm-h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
+  .wm-deck__copy .wm-split { font-size: clamp(1.6rem, 7vw, 2rem); }
+}
+@media (max-width: 380px) {
+  .wm-h2 { font-size: 1.65rem; }
+  .wm-phero__title { font-size: 1.9rem; }
+}
