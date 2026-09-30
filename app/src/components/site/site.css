@@ -807,3 +807,80 @@
   .wm-h2 { font-size: 1.65rem; }
   .wm-phero__title { font-size: 1.9rem; }
 }
+
+/* ===== v13: local landing pages (Варна) ===== */
+.wm-lp-hero__inner { position: relative; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 64px); align-items: center; }
+.wm-lp__h1 { max-width: 18ch; font-size: clamp(2.4rem, 5.2vw, 4.6rem); }
+.wm-lp__intro { max-width: 62ch; margin: 14px 0 0; color: var(--muted); line-height: 1.65; }
+.wm-lp-hero__visual { --dir: -1; --tx: 0; --ty: 0; perspective: 1600px; }
+.wm-lp-hero__visual .wm-work__win { width: 100%; }
+.wm-lp-toc { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.wm-lp-toc > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.wm .wm-lp-toc a { padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); font-size: 0.84rem; transition: border-color 0.3s, color 0.3s; }
+.wm .wm-lp-toc a:hover { border-color: var(--acc); color: var(--acc); }
+.wm-lp-sec { position: relative; padding: clamp(56px, 7vw, 104px) 0; border-bottom: 1px solid var(--line); scroll-margin-top: 70px; }
+.wm-lp-text { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
+.wm-lp-text__head { position: sticky; top: 96px; }
+.wm-lp__h2 { margin: 0; font-size: clamp(1.9rem, 3.4vw, 3rem); font-weight: 600; line-height: 1.04; letter-spacing: -0.045em; text-wrap: balance; }
+.wm-lp__sub { margin: 18px 0 0; color: var(--muted); font-size: clamp(1.05rem, 1.4vw, 1.25rem); font-weight: 500; line-height: 1.4; letter-spacing: -0.01em; }
+.wm-lp__kicker { margin: 16px 0 0; color: var(--acc); font-family: "Geist Mono", ui-monospace, monospace; font-size: 0.82rem; }
+.wm-lp__kicker--solo { margin: 0 0 24px; }
+.wm-lp-text__body > p, .wm-lp-card p, .wm-lp-faq__a p { margin: 0 0 16px; color: var(--ink); opacity: 0.9; font-size: 1.04rem; line-height: 1.7; }
+.wm .wm-lp__link { color: var(--acc); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.wm .wm-lp__link:hover { text-decoration-thickness: 2px; }
+.wm-lp__ticks { display: grid; gap: 10px; margin: 6px 0 18px; padding: 0; list-style: none; }
+.wm-lp__ticks li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.55; }
+.wm-lp__tick { flex: none; display: grid; place-items: center; width: 22px; height: 22px; margin-top: 1px; border-radius: 50%; background: var(--acc); color: var(--acc-ink); }
+.wm-lp-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 8px 0 18px; }
+.wm-lp-card { padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: var(--bg2); }
+.wm-lp-card h3 { margin: 10px 0 10px; font-size: 1.15rem; font-weight: 600; letter-spacing: -0.02em; }
+.wm-lp-card .wm-mono { color: var(--acc); }
+.wm-lp-feats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: clamp(32px, 4vw, 56px); }
+.wm-lp-feat { --mx: 50%; position: relative; padding: 26px 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--bg2); transition: transform 0.6s var(--ease), border-color 0.4s; }
+.wm-lp-feat:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--acc) 45%, transparent); }
+.wm-lp-feat__n { color: var(--acc); }
+.wm-lp-feat h3 { margin: 14px 0 8px; font-size: 1.2rem; font-weight: 600; letter-spacing: -0.025em; }
+.wm-lp-feat p { margin: 0; color: var(--muted); line-height: 1.6; }
+.wm-lp-pkgs { margin-top: 0; }
+.wm-lp-pkg__h { margin: 16px 0 0; font-size: clamp(1.5rem, 2.2vw, 1.9rem); font-weight: 600; letter-spacing: -0.04em; }
+.wm-lp-faq { display: grid; gap: 12px; }
+.wm-lp-faq__item { border: 1px solid var(--line); border-radius: 18px; background: var(--bg2); transition: border-color 0.3s; }
+.wm-lp-faq__item[open] { border-color: color-mix(in srgb, var(--acc) 40%, transparent); }
+.wm-lp-faq__item summary { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; padding: 18px 20px; cursor: pointer; list-style: none; }
+.wm-lp-faq__item summary::-webkit-details-marker { display: none; }
+.wm-lp-faq__item summary .wm-mono { color: var(--acc); }
+.wm-lp-faq__q { font-size: 1.08rem; font-weight: 600; letter-spacing: -0.015em; line-height: 1.35; }
+.wm-lp-faq__chev { color: var(--acc); transition: transform 0.4s var(--ease); }
+.wm-lp-faq__item[open] .wm-lp-faq__chev { transform: rotate(180deg); }
+.wm-lp-faq__a { padding: 0 20px 18px 54px; }
+.wm-lp-faq__h { margin: 6px 0 12px; font-size: 1rem; font-weight: 600; color: var(--acc); letter-spacing: -0.01em; }
+.wm-lp-plist { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.wm-lp-related { border-bottom: 0; }
+.wm-lp-related__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-top: clamp(28px, 4vw, 48px); }
+.wm .wm-lp-related__card { position: relative; display: grid; gap: 8px; min-height: 170px; padding: 22px 22px 20px; border: 1px solid var(--line); border-radius: 20px; background: var(--bg2); color: var(--ink); overflow: hidden; isolation: isolate; transition: border-color 0.4s, transform 0.6s var(--ease); }
+.wm-lp-related__card::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(260px circle at 100% 0%, color-mix(in srgb, var(--acc) 18%, transparent), transparent 70%); opacity: 0; transition: opacity 0.4s; }
+.wm .wm-lp-related__card:hover { border-color: color-mix(in srgb, var(--acc) 50%, transparent); transform: translateY(-4px); }
+.wm-lp-related__card:hover::before { opacity: 1; }
+.wm-lp-related__card .wm-mono { color: var(--acc); }
+.wm-lp-related__card strong { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.025em; line-height: 1.2; }
+.wm-lp-related__card > span:last-of-type { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+.wm-lp-related__arrow { position: absolute; top: 20px; right: 18px; color: var(--acc); transition: transform 0.5s var(--ease); }
+.wm-lp-related__card:hover .wm-lp-related__arrow { transform: rotate(45deg); }
+
+@media (max-width: 1080px) {
+  .wm-lp-feats, .wm-lp-plist { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wm-lp-related__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 860px) {
+  .wm-lp-hero__inner { grid-template-columns: 1fr; }
+  .wm-lp-hero__visual { order: 2; }
+  .wm-lp__h1 { max-width: none; font-size: clamp(1.9rem, 8.2vw, 2.5rem); }
+  .wm-lp-text { grid-template-columns: 1fr; gap: 18px; }
+  .wm-lp-text__head { position: static; }
+  .wm-lp__h2 { font-size: clamp(1.6rem, 7vw, 2.1rem); }
+  .wm-lp-feats, .wm-lp-plist, .wm-lp-cards, .wm-lp-related__grid { grid-template-columns: 1fr; }
+  .wm-lp-faq__a { padding-left: 20px; }
+  .wm-lp-toc { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .wm-lp-toc > div { flex-wrap: nowrap; }
+  .wm .wm-lp-toc a { flex: none; white-space: nowrap; }
+}

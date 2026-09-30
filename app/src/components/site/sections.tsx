@@ -21,7 +21,7 @@ export function ServicesSection({ more = false }: { more?: boolean }) {
           <SplitHeading id="uslugi-h" text="Всичко за онлайн присъствието ви." />
           <p className="wm-lead">Пет услуги, един екип. Започваме от целта на бизнеса, а технологията избираме след това.</p>
           {more ? (
-            <SiteLink className="wm-draw" href="/uslugi">
+            <SiteLink className="wm-draw" href="/uslugi/">
               Всички услуги и пакети
             </SiteLink>
           ) : null}
@@ -66,7 +66,7 @@ export function WorkSection({ more = false }: { more?: boolean }) {
           <div className="wm-work__intro">
             <p className="wm-lead">Реални проекти, които изработихме за наши клиенти: от landing страници до онлайн магазини.</p>
             {more ? (
-              <SiteLink className="wm-draw" href="/proekti">
+              <SiteLink className="wm-draw" href="/proekti/">
                 Всички проекти
               </SiteLink>
             ) : null}

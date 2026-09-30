@@ -6,10 +6,10 @@ import { SiteLink } from "./link";
 /** Site pages, in menu order. */
 export const NAV_LINKS = [
   { href: "/", label: "Начало" },
-  { href: "/uslugi", label: "Услуги" },
-  { href: "/proekti", label: "Проекти" },
-  { href: "/za-nas", label: "За нас" },
-  { href: "/kontakti", label: "Контакти" },
+  { href: "/uslugi/", label: "Услуги" },
+  { href: "/proekti/", label: "Проекти" },
+  { href: "/za-nas/", label: "За нас" },
+  { href: "/kontakti/", label: "Контакти" },
 ] as const;
 
 export type NavHref = (typeof NAV_LINKS)[number]["href"];
@@ -21,7 +21,7 @@ export const CONSULT_URL = "https://calendly.com/dimo-uordanov/45min";
 export function NavCta() {
   return (
     <span className="wm-magnet" data-magnet="">
-      <SiteLink className="wm-navcta" href="/kontakti">
+      <SiteLink className="wm-navcta" href="/kontakti/">
         Заявете оферта
       </SiteLink>
     </span>
@@ -32,7 +32,7 @@ export function NavCta() {
 export function MagnetCta() {
   return (
     <span className="wm-magnet" data-magnet="">
-      <SiteLink className="wm-magcta" href="/kontakti">
+      <SiteLink className="wm-magcta" href="/kontakti/">
         Заявете оферта
         <span className="wm-magcta__disc" aria-hidden="true">
           <ArrowRight size={18} strokeWidth={2.2} />
@@ -43,18 +43,23 @@ export function MagnetCta() {
 }
 
 /** Secondary hero action: plain link whose underline draws on hover. */
-export function DrawLink() {
+export function DrawLink({ href = "/proekti/", children = "Вижте проектите" }: { href?: string; children?: string } = {}) {
   return (
-    <SiteLink className="wm-draw" href="/proekti">
-      Вижте проектите
+    <SiteLink className="wm-draw" href={href}>
+      {children}
     </SiteLink>
   );
+}
+
+/** Hero chapter link to the matching Varna page (keyword anchor for local SEO). */
+export function SceneLink({ href, children }: { href: string; children: string }) {
+  return <DrawLink href={href}>{children}</DrawLink>;
 }
 
 /** Offer CTA: full-width block bar with a travelling arrow. */
 export function OfferCta() {
   return (
-    <SiteLink className="wm-blockcta" href="/kontakti">
+    <SiteLink className="wm-blockcta" href="/kontakti/">
       <span>Заявете оферта</span>
       <ArrowUpRight size={24} strokeWidth={2} aria-hidden="true" />
     </SiteLink>
@@ -65,7 +70,7 @@ export function HeroActions() {
   return (
     <>
       <MagnetCta />
-      <DrawLink />
+      <DrawLink href="/izrabotka-na-sayt-varna/">Изработка на сайт във Варна</DrawLink>
     </>
   );
 }
@@ -78,7 +83,14 @@ export const CONTACTS = {
   email: { display: "office@webmasters.bg", href: "mailto:office@webmasters.bg" },
 };
 
-const FOOT_SERVICES = ["Уеб разработка по поръчка", "Онлайн магазини", "SEO одит и оптимизация", "Google Ads", "Абонаментна поддръжка"];
+const FOOT_SERVICES = [
+  { label: "Изработка на сайт Варна", href: "/izrabotka-na-sayt-varna/" },
+  { label: "Изработка на онлайн магазин Варна", href: "/izrabotka-na-onlayn-magazin-varna/" },
+  { label: "SEO оптимизация Варна", href: "/seo-optimizatsiya-varna/" },
+  { label: "Маркетинг агенция Варна", href: "/marketing-agentsiya-varna/" },
+  { label: "AI агенция Варна", href: "/ai-agentsiya-varna/" },
+  { label: "Всички услуги", href: "/uslugi/" },
+];
 
 /** Back-to-top: round outline button that fills on hover. */
 function TopCta() {
@@ -125,8 +137,8 @@ export function SiteFooter() {
           <div className="wm-foot__col">
             <h3 className="wm-mono">Услуги</h3>
             {FOOT_SERVICES.map((s) => (
-              <SiteLink key={s} href="/uslugi">
-                {s}
+              <SiteLink key={s.href} href={s.href}>
+                {s.label}
               </SiteLink>
             ))}
           </div>

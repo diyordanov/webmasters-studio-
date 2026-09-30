@@ -115,7 +115,7 @@ export function SiteHeader({ current }: { current: NavHref }) {
               </SiteLink>
             ))}
           </nav>
-          <SiteLink className="wm-top__cta" href="/kontakti">
+          <SiteLink className="wm-top__cta" href="/kontakti/">
             Заявете оферта
             <ArrowUpRight size={16} strokeWidth={2.2} aria-hidden="true" />
           </SiteLink>
@@ -178,7 +178,7 @@ export function SiteHeader({ current }: { current: NavHref }) {
           })}
         </nav>
 
-        <SiteLink className="wm-sheet__feature" href="/proekti" tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
+        <SiteLink className="wm-sheet__feature" href="/proekti/" tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
           <span className="wm-sheet__shots" aria-hidden="true">
             {FEATURED.map((f, i) => (
               <img key={f.img} src={sheet ? f.img : undefined} alt="" width={900} height={562} className={i === slide ? "is-on" : undefined} />
@@ -197,7 +197,7 @@ export function SiteHeader({ current }: { current: NavHref }) {
         </SiteLink>
 
         <div className="wm-sheet__foot">
-          <SiteLink className="wm-sheet__cta" href="/kontakti" tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
+          <SiteLink className="wm-sheet__cta" href="/kontakti/" tabIndex={sheet ? 0 : -1} onClick={() => setSheet(false)}>
             Заявете оферта
             <span className="wm-sheet__ctadisc">
               <ArrowUpRight size={18} strokeWidth={2.2} aria-hidden="true" />

@@ -3,15 +3,22 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
-      GET: async ({ request }) => {
-        const origin = new URL(request.url).origin;
+      GET: async () => {
+        // Always list the production URLs (the preview host is not indexed).
+        const origin = "https://webmasters.bg";
         const today = new Date().toISOString().split("T")[0];
+        // Trailing-slash URLs, matching the canonical tags (and the old WordPress URLs).
         const pages: Array<[string, string, string]> = [
           ["/", "weekly", "1.0"],
-          ["/uslugi", "monthly", "0.9"],
-          ["/proekti", "monthly", "0.8"],
-          ["/za-nas", "monthly", "0.6"],
-          ["/kontakti", "yearly", "0.7"],
+          ["/izrabotka-na-sayt-varna/", "monthly", "0.9"],
+          ["/izrabotka-na-onlayn-magazin-varna/", "monthly", "0.9"],
+          ["/seo-optimizatsiya-varna/", "monthly", "0.9"],
+          ["/marketing-agentsiya-varna/", "monthly", "0.9"],
+          ["/ai-agentsiya-varna/", "monthly", "0.8"],
+          ["/uslugi/", "monthly", "0.8"],
+          ["/proekti/", "monthly", "0.7"],
+          ["/za-nas/", "monthly", "0.6"],
+          ["/kontakti/", "yearly", "0.7"],
         ];
         const xml = [
           '<?xml version="1.0" encoding="UTF-8"?>',

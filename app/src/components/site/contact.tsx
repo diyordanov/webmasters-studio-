@@ -40,7 +40,7 @@ function SubmitCta({ pending }: { pending: boolean }) {
   );
 }
 
-export function ContactSection() {
+export function ContactSection({ title = "Разкажете ни за проекта.", as = "h2" }: { title?: string; as?: "h2" | "h3" } = {}) {
   const [errors, setErrors] = useState<Errors>({});
   const [pending, setPending] = useState(false);
   const [status, setStatus] = useState<Status>({ tone: "idle", text: "" });
@@ -83,7 +83,7 @@ export function ContactSection() {
       <div className="wm-wrap wm-contact">
         <div>
           <img className="wm-contact__icon" data-drift="-0.1" src="/assets/icons/icon-6.webp" alt="" width={64} height={64} />
-          <SplitHeading id="kontakt-h" text="Разкажете ни за проекта." />
+          <SplitHeading id="kontakt-h" text={title} as={as} />
           <p className="wm-lead">
             Попълнете формата и ще се свържем с вас, за да уточним детайлите. Срещата може да е на живо или онлайн.
           </p>

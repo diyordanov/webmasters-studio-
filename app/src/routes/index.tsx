@@ -5,7 +5,7 @@ import { ScrollScrub } from "@/components/scroll-scrub/scroll-scrub";
 import { AudienceSection } from "@/components/site/audience";
 import { ContactSection } from "@/components/site/contact";
 import { FaqSection } from "@/components/site/faq";
-import { siteHead } from "@/components/site/head";
+import { BUSINESS_LD, SITE_URL, siteHead } from "@/components/site/head";
 import { MobileJourney } from "@/components/site/mobile-journey";
 import { SitePage } from "@/components/site/page-parts";
 import { OfferSection, ProcessSection, ServicesSection, WorkSection } from "@/components/site/sections";
@@ -13,7 +13,12 @@ import "@/components/site/site.css";
 import { scrollScrubScenes, scrollScrubTheme } from "@/scroll-scrub-scenes";
 
 export const Route = createFileRoute("/")({
-  head: () => siteHead,
+  head: () => ({
+    ...siteHead,
+    links: [...siteHead.links, { rel: "canonical", href: `${SITE_URL}/` }],
+    meta: [...siteHead.meta, { property: "og:url", content: `${SITE_URL}/` }, { property: "og:locale", content: "bg_BG" }],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(BUSINESS_LD) }],
+  }),
   component: Index,
 });
 

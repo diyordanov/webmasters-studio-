@@ -9,7 +9,7 @@ import type {
   ScrollScrubScene,
   ScrollScrubTheme,
 } from "@/components/scroll-scrub/scroll-scrub";
-import { HeroActions } from "@/components/site/chrome";
+import { HeroActions, SceneLink } from "@/components/site/chrome";
 
 export const scrollScrubTheme: ScrollScrubTheme = {
   accent: "#B4FF00",
@@ -40,6 +40,7 @@ export const scrollScrubScenes: ScrollScrubScene[] = [
     title: "SEO оптимизация Варна",
     body: "Технически SEO одит, оптимизация на съдържанието и локално SEO с Google Business Profile, за да ви намират клиентите във Варна и региона точно когато търсят вашите услуги.",
     tags: ["SEO одит", "Локално SEO", "Google Business Profile"],
+    actions: createElement(SceneLink, { href: "/seo-optimizatsiya-varna/", children: "SEO оптимизация във Варна" }),
     align: "right",
     scroll: 1.2,
   },
@@ -50,6 +51,7 @@ export const scrollScrubScenes: ScrollScrubScene[] = [
     title: "Маркетинг агенция Варна",
     body: "Google Ads кампании, анализи и проследяване на конверсиите от един екип. Свързваме сайта, рекламата и SEO-то в обща стратегия, която води повече клиенти към бизнеса ви.",
     tags: ["Google Ads", "Анализи", "Конверсии"],
+    actions: createElement(SceneLink, { href: "/marketing-agentsiya-varna/", children: "Маркетинг агенция Варна" }),
     scroll: 1.2,
   },
   {

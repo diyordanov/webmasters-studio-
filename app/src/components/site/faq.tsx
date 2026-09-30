@@ -108,7 +108,7 @@ export function FaqSection() {
             </div>
             <div className="wm-chat__foot">
               <span>Не намирате отговор?</span>
-              <SiteLink className="wm-ask" href="/kontakti">
+              <SiteLink className="wm-ask" href="/kontakti/">
                 Попитайте ни
                 <ArrowUpRight size={18} strokeWidth={2} aria-hidden="true" />
               </SiteLink>

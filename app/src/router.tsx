@@ -9,6 +9,8 @@ export const getRouter = () => {
     routeTree,
     context: { queryClient },
     scrollRestoration: true,
+    // Old WordPress URLs end in "/"; keep them exactly (canonical tags point to the slash form).
+    trailingSlash: "preserve",
     defaultPreloadStaleTime: 0,
   });
 

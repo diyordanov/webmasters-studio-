@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, typ
 import { ArrowUpRight, CalendarClock, Check, Quote } from "lucide-react";
 
 import { CONSULT_URL, NAV_LINKS, SiteFooter, SiteMotion, type NavHref } from "./chrome";
-import { siteHead } from "./head";
+import { OG_IMAGE, SITE_URL, siteHead } from "./head";
 import { SiteHeader } from "./header";
 import { PACKAGES, PROJECT_CATS, PROJECTS, STATS, TEAM, TESTIMONIALS, VALUES, type ProjectCat } from "./pages-data";
 import { SplitHeading } from "./split";
@@ -20,17 +20,26 @@ export function SitePage({ current, children }: { current: NavHref; children: Re
   );
 }
 
-/** Per-page <head>: title, description and social tags, plus the shared icons. */
-export function pageHead(title: string, description: string) {
+/** Per-page <head>: title, description, canonical, social tags and optional JSON-LD, plus the shared icons. */
+export function pageHead(title: string, description: string, path: string, jsonLd: object[] = []) {
+  const url = `${SITE_URL}${path}`;
   return {
-    links: siteHead.links,
+    links: [...siteHead.links, { rel: "canonical", href: url }],
     meta: [
       ...siteHead.meta,
       { title },
       { name: "description", content: description },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+      { property: "og:locale", content: "bg_BG" },
+      { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Уеб Мастърс Студио" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { property: "og:url", content: url },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    scripts: jsonLd.map((data) => ({ type: "application/ld+json", children: JSON.stringify(data) })),
   };
 }
 
@@ -126,7 +135,7 @@ export function PackagesSection() {
                   </li>
                 ))}
               </ul>
-              <SiteLink className="wm-pkg__cta" href="/kontakti">
+              <SiteLink className="wm-pkg__cta" href="/kontakti/">
                 Поискайте оферта
                 <ArrowUpRight size={18} strokeWidth={2} aria-hidden="true" />
               </SiteLink>
@@ -241,13 +250,14 @@ export function ProjectsGrid() {
 }
 
 /** Client testimonials on two marquee rows that run in opposite directions and pause on hover. */
-export function TestimonialsSection() {
-  const half = Math.ceil(TESTIMONIALS.length / 2);
-  const rows = [TESTIMONIALS.slice(0, half), TESTIMONIALS.slice(half)];
+export function TestimonialsSection({ title = "Какво казват клиентите ни.", only }: { title?: string; only?: number } = {}) {
+  const list = only ? TESTIMONIALS.slice(0, only) : TESTIMONIALS;
+  const half = Math.ceil(list.length / 2);
+  const rows = [list.slice(0, half), list.slice(half)];
   return (
     <section className="wm-sec wm-sec--tight" id="otzivi" aria-labelledby="otzivi-h">
       <div className="wm-wrap">
-        <SplitHeading id="otzivi-h" text="Какво казват клиентите ни." />
+        <SplitHeading id="otzivi-h" text={title} />
       </div>
       <div className="wm-quotes">
         {rows.map((row, r) => (
