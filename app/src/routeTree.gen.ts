@@ -68,11 +68,12 @@ const IzrabotkaNaSaytVarnaRoute = IzrabotkaNaSaytVarnaRouteImport.update({
   path: '/izrabotka-na-sayt-varna',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IzrabotkaNaOnlaynMagazinVarnaRoute = IzrabotkaNaOnlaynMagazinVarnaRouteImport.update({
-  id: '/izrabotka-na-onlayn-magazin-varna',
-  path: '/izrabotka-na-onlayn-magazin-varna',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const IzrabotkaNaOnlaynMagazinVarnaRoute =
+  IzrabotkaNaOnlaynMagazinVarnaRouteImport.update({
+    id: '/izrabotka-na-onlayn-magazin-varna',
+    path: '/izrabotka-na-onlayn-magazin-varna',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AppRoute = AppRouteImport.update({
   id: '/app',
   path: '/app',
