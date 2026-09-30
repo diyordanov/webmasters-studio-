@@ -12,10 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ZaNasRouteImport } from './routes/za-nas'
 import { Route as UslugiRouteImport } from './routes/uslugi'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SeoOptimizatsiyaVarnaRouteImport } from './routes/seo-optimizatsiya-varna'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as ProektiRouteImport } from './routes/proekti'
+import { Route as MarketingAgentsiyaVarnaRouteImport } from './routes/marketing-agentsiya-varna'
 import { Route as KontaktiRouteImport } from './routes/kontakti'
+import { Route as IzrabotkaNaSaytVarnaRouteImport } from './routes/izrabotka-na-sayt-varna'
+import { Route as IzrabotkaNaOnlaynMagazinVarnaRouteImport } from './routes/izrabotka-na-onlayn-magazin-varna'
 import { Route as AppRouteImport } from './routes/app'
+import { Route as AiAgentsiyaVarnaRouteImport } from './routes/ai-agentsiya-varna'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ZaNasRoute = ZaNasRouteImport.update({
@@ -33,6 +38,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SeoOptimizatsiyaVarnaRoute = SeoOptimizatsiyaVarnaRouteImport.update({
+  id: '/seo-optimizatsiya-varna',
+  path: '/seo-optimizatsiya-varna',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
   id: '/robots.txt',
   path: '/robots.txt',
@@ -43,14 +53,34 @@ const ProektiRoute = ProektiRouteImport.update({
   path: '/proekti',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarketingAgentsiyaVarnaRoute = MarketingAgentsiyaVarnaRouteImport.update({
+  id: '/marketing-agentsiya-varna',
+  path: '/marketing-agentsiya-varna',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KontaktiRoute = KontaktiRouteImport.update({
   id: '/kontakti',
   path: '/kontakti',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IzrabotkaNaSaytVarnaRoute = IzrabotkaNaSaytVarnaRouteImport.update({
+  id: '/izrabotka-na-sayt-varna',
+  path: '/izrabotka-na-sayt-varna',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IzrabotkaNaOnlaynMagazinVarnaRoute = IzrabotkaNaOnlaynMagazinVarnaRouteImport.update({
+  id: '/izrabotka-na-onlayn-magazin-varna',
+  path: '/izrabotka-na-onlayn-magazin-varna',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRoute = AppRouteImport.update({
   id: '/app',
   path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiAgentsiyaVarnaRoute = AiAgentsiyaVarnaRouteImport.update({
+  id: '/ai-agentsiya-varna',
+  path: '/ai-agentsiya-varna',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -61,20 +91,30 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ai-agentsiya-varna': typeof AiAgentsiyaVarnaRoute
   '/app': typeof AppRoute
+  '/izrabotka-na-onlayn-magazin-varna': typeof IzrabotkaNaOnlaynMagazinVarnaRoute
+  '/izrabotka-na-sayt-varna': typeof IzrabotkaNaSaytVarnaRoute
   '/kontakti': typeof KontaktiRoute
+  '/marketing-agentsiya-varna': typeof MarketingAgentsiyaVarnaRoute
   '/proekti': typeof ProektiRoute
   '/robots.txt': typeof RobotsDottxtRoute
+  '/seo-optimizatsiya-varna': typeof SeoOptimizatsiyaVarnaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/uslugi': typeof UslugiRoute
   '/za-nas': typeof ZaNasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ai-agentsiya-varna': typeof AiAgentsiyaVarnaRoute
   '/app': typeof AppRoute
+  '/izrabotka-na-onlayn-magazin-varna': typeof IzrabotkaNaOnlaynMagazinVarnaRoute
+  '/izrabotka-na-sayt-varna': typeof IzrabotkaNaSaytVarnaRoute
   '/kontakti': typeof KontaktiRoute
+  '/marketing-agentsiya-varna': typeof MarketingAgentsiyaVarnaRoute
   '/proekti': typeof ProektiRoute
   '/robots.txt': typeof RobotsDottxtRoute
+  '/seo-optimizatsiya-varna': typeof SeoOptimizatsiyaVarnaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/uslugi': typeof UslugiRoute
   '/za-nas': typeof ZaNasRoute
@@ -82,10 +122,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ai-agentsiya-varna': typeof AiAgentsiyaVarnaRoute
   '/app': typeof AppRoute
+  '/izrabotka-na-onlayn-magazin-varna': typeof IzrabotkaNaOnlaynMagazinVarnaRoute
+  '/izrabotka-na-sayt-varna': typeof IzrabotkaNaSaytVarnaRoute
   '/kontakti': typeof KontaktiRoute
+  '/marketing-agentsiya-varna': typeof MarketingAgentsiyaVarnaRoute
   '/proekti': typeof ProektiRoute
   '/robots.txt': typeof RobotsDottxtRoute
+  '/seo-optimizatsiya-varna': typeof SeoOptimizatsiyaVarnaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/uslugi': typeof UslugiRoute
   '/za-nas': typeof ZaNasRoute
@@ -94,30 +139,45 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ai-agentsiya-varna'
     | '/app'
+    | '/izrabotka-na-onlayn-magazin-varna'
+    | '/izrabotka-na-sayt-varna'
     | '/kontakti'
+    | '/marketing-agentsiya-varna'
     | '/proekti'
     | '/robots.txt'
+    | '/seo-optimizatsiya-varna'
     | '/sitemap.xml'
     | '/uslugi'
     | '/za-nas'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ai-agentsiya-varna'
     | '/app'
+    | '/izrabotka-na-onlayn-magazin-varna'
+    | '/izrabotka-na-sayt-varna'
     | '/kontakti'
+    | '/marketing-agentsiya-varna'
     | '/proekti'
     | '/robots.txt'
+    | '/seo-optimizatsiya-varna'
     | '/sitemap.xml'
     | '/uslugi'
     | '/za-nas'
   id:
     | '__root__'
     | '/'
+    | '/ai-agentsiya-varna'
     | '/app'
+    | '/izrabotka-na-onlayn-magazin-varna'
+    | '/izrabotka-na-sayt-varna'
     | '/kontakti'
+    | '/marketing-agentsiya-varna'
     | '/proekti'
     | '/robots.txt'
+    | '/seo-optimizatsiya-varna'
     | '/sitemap.xml'
     | '/uslugi'
     | '/za-nas'
@@ -125,10 +185,15 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AiAgentsiyaVarnaRoute: typeof AiAgentsiyaVarnaRoute
   AppRoute: typeof AppRoute
+  IzrabotkaNaOnlaynMagazinVarnaRoute: typeof IzrabotkaNaOnlaynMagazinVarnaRoute
+  IzrabotkaNaSaytVarnaRoute: typeof IzrabotkaNaSaytVarnaRoute
   KontaktiRoute: typeof KontaktiRoute
+  MarketingAgentsiyaVarnaRoute: typeof MarketingAgentsiyaVarnaRoute
   ProektiRoute: typeof ProektiRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SeoOptimizatsiyaVarnaRoute: typeof SeoOptimizatsiyaVarnaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UslugiRoute: typeof UslugiRoute
   ZaNasRoute: typeof ZaNasRoute
@@ -157,6 +222,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/seo-optimizatsiya-varna': {
+      id: '/seo-optimizatsiya-varna'
+      path: '/seo-optimizatsiya-varna'
+      fullPath: '/seo-optimizatsiya-varna'
+      preLoaderRoute: typeof SeoOptimizatsiyaVarnaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/robots.txt': {
       id: '/robots.txt'
       path: '/robots.txt'
@@ -171,6 +243,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProektiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/marketing-agentsiya-varna': {
+      id: '/marketing-agentsiya-varna'
+      path: '/marketing-agentsiya-varna'
+      fullPath: '/marketing-agentsiya-varna'
+      preLoaderRoute: typeof MarketingAgentsiyaVarnaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/kontakti': {
       id: '/kontakti'
       path: '/kontakti'
@@ -178,11 +257,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KontaktiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/izrabotka-na-sayt-varna': {
+      id: '/izrabotka-na-sayt-varna'
+      path: '/izrabotka-na-sayt-varna'
+      fullPath: '/izrabotka-na-sayt-varna'
+      preLoaderRoute: typeof IzrabotkaNaSaytVarnaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/izrabotka-na-onlayn-magazin-varna': {
+      id: '/izrabotka-na-onlayn-magazin-varna'
+      path: '/izrabotka-na-onlayn-magazin-varna'
+      fullPath: '/izrabotka-na-onlayn-magazin-varna'
+      preLoaderRoute: typeof IzrabotkaNaOnlaynMagazinVarnaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app': {
       id: '/app'
       path: '/app'
       fullPath: '/app'
       preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-agentsiya-varna': {
+      id: '/ai-agentsiya-varna'
+      path: '/ai-agentsiya-varna'
+      fullPath: '/ai-agentsiya-varna'
+      preLoaderRoute: typeof AiAgentsiyaVarnaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -197,10 +297,15 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AiAgentsiyaVarnaRoute: AiAgentsiyaVarnaRoute,
   AppRoute: AppRoute,
+  IzrabotkaNaOnlaynMagazinVarnaRoute: IzrabotkaNaOnlaynMagazinVarnaRoute,
+  IzrabotkaNaSaytVarnaRoute: IzrabotkaNaSaytVarnaRoute,
   KontaktiRoute: KontaktiRoute,
+  MarketingAgentsiyaVarnaRoute: MarketingAgentsiyaVarnaRoute,
   ProektiRoute: ProektiRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
+  SeoOptimizatsiyaVarnaRoute: SeoOptimizatsiyaVarnaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   UslugiRoute: UslugiRoute,
   ZaNasRoute: ZaNasRoute,
