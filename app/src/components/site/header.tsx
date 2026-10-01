@@ -37,7 +37,7 @@ function useSofiaTime(on: boolean) {
  * On phones a hamburger opens a full-screen menu with a moving strip of
  * project visuals under the links.
  */
-export function SiteHeader({ current }: { current: NavHref }) {
+export function SiteHeader({ current }: { current: NavHref | null }) {
   const [scrolled, setScrolled] = useState(false);
   const [sheet, setSheet] = useState(false);
   const [slide, setSlide] = useState(0);

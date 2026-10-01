@@ -154,6 +154,11 @@ export function SiteFooter() {
         </div>
         <div className="wm-foot__row">
           <span>© 2026 Уеб Мастърс Студио 2024 ЕООД. Всички права запазени.</span>
+          <nav className="wm-foot__legal" aria-label="Правна информация">
+            <SiteLink href="/obshti-uslovia/">Общи условия</SiteLink>
+            <SiteLink href="/politika-za-poveritelnost-gdpr/">Политика за поверителност</SiteLink>
+            <SiteLink href="/politika-za-biskvitki/">Бисквитки</SiteLink>
+          </nav>
           <TopCta />
         </div>
       </div>

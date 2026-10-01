@@ -19,6 +19,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           ["/proekti/", "monthly", "0.7"],
           ["/za-nas/", "monthly", "0.6"],
           ["/kontakti/", "yearly", "0.7"],
+          ["/obshti-uslovia/", "yearly", "0.2"],
+          ["/politika-za-poveritelnost-gdpr/", "yearly", "0.2"],
+          ["/politika-za-biskvitki/", "yearly", "0.2"],
         ];
         const xml = [
           '<?xml version="1.0" encoding="UTF-8"?>',

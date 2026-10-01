@@ -9,7 +9,7 @@ import { SplitHeading } from "./split";
 import { SiteLink } from "./link";
 
 /** Shared shell for every page: header, content, footer and the motion loop. */
-export function SitePage({ current, children }: { current: NavHref; children: ReactNode }) {
+export function SitePage({ current, children }: { current: NavHref | null; children: ReactNode }) {
   return (
     <div className="wm">
       <SiteHeader current={current} />
