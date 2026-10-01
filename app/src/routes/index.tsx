@@ -5,7 +5,7 @@ import { ScrollScrub } from "@/components/scroll-scrub/scroll-scrub";
 import { AudienceSection } from "@/components/site/audience";
 import { ContactSection } from "@/components/site/contact";
 import { FaqSection } from "@/components/site/faq";
-import { BUSINESS_LD, SITE_URL, siteHead } from "@/components/site/head";
+import { BUSINESS_LD, OG_IMAGE, SITE_URL, siteHead } from "@/components/site/head";
 import { MobileJourney } from "@/components/site/mobile-journey";
 import { SitePage } from "@/components/site/page-parts";
 import { OfferSection, ProcessSection, ServicesSection, WorkSection } from "@/components/site/sections";
@@ -16,7 +16,13 @@ export const Route = createFileRoute("/")({
   head: () => ({
     ...siteHead,
     links: [...siteHead.links, { rel: "canonical", href: `${SITE_URL}/` }],
-    meta: [...siteHead.meta, { property: "og:url", content: `${SITE_URL}/` }, { property: "og:locale", content: "bg_BG" }],
+    meta: [
+      ...siteHead.meta,
+      { property: "og:url", content: `${SITE_URL}/` },
+      { property: "og:locale", content: "bg_BG" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
     scripts: [{ type: "application/ld+json", children: JSON.stringify(BUSINESS_LD) }],
   }),
   component: Index,
