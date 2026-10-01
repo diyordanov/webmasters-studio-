@@ -70,8 +70,17 @@ export function localHead(page: LocalPageData) {
     },
     BUSINESS_LD,
   ];
-  return pageHead(page.title, page.description, page.path, ld);
+  return pageHead(page.title, page.description, page.path, ld, `${SITE_URL}/assets/og/${OG_FILE[page.path] ?? "izrabotka"}.jpg`);
 }
+
+/** Share image (1200×630) for each Varna page. */
+const OG_FILE: Record<string, string> = {
+  "/izrabotka-na-sayt-varna/": "izrabotka",
+  "/marketing-agentsiya-varna/": "marketing",
+  "/ai-agentsiya-varna/": "ai",
+  "/izrabotka-na-onlayn-magazin-varna/": "shop",
+  "/seo-optimizatsiya-varna/": "seo",
+};
 
 const LINK = /\[([^\]]+)\]\(([^)]+)\)/g;
 

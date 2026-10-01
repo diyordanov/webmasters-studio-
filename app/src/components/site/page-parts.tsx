@@ -21,7 +21,7 @@ export function SitePage({ current, children }: { current: NavHref | null; child
 }
 
 /** Per-page <head>: title, description, canonical, social tags and optional JSON-LD, plus the shared icons. */
-export function pageHead(title: string, description: string, path: string, jsonLd: object[] = []) {
+export function pageHead(title: string, description: string, path: string, jsonLd: object[] = [], image: string = OG_IMAGE) {
   const url = `${SITE_URL}${path}`;
   return {
     links: [...siteHead.links, { rel: "canonical", href: url }],
@@ -36,7 +36,10 @@ export function pageHead(title: string, description: string, path: string, jsonL
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:url", content: url },
-      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image", content: image },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:image", content: image },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     scripts: jsonLd.map((data) => ({ type: "application/ld+json", children: JSON.stringify(data) })),

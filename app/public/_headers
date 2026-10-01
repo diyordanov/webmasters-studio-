@@ -24,3 +24,5 @@
   Cache-Control: public, max-age=604800, stale-while-revalidate=2592000
 /assets/og.jpg
   Cache-Control: public, max-age=86400
+/assets/og/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=2592000
