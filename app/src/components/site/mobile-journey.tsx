@@ -5,7 +5,7 @@ import type { ScrollScrubScene } from "@/components/scroll-scrub/scroll-scrub";
 const FRAMES = 181;
 /** Decoded frames kept in memory at once. Everything else stays as small compressed blobs. */
 const CACHE = 10;
-const frameSrc = (i: number) => `/assets/world/m/f-${String(i + 1).padStart(3, "0")}.webp`;
+const frameSrc = (i: number) => `/assets/world/m2/f-${String(i + 1).padStart(3, "0")}.webp`;
 
 type Decoded = CanvasImageSource & { close?: () => void };
 
@@ -219,7 +219,7 @@ export function MobileJourney({ scenes, enabled }: { scenes: ScrollScrubScene[];
     <section className="wm-mj" ref={rootRef} aria-label="Как изграждаме сайт">
       <div className="wm-mj__stage">
         <div className="wm-mj__frame">
-          <img className="wm-mj__poster" src={frameSrc(0)} alt="" width={960} height={540} fetchPriority="high" decoding="async" />
+          <img className="wm-mj__poster" src={frameSrc(0)} alt="" width={820} height={738} fetchPriority="high" decoding="async" />
           <canvas ref={canvasRef} className="wm-mj__canvas" aria-hidden="true" />
         </div>
       </div>
