@@ -1,5 +1,5 @@
 import { useEffect, type CSSProperties } from "react";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CalendarDays, Mail, Phone } from "lucide-react";
 import { SiteLink } from "./link";
 
 
@@ -75,7 +75,6 @@ export function HeroActions() {
   );
 }
 
-const WORD = "webmasters".split("");
 
 export const CONTACTS = {
   office: { label: "Офис", display: "+359 876 071 570", href: "tel:+359876071570" },
@@ -108,56 +107,52 @@ export function SiteFooter() {
     <footer className="wm-foot">
       <div className="wm-wrap">
         <div className="wm-foot__grid">
-          <div className="wm-foot__col">
-            <h3 className="wm-mono">Контакти</h3>
-            <SiteLink href={CONTACTS.office.href}>
-              <small>{CONTACTS.office.label}</small>
-              {CONTACTS.office.display}
+          <div className="wm-foot__brand">
+            <SiteLink className="wm-foot__logo" href="/" aria-label="Уеб Мастърс Студио – начало">
+              <img src="/assets/brand/mark.webp" alt="" width={56} height={56} loading="lazy" />
+              <img src="/assets/brand/wordmark.webp" alt="Web Masters Studio" width={520} height={106} loading="lazy" />
             </SiteLink>
-            <SiteLink href={CONTACTS.manager.href}>
-              <small>{CONTACTS.manager.label}</small>
-              {CONTACTS.manager.display}
-            </SiteLink>
-            <SiteLink href={CONTACTS.email.href}>
-              <small>Имейл</small>
-              {CONTACTS.email.display}
-            </SiteLink>
+            <p className="wm-foot__tag">Сайтове и маркетинг, създадени да носят клиенти.</p>
+            <div className="wm-foot__circles">
+              <a href={CONTACTS.office.href} aria-label={`Обадете се: ${CONTACTS.office.display}`}>
+                <Phone size={17} strokeWidth={1.8} aria-hidden="true" />
+              </a>
+              <a href={CONTACTS.email.href} aria-label={`Пишете ни: ${CONTACTS.email.display}`}>
+                <Mail size={17} strokeWidth={1.8} aria-hidden="true" />
+              </a>
+              <a href={CONSULT_URL} target="_blank" rel="noopener" aria-label="Запазете час за безплатна консултация">
+                <CalendarDays size={17} strokeWidth={1.8} aria-hidden="true" />
+              </a>
+            </div>
           </div>
-          <nav className="wm-foot__col" aria-label="Бързи връзки">
-            <h3 className="wm-mono">Бързи връзки</h3>
+          <nav className="wm-foot__col" aria-label="Разгледайте">
+            <h3 className="wm-foot__label">Разгледайте</h3>
             {NAV_LINKS.map((l) => (
               <SiteLink key={l.href} href={l.href}>
                 {l.label}
               </SiteLink>
             ))}
-            <SiteLink href={CONSULT_URL} target="_blank" rel="noopener">
-              Безплатна консултация
-            </SiteLink>
           </nav>
-          <div className="wm-foot__col">
-            <h3 className="wm-mono">Услуги</h3>
+          <nav className="wm-foot__col" aria-label="Услуги">
+            <h3 className="wm-foot__label">Услуги</h3>
             {FOOT_SERVICES.map((s) => (
               <SiteLink key={s.href} href={s.href}>
                 {s.label}
               </SiteLink>
             ))}
-          </div>
+          </nav>
           <div className="wm-foot__col">
-            <h3 className="wm-mono">Студио</h3>
-            <p>Уеб Мастърс Студио 2024 ЕООД</p>
-            <p>Варна · София · Пловдив · цялата страна</p>
-            <p>Срещи на живо или онлайн</p>
+            <h3 className="wm-foot__label">Свържете се с нас</h3>
+            <a href={CONTACTS.office.href}>{CONTACTS.office.display}</a>
+            <a href={CONTACTS.manager.href}>{CONTACTS.manager.display}</a>
+            <a href={CONTACTS.email.href}>{CONTACTS.email.display}</a>
+            <h3 className="wm-foot__label wm-foot__label--gap">Студио</h3>
+            <p className="wm-foot__ink">Уеб Мастърс Студио 2024 ЕООД</p>
+            <p className="wm-foot__ink">Варна, България</p>
+            <p>Проекти във Варна, София, Пловдив и цялата страна</p>
           </div>
         </div>
-        <p className="wm-foot__word" data-drift="-0.12" aria-hidden="true">
-          {WORD.map((ch, i) => (
-            <span key={i} style={{ "--i": i } as CSSProperties}>
-              {ch}
-            </span>
-          ))}
-          <b>.</b>
-        </p>
-        <div className="wm-foot__row wm-mono">
+        <div className="wm-foot__row">
           <span>© 2026 Уеб Мастърс Студио 2024 ЕООД. Всички права запазени.</span>
           <TopCta />
         </div>

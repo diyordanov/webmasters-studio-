@@ -368,11 +368,6 @@ function Faq({ block }: { block: Extract<LocalBlock, { type: "faq" }> }) {
           {block.sub ? <h2 className="wm-lp__sub">{block.sub}</h2> : null}
           {block.kicker ? <p className="wm-lp__kicker">{block.kicker}</p> : null}
           <div className="wm-lp-ask">
-            <div className="wm-lp-ask__faces" aria-hidden="true">
-              {["dimo", "desislava", "kameliya"].map((n) => (
-                <img key={n} src={`/assets/team/${n}-400.webp`} alt="" width={48} height={48} loading="lazy" />
-              ))}
-            </div>
             <p>Не намирате отговор? Питайте ни директно.</p>
             <a className="wm-lp-ask__tel" href="tel:+359876071570">
               <Phone size={16} aria-hidden="true" /> 0876 071 570
@@ -565,12 +560,6 @@ export function LocalPage({ page, children }: { page: LocalPageData; children?: 
       {story.length ? (
         <section className="wm-lp-sec wm-lp-story" aria-label="Накратко">
           <div className="wm-wrap wm-lp-story__grid">
-            <div className="wm-lp-story__team" aria-hidden="true">
-              {["dimo", "desislava", "kameliya"].map((n, i) => (
-                <img key={n} src={`/assets/team/${n}-400.webp`} alt="" width={400} height={500} loading="lazy" style={{ "--i": i } as CSSProperties} />
-              ))}
-              <span className="wm-mono">Екипът във Варна</span>
-            </div>
             <div className="wm-lp-story__copy">
               <p className="wm-lp-story__big">
                 <Rich text={story[0]} />
