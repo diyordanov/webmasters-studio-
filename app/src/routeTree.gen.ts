@@ -15,6 +15,9 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SeoOptimizatsiyaVarnaRouteImport } from './routes/seo-optimizatsiya-varna'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as ProektiRouteImport } from './routes/proekti'
+import { Route as PolitikaZaPoveritelnostGdprRouteImport } from './routes/politika-za-poveritelnost-gdpr'
+import { Route as PolitikaZaBiskvitkiRouteImport } from './routes/politika-za-biskvitki'
+import { Route as ObshtiUsloviaRouteImport } from './routes/obshti-uslovia'
 import { Route as MarketingAgentsiyaVarnaRouteImport } from './routes/marketing-agentsiya-varna'
 import { Route as KontaktiRouteImport } from './routes/kontakti'
 import { Route as IzrabotkaNaSaytVarnaRouteImport } from './routes/izrabotka-na-sayt-varna'
@@ -51,6 +54,22 @@ const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
 const ProektiRoute = ProektiRouteImport.update({
   id: '/proekti',
   path: '/proekti',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PolitikaZaPoveritelnostGdprRoute =
+  PolitikaZaPoveritelnostGdprRouteImport.update({
+    id: '/politika-za-poveritelnost-gdpr',
+    path: '/politika-za-poveritelnost-gdpr',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PolitikaZaBiskvitkiRoute = PolitikaZaBiskvitkiRouteImport.update({
+  id: '/politika-za-biskvitki',
+  path: '/politika-za-biskvitki',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ObshtiUsloviaRoute = ObshtiUsloviaRouteImport.update({
+  id: '/obshti-uslovia',
+  path: '/obshti-uslovia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MarketingAgentsiyaVarnaRoute = MarketingAgentsiyaVarnaRouteImport.update({
@@ -98,6 +117,9 @@ export interface FileRoutesByFullPath {
   '/izrabotka-na-sayt-varna': typeof IzrabotkaNaSaytVarnaRoute
   '/kontakti': typeof KontaktiRoute
   '/marketing-agentsiya-varna': typeof MarketingAgentsiyaVarnaRoute
+  '/obshti-uslovia': typeof ObshtiUsloviaRoute
+  '/politika-za-biskvitki': typeof PolitikaZaBiskvitkiRoute
+  '/politika-za-poveritelnost-gdpr': typeof PolitikaZaPoveritelnostGdprRoute
   '/proekti': typeof ProektiRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/seo-optimizatsiya-varna': typeof SeoOptimizatsiyaVarnaRoute
@@ -113,6 +135,9 @@ export interface FileRoutesByTo {
   '/izrabotka-na-sayt-varna': typeof IzrabotkaNaSaytVarnaRoute
   '/kontakti': typeof KontaktiRoute
   '/marketing-agentsiya-varna': typeof MarketingAgentsiyaVarnaRoute
+  '/obshti-uslovia': typeof ObshtiUsloviaRoute
+  '/politika-za-biskvitki': typeof PolitikaZaBiskvitkiRoute
+  '/politika-za-poveritelnost-gdpr': typeof PolitikaZaPoveritelnostGdprRoute
   '/proekti': typeof ProektiRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/seo-optimizatsiya-varna': typeof SeoOptimizatsiyaVarnaRoute
@@ -129,6 +154,9 @@ export interface FileRoutesById {
   '/izrabotka-na-sayt-varna': typeof IzrabotkaNaSaytVarnaRoute
   '/kontakti': typeof KontaktiRoute
   '/marketing-agentsiya-varna': typeof MarketingAgentsiyaVarnaRoute
+  '/obshti-uslovia': typeof ObshtiUsloviaRoute
+  '/politika-za-biskvitki': typeof PolitikaZaBiskvitkiRoute
+  '/politika-za-poveritelnost-gdpr': typeof PolitikaZaPoveritelnostGdprRoute
   '/proekti': typeof ProektiRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/seo-optimizatsiya-varna': typeof SeoOptimizatsiyaVarnaRoute
@@ -146,6 +174,9 @@ export interface FileRouteTypes {
     | '/izrabotka-na-sayt-varna'
     | '/kontakti'
     | '/marketing-agentsiya-varna'
+    | '/obshti-uslovia'
+    | '/politika-za-biskvitki'
+    | '/politika-za-poveritelnost-gdpr'
     | '/proekti'
     | '/robots.txt'
     | '/seo-optimizatsiya-varna'
@@ -161,6 +192,9 @@ export interface FileRouteTypes {
     | '/izrabotka-na-sayt-varna'
     | '/kontakti'
     | '/marketing-agentsiya-varna'
+    | '/obshti-uslovia'
+    | '/politika-za-biskvitki'
+    | '/politika-za-poveritelnost-gdpr'
     | '/proekti'
     | '/robots.txt'
     | '/seo-optimizatsiya-varna'
@@ -176,6 +210,9 @@ export interface FileRouteTypes {
     | '/izrabotka-na-sayt-varna'
     | '/kontakti'
     | '/marketing-agentsiya-varna'
+    | '/obshti-uslovia'
+    | '/politika-za-biskvitki'
+    | '/politika-za-poveritelnost-gdpr'
     | '/proekti'
     | '/robots.txt'
     | '/seo-optimizatsiya-varna'
@@ -192,6 +229,9 @@ export interface RootRouteChildren {
   IzrabotkaNaSaytVarnaRoute: typeof IzrabotkaNaSaytVarnaRoute
   KontaktiRoute: typeof KontaktiRoute
   MarketingAgentsiyaVarnaRoute: typeof MarketingAgentsiyaVarnaRoute
+  ObshtiUsloviaRoute: typeof ObshtiUsloviaRoute
+  PolitikaZaBiskvitkiRoute: typeof PolitikaZaBiskvitkiRoute
+  PolitikaZaPoveritelnostGdprRoute: typeof PolitikaZaPoveritelnostGdprRoute
   ProektiRoute: typeof ProektiRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SeoOptimizatsiyaVarnaRoute: typeof SeoOptimizatsiyaVarnaRoute
@@ -242,6 +282,27 @@ declare module '@tanstack/react-router' {
       path: '/proekti'
       fullPath: '/proekti'
       preLoaderRoute: typeof ProektiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politika-za-poveritelnost-gdpr': {
+      id: '/politika-za-poveritelnost-gdpr'
+      path: '/politika-za-poveritelnost-gdpr'
+      fullPath: '/politika-za-poveritelnost-gdpr'
+      preLoaderRoute: typeof PolitikaZaPoveritelnostGdprRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politika-za-biskvitki': {
+      id: '/politika-za-biskvitki'
+      path: '/politika-za-biskvitki'
+      fullPath: '/politika-za-biskvitki'
+      preLoaderRoute: typeof PolitikaZaBiskvitkiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/obshti-uslovia': {
+      id: '/obshti-uslovia'
+      path: '/obshti-uslovia'
+      fullPath: '/obshti-uslovia'
+      preLoaderRoute: typeof ObshtiUsloviaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/marketing-agentsiya-varna': {
@@ -304,6 +365,9 @@ const rootRouteChildren: RootRouteChildren = {
   IzrabotkaNaSaytVarnaRoute: IzrabotkaNaSaytVarnaRoute,
   KontaktiRoute: KontaktiRoute,
   MarketingAgentsiyaVarnaRoute: MarketingAgentsiyaVarnaRoute,
+  ObshtiUsloviaRoute: ObshtiUsloviaRoute,
+  PolitikaZaBiskvitkiRoute: PolitikaZaBiskvitkiRoute,
+  PolitikaZaPoveritelnostGdprRoute: PolitikaZaPoveritelnostGdprRoute,
   ProektiRoute: ProektiRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SeoOptimizatsiyaVarnaRoute: SeoOptimizatsiyaVarnaRoute,
