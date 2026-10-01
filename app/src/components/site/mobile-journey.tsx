@@ -5,7 +5,7 @@ import type { ScrollScrubScene } from "@/components/scroll-scrub/scroll-scrub";
 const FRAMES = 181;
 /** Decoded frames kept in memory at once. Everything else stays as small compressed blobs. */
 const CACHE = 10;
-const frameSrc = (i: number) => `/assets/world/m3/f-${String(i + 1).padStart(3, "0")}.webp`;
+const frameSrc = (i: number) => `/assets/world/m4/f-${String(i + 1).padStart(3, "0")}.webp`;
 
 type Decoded = CanvasImageSource & { close?: () => void };
 
