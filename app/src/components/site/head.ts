@@ -1,6 +1,6 @@
 /** Production origin. Canonical and og:url always point here (the preview host is not indexed). */
 export const SITE_URL = "https://webmasters.bg";
-export const OG_IMAGE = `${SITE_URL}/assets/og.jpg`;
+export const OG_IMAGE = `${SITE_URL}/assets/og-2026.jpg`;
 
 /** The business as a local service (schema.org). Street address to be added once confirmed. */
 export const BUSINESS_LD = {
@@ -13,7 +13,7 @@ export const BUSINESS_LD = {
   taxID: "207299525",
   url: `${SITE_URL}/`,
   logo: `${SITE_URL}/assets/brand/apple-touch-icon.png`,
-  image: `${SITE_URL}/assets/og.jpg`,
+  image: `${SITE_URL}/assets/og-2026.jpg`,
   telephone: "+359876071570",
   email: "office@webmasters.bg",
   address: { "@type": "PostalAddress", addressLocality: "Варна", addressRegion: "Варна", addressCountry: "BG" },

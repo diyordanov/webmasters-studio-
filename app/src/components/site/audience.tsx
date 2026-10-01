@@ -3,11 +3,11 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { SplitHeading } from "./split";
 
 const NICHES = [
-  { name: "Интериорни студия", note: "Портфолио, което показва стила ви и носи запитвания.", img: "/assets/niche/interior.webp", features: ["Портфолио галерии", "Форма за запитване", "Бърза мобилна версия"] },
-  { name: "Дентални и медицински практики", note: "Доверие, ясни услуги и лесен начин да ви потърсят.", img: "/assets/niche/dental.webp", features: ["Услуги и цени", "Онлайн записване", "Локално SEO"] },
-  { name: "Фотографи", note: "Галерии, които се зареждат бързо на всеки телефон.", img: "/assets/niche/photo.webp", features: ["Галерии на цял екран", "Резервации", "Оптимизирани снимки"] },
-  { name: "Магазини и доставчици", note: "Каталози и онлайн поръчки без излишни стъпки.", img: "/assets/niche/promo.webp", features: ["Каталог и филтри", "Онлайн поръчки", "WooCommerce"] },
-  { name: "Местен бизнес", note: "Видимост в Google за вашия град и квартал.", img: "/assets/niche/local.webp", features: ["Google профил", "Локално SEO", "Отзиви и контакт"] },
+  { name: "Интериорни студия", note: "Портфолио, което показва стила ви и носи запитвания.", img: "/assets/niche/interior-v2.webp", features: ["Портфолио галерии", "Форма за запитване", "Бърза мобилна версия"] },
+  { name: "Дентални и медицински практики", note: "Доверие, ясни услуги и лесен начин да ви потърсят.", img: "/assets/niche/dental-v2.webp", features: ["Услуги и цени", "Онлайн записване", "Локално SEO"] },
+  { name: "Фотографи", note: "Галерии, които се зареждат бързо на всеки телефон.", img: "/assets/niche/photo-v2.webp", features: ["Галерии на цял екран", "Резервации", "Оптимизирани снимки"] },
+  { name: "Магазини и доставчици", note: "Каталози и онлайн поръчки без излишни стъпки.", img: "/assets/niche/promo-v2.webp", features: ["Каталог и филтри", "Онлайн поръчки", "WooCommerce"] },
+  { name: "Местен бизнес", note: "Видимост в Google за вашия град и квартал.", img: "/assets/niche/local-v2.webp", features: ["Google профил", "Локално SEO", "Отзиви и контакт"] },
 ];
 
 /**
@@ -137,7 +137,7 @@ export function AudienceSection() {
           <div className="wm-deck" data-deck="">
             {NICHES.map((n, i) => (
               <figure className="wm-deck__card" key={n.name} data-deck-card="" style={{ "--d": i } as CSSProperties}>
-                <img src={n.img} srcSet={`${n.img.replace(".webp", "-900.webp")} 900w, ${n.img} 1800w`} sizes="(max-width: 860px) 100vw, 900px" alt={`Концепция на сайт: ${n.name}`} width={1800} height={1350} loading="lazy" />
+                <img src={n.img} srcSet={`${n.img.replace(".webp", "-900.webp")} 900w, ${n.img} 1800w`} sizes="(max-width: 860px) 100vw, 900px" alt={`Сайт за ${n.name.toLowerCase()} – пример`} width={1800} height={1350} loading="lazy" />
                 <span className="wm-deck__glare" aria-hidden="true" />
               </figure>
             ))}
