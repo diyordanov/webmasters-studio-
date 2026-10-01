@@ -109,7 +109,7 @@ export function SiteFooter() {
         <div className="wm-foot__grid">
           <div className="wm-foot__brand">
             <SiteLink className="wm-foot__logo" href="/" aria-label="Уеб Мастърс Студио – начало">
-              <img src="/assets/brand/mark.webp" alt="" width={56} height={56} loading="lazy" />
+              <img src="/assets/brand/foot-mark.webp" alt="" width={120} height={76} loading="lazy" />
               <img src="/assets/brand/wordmark.webp" alt="Web Masters Studio" width={520} height={106} loading="lazy" />
             </SiteLink>
             <p className="wm-foot__tag">Сайтове и маркетинг, създадени да носят клиенти.</p>

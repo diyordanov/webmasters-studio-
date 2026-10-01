@@ -849,6 +849,7 @@
 .lv-map__ring { position: absolute; width: 58%; aspect-ratio: 1; border: 1.5px solid color-mix(in srgb, var(--acc) 70%, transparent); border-radius: 50%; background: color-mix(in srgb, var(--acc) 10%, transparent); animation: lv-pulse 3.2s var(--ease) infinite; }
 .lv-map__ring--2 { animation-delay: 1.6s; }
 .lv-map__label { position: absolute; left: 12px; bottom: 12px; }
+.lv-map--big { height: 156px; }
 @keyframes lv-pulse { 0% { transform: scale(0.55); opacity: 1; } 100% { transform: scale(1.35); opacity: 0; } }
 .lv-bubbles { display: grid; gap: 10px; }
 .lv-b { max-width: 84%; margin: 0; padding: 10px 14px; border-radius: 16px 16px 16px 4px; background: var(--bg3); font-size: 0.86rem; line-height: 1.45; }
@@ -978,12 +979,12 @@
 .lv-ad__call { justify-self: start; margin-top: 4px; padding: 5px 10px; border-radius: 999px; background: var(--acc); color: var(--acc-ink); font-size: 0.74rem; font-weight: 600; }
 .lv-plan, .lv-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: end; height: 140px; }
 .lv-plan > div, .lv-pillars > div { display: grid; gap: 8px; justify-items: center; height: 100%; align-content: end; }
-.lv-plan__bar { width: 100%; height: calc(35% + var(--i) * 28%); border-radius: 10px 10px 4px 4px; background: linear-gradient(180deg, var(--acc), color-mix(in srgb, var(--acc) 25%, transparent)); box-shadow: 0 0 24px color-mix(in srgb, var(--acc) 25%, transparent); }
-.lv-pillars .lv-plan__bar { height: 80%; background: linear-gradient(180deg, color-mix(in srgb, var(--acc) calc(100% - var(--i) * 25%), transparent), color-mix(in srgb, var(--acc) 12%, transparent)); }
+.lv-plan__bar { width: 100%; height: calc(40px + var(--i) * 34px); border-radius: 10px 10px 4px 4px; background: linear-gradient(180deg, var(--acc), color-mix(in srgb, var(--acc) 25%, transparent)); box-shadow: 0 0 24px color-mix(in srgb, var(--acc) 25%, transparent); }
+.lv-pillars .lv-plan__bar { height: 104px; background: linear-gradient(180deg, color-mix(in srgb, var(--acc) calc(100% - var(--i) * 25%), transparent), color-mix(in srgb, var(--acc) 12%, transparent)); }
 .lv-plan .lv-mono, .lv-pillars .lv-mono { color: var(--muted); }
-.lv-orbit { position: relative; height: 160px; }
+.lv-orbit { position: relative; height: 170px; }
 .lv-orbit__core { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 56px; height: 56px; margin: -28px 0 0 -28px; border-radius: 50%; background: var(--acc); color: var(--acc-ink); font-weight: 700; box-shadow: 0 0 0 10px color-mix(in srgb, var(--acc) 12%, transparent), 0 0 0 22px color-mix(in srgb, var(--acc) 6%, transparent); }
-.lv-orbit .lv-chip { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(calc(var(--i) * 72deg - 90deg)) translateX(118px) rotate(calc(var(--i) * -72deg + 90deg)); }
+.lv-orbit .lv-chip { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(calc(var(--i) * 72deg - 90deg)) translateX(86px) rotate(calc(var(--i) * -72deg + 90deg)); }
 .lv-rank { position: relative; }
 .lv-rank .lv-chart { height: 120px; }
 .lv-rank .lv-chip { position: absolute; right: 0; top: -6px; }
@@ -1158,7 +1159,7 @@
   .wm-lp-steps li { padding-right: 0; gap: 14px; }
   .wm-lp-steps__dot { width: 46px; height: 46px; }
   .wm-lp-steps::before { left: 22px; }
-  .lv-orbit .lv-chip { transform: translate(-50%, -50%) rotate(calc(var(--i) * 72deg - 90deg)) translateX(100px) rotate(calc(var(--i) * -72deg + 90deg)); }
+  .lv-orbit .lv-chip { transform: translate(-50%, -50%) rotate(calc(var(--i) * 72deg - 90deg)) translateX(80px) rotate(calc(var(--i) * -72deg + 90deg)); }
 }
 
 /* ===== v15: footer (logo + tagline, three link columns) ===== */
@@ -1166,15 +1167,15 @@
 .wm-foot .wm-foot__grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.8fr) minmax(0, 1.2fr) minmax(0, 1.1fr); gap: clamp(28px, 4vw, 64px); padding: 0 0 clamp(56px, 7vw, 88px); border-top: 0; }
 .wm-foot__brand { display: flex; flex-direction: column; align-items: flex-start; }
 .wm .wm-foot__logo { display: inline-flex; align-items: center; gap: 14px; }
-.wm-foot__logo img:first-child { width: 52px; height: 52px; }
-.wm-foot__logo img:last-child { width: 190px; height: auto; }
-.wm-foot__tag { max-width: 17ch; margin: 34px 0 0; color: var(--ink); font-family: "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif; font-size: clamp(1.6rem, 2.3vw, 2.1rem); font-weight: 400; line-height: 1.22; letter-spacing: -0.01em; }
+.wm-foot__logo img:first-child { width: 58px; height: auto; }
+.wm-foot__logo img:last-child { width: 200px; height: auto; }
+.wm-foot__tag { max-width: 22ch; margin: 34px 0 0; color: var(--ink); font-family: "Cormorant Garamond", "Playfair Display", Georgia, "Times New Roman", serif; font-size: clamp(1.6rem, 2.3vw, 2.1rem); font-weight: 400; line-height: 1.22; letter-spacing: -0.01em; }
 .wm-foot__circles { display: flex; gap: 10px; margin-top: 34px; }
 .wm .wm-foot__circles a { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); border-radius: 50%; color: var(--ink); transition: border-color 0.3s, color 0.3s, background 0.3s, transform 0.4s var(--ease); }
 .wm .wm-foot__circles a:hover { border-color: var(--acc); background: var(--acc); color: var(--acc-ink); transform: translateY(-3px); }
 .wm-foot .wm-foot__col { display: flex; flex-direction: column; gap: 16px; padding-top: 10px; }
 .wm-foot__label { margin: 0 0 10px; color: var(--acc); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
-.wm-foot__label--gap { margin-top: 22px; }
+.wm .wm-foot__label--gap { margin-top: 34px; }
 .wm .wm-foot__col a { width: fit-content; color: var(--ink); font-size: 0.95rem; line-height: 1.4; transition: color 0.3s, transform 0.4s var(--ease); }
 .wm .wm-foot__col a:hover { color: var(--acc); transform: translateX(4px); }
 .wm-foot .wm-foot__col p { margin: 0; color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
@@ -1189,3 +1190,6 @@
   .wm-foot .wm-foot__grid { grid-template-columns: 1fr; gap: 36px; }
   .wm-foot__tag { margin-top: 26px; }
 }
+.lvh-serp__pin { width: 24px; height: 24px; }
+.lvh-serp__pin--1 { width: 30px; height: 30px; }
+.lv-map__pin { width: 24px; height: 24px; }
