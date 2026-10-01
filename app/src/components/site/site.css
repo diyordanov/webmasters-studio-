@@ -897,8 +897,8 @@
 .lvh--serp { padding: 2% 6% 8%; }
 .lvh-serp__win { padding: 16px; }
 .lvh-serp__map { position: relative; height: 170px; margin: 14px 0; overflow: hidden; border-radius: 14px; background-color: var(--bg3); background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 26px 26px; }
-.lvh-serp__map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.lvh-serp__map path { fill: none; stroke: color-mix(in srgb, var(--ink) 22%, transparent); stroke-width: 6; }
+.lvh-serp__roads { position: absolute; inset: 0; width: 100%; height: 100%; }
+.lvh-serp__roads path { fill: none; stroke: color-mix(in srgb, var(--ink) 22%, transparent); stroke-width: 6; }
 .lvh-serp__pin { position: absolute; color: var(--muted); fill: var(--bg2); }
 .lvh-serp__pin--1 { left: 44%; top: 30%; color: var(--acc); fill: color-mix(in srgb, var(--acc) 30%, transparent); animation: lv-float 4s ease-in-out infinite; }
 .lvh-serp__pin--2 { left: 20%; top: 56%; }

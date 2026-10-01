@@ -216,7 +216,7 @@ export function HeroVisual({ kind, image }: { kind: HeroKind; image?: { src: str
               <Search size={16} /> seo оптимизация варна
             </div>
             <div className="lvh-serp__map">
-              <svg viewBox="0 0 400 150" preserveAspectRatio="none">
+              <svg className="lvh-serp__roads" viewBox="0 0 400 150" preserveAspectRatio="none">
                 <path d="M0 40 C80 30 120 70 200 60 S330 20 400 40" />
                 <path d="M0 110 C90 100 150 130 240 110 S350 90 400 120" />
                 <path d="M120 0 C130 50 110 100 130 150" />
