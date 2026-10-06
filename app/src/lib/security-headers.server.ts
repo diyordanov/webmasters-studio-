@@ -12,8 +12,9 @@ export function applySecurityHeaders(response: Response): Response {
       "script-src 'self' 'unsafe-inline'; " +
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
       "font-src 'self' https://fonts.gstatic.com; " +
-      "img-src 'self' data: https:; media-src 'self' https:; " +
-      "connect-src 'self' https:; " +
+      // blob: — the home film and mobile frames are fetched, then played from object URLs.
+      "img-src 'self' data: blob: https:; media-src 'self' https: data: blob:; " +
+      "connect-src 'self' https: data: blob:; " +
       "frame-src 'self' https://auth.higgsfield.app https://auth.higgsfield-dev.app; " +
       "base-uri 'self'; form-action 'self'",
   );
