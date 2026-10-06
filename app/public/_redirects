@@ -1,24 +1,103 @@
 # Old WordPress URLs on webmasters.bg -> new pages (permanent, keeps link equity).
-/contacts/                  /kontakti/                       301
+# Source: the old Yoast sitemaps (page, portfolios, portfolios_categories) + menu links.
+# First match wins, so specific rules come before the /* catch-alls.
+# Each old page is listed with and without the trailing slash.
+
+# ── Pages ────────────────────────────────────────────────────────────
 /contacts                   /kontakti/                       301
-/about-us/                  /za-nas/                         301
+/contacts/                  /kontakti/                       301
 /about-us                   /za-nas/                         301
-/oferti/                    /uslugi/                         301
+/about-us/                  /za-nas/                         301
 /oferti                     /uslugi/                         301
+/oferti/                    /uslugi/                         301
+/subscriptions              /uslugi/                         301
 /subscriptions/             /uslugi/                         301
-/portfolio-2/               /proekti/                        301
+/portfolio                  /proekti/                        301
 /portfolio/                 /proekti/                        301
+/portfolio-2                /proekti/                        301
+/portfolio-2/               /proekti/                        301
+/portfolios                 /proekti/                        301
 /portfolios/*               /proekti/                        301
-/categories/online-store/   /izrabotka-na-onlayn-magazin-varna/ 301
-/categories/seo-optimization/ /seo-optimizatsiya-varna/      301
-/categories/facebook-google-ads/ /marketing-agentsiya-varna/ 301
-/categories/*               /proekti/                        301
+/lets-keep-in-touch         /kontakti/                       301
 /lets-keep-in-touch/        /kontakti/                       301
+/lets-keep-in-touch-2       /kontakti/                       301
 /lets-keep-in-touch-2/      /kontakti/                       301
+/links-webmasters           /                                301
 /links-webmasters/          /                                301
+/test-paypercut             /                                301
 /test-paypercut/            /                                301
+
+# ── Portfolio categories -> matching service page ────────────────────
+/categories/online-store            /izrabotka-na-onlayn-magazin-varna/ 301
+/categories/online-store/           /izrabotka-na-onlayn-magazin-varna/ 301
+/categories/product-catalog         /izrabotka-na-onlayn-magazin-varna/ 301
+/categories/product-catalog/        /izrabotka-na-onlayn-magazin-varna/ 301
+/categories/seo-optimization        /seo-optimizatsiya-varna/        301
+/categories/seo-optimization/       /seo-optimizatsiya-varna/        301
+/categories/facebook-google-ads     /marketing-agentsiya-varna/      301
+/categories/facebook-google-ads/    /marketing-agentsiya-varna/      301
+/categories/corporate-site          /izrabotka-na-sayt-varna/        301
+/categories/corporate-site/         /izrabotka-na-sayt-varna/        301
+/categories/landing-page            /izrabotka-na-sayt-varna/        301
+/categories/landing-page/           /izrabotka-na-sayt-varna/        301
+/categories/design-and-website-development  /izrabotka-na-sayt-varna/ 301
+/categories/design-and-website-development/ /izrabotka-na-sayt-varna/ 301
+/categories                 /proekti/                        301
+/categories/*               /proekti/                        301
+
+# ── English version (/en/) -> the Bulgarian counterpart ──────────────
+/en                         /                                301
+/en/contacts                /kontakti/                       301
+/en/contacts/               /kontakti/                       301
+/en/about-us                /za-nas/                         301
+/en/about-us/               /za-nas/                         301
+/en/offers                  /uslugi/                         301
+/en/offers/                 /uslugi/                         301
+/en/subscriptions           /uslugi/                         301
+/en/subscriptions/          /uslugi/                         301
+/en/lets-keep-in-touch      /kontakti/                       301
+/en/lets-keep-in-touch/     /kontakti/                       301
+/en/lets-keep-in-touch-2    /kontakti/                       301
+/en/lets-keep-in-touch-2/   /kontakti/                       301
+/en/israbotka-na-sayt-varna  /izrabotka-na-sayt-varna/       301
 /en/israbotka-na-sayt-varna/ /izrabotka-na-sayt-varna/       301
+/en/portfolio               /proekti/                        301
+/en/portfolio/              /proekti/                        301
+/en/portfolio-2             /proekti/                        301
+/en/portfolio-2/            /proekti/                        301
+/en/portfolios              /proekti/                        301
+/en/portfolios/*            /proekti/                        301
+/en/categories/online-store/        /izrabotka-na-onlayn-magazin-varna/ 301
+/en/categories/product-catalogue/   /izrabotka-na-onlayn-magazin-varna/ 301
+/en/categories/seo-optimization/    /seo-optimizatsiya-varna/        301
+/en/categories/facebook-google-ads/ /marketing-agentsiya-varna/      301
+/en/categories/corporate-site/      /izrabotka-na-sayt-varna/        301
+/en/categories/landing-page/        /izrabotka-na-sayt-varna/        301
+/en/categories/design-and-website-development/ /izrabotka-na-sayt-varna/ 301
+/en/categories/*            /proekti/                        301
+/en/cookie-policy           /politika-za-biskvitki/          301
+/en/cookie-policy/          /politika-za-biskvitki/          301
+/en/general-conditions      /obshti-uslovia/                 301
+/en/general-conditions/     /obshti-uslovia/                 301
+/en/gdpr-privacy-policy     /politika-za-poveritelnost-gdpr/ 301
+/en/gdpr-privacy-policy/    /politika-za-poveritelnost-gdpr/ 301
 /en/*                       /                                301
+
+# ── WordPress system URLs and old Yoast sitemaps ─────────────────────
+/sitemap_index.xml          /sitemap.xml                     301
+/wp-sitemap.xml             /sitemap.xml                     301
+/page-sitemap.xml           /sitemap.xml                     301
+/portfolios-sitemap.xml     /sitemap.xml                     301
+/portfolios_categories-sitemap.xml /sitemap.xml              301
+/feed                       /                                301
+/feed/                      /                                301
+/comments/feed              /                                301
+/comments/feed/             /                                301
+/wp-login.php               /                                301
+/wp-admin                   /                                301
+/wp-admin/*                 /                                301
+
+# ── New pages without the trailing slash -> canonical URL ────────────
 /uslugi                     /uslugi/                         301
 /proekti                    /proekti/                        301
 /za-nas                     /za-nas/                         301
@@ -28,3 +107,6 @@
 /seo-optimizatsiya-varna    /seo-optimizatsiya-varna/        301
 /marketing-agentsiya-varna  /marketing-agentsiya-varna/      301
 /ai-agentsiya-varna         /ai-agentsiya-varna/             301
+/obshti-uslovia             /obshti-uslovia/                 301
+/politika-za-biskvitki      /politika-za-biskvitki/          301
+/politika-za-poveritelnost-gdpr /politika-za-poveritelnost-gdpr/ 301

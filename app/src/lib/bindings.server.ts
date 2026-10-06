@@ -22,6 +22,8 @@ type AppEnv = {
   // the manifest. Reach an instance with env.CONTAINER.getByName(id), then
   // .fetch(). See skills/containers.md.
   CONTAINER?: DurableObjectNamespace;
+  // Password of office@webmasters.bg on Hostinger, for the contact form (a Worker secret).
+  SMTP_PASSWORD?: string;
   HF_ENV?: string;
   APP_SLUG?: string;
 };

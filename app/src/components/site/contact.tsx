@@ -69,7 +69,7 @@ export function ContactSection({ title = "Разкажете ни за прое�
         form.reset();
         setStatus({ tone: "ok", text: "Благодарим! Получихме запитването ви и ще се свържем с вас." });
       } else {
-        setStatus({ tone: "err", text: "Не успяхме да запишем запитването. Опитайте отново след малко." });
+        setStatus({ tone: "err", text: "Не успяхме да изпратим запитването. Опитайте отново или ни пишете на office@webmasters.bg." });
       }
     } catch {
       setStatus({ tone: "err", text: "Възникна грешка при изпращането. Проверете връзката и опитайте отново." });
