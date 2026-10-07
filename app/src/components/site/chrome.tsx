@@ -149,14 +149,16 @@ export function SiteFooter() {
             <a href={CONTACTS.office.href}>{CONTACTS.office.display}</a>
             <a href={CONTACTS.manager.href}>{CONTACTS.manager.display}</a>
             <a href={CONTACTS.email.href}>{CONTACTS.email.display}</a>
+            <a href="https://www.facebook.com/webmastersstudio" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://share.google/4RPn33PomfQR7hgXd" target="_blank" rel="noopener">Google профил и отзиви</a>
             <h3 className="wm-foot__label wm-foot__label--gap">Студио</h3>
-            <p className="wm-foot__ink">Уебмастърс ЕООД · ЕИК 207299525</p>
+            <p className="wm-foot__ink">Уеб Мастърс Студио ЕООД · ЕИК 207299525</p>
             <p className="wm-foot__ink">Варна, България</p>
             <p>Проекти във Варна, София, Пловдив и цялата страна</p>
           </div>
         </div>
         <div className="wm-foot__row">
-          <span>© 2026 Уебмастърс ЕООД. Всички права запазени.</span>
+          <span>© 2026 Уеб Мастърс Студио ЕООД. Всички права запазени.</span>
           <nav className="wm-foot__legal" aria-label="Правна информация">
             <SiteLink href="/obshti-uslovia/">Общи условия</SiteLink>
             <SiteLink href="/politika-za-poveritelnost-gdpr/">Политика за поверителност</SiteLink>

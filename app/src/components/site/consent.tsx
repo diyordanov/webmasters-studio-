@@ -6,7 +6,7 @@ import { SiteLink } from "./link";
  * Google Analytics 4 measurement ID ("G-XXXXXXXXXX"). Empty: nothing is loaded.
  * GA is only injected after the visitor allows analytics (GDPR, Consent Mode v2 basic).
  */
-export const GA_ID = "";
+export const GA_ID = "G-5W9GHC8T33";
 
 /** Fired (e.g. from the footer) to reopen the cookie settings. */
 export const CONSENT_OPEN_EVENT = "wm-consent-open";

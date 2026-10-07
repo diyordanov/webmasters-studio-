@@ -9,7 +9,7 @@ export const BUSINESS_LD = {
   "@id": `${SITE_URL}/#business`,
   name: "Уеб Мастърс Студио",
   alternateName: ["Web Masters Studio", "Webmasters"],
-  legalName: "Уебмастърс ЕООД",
+  legalName: "Уеб Мастърс Студио ЕООД",
   taxID: "207299525",
   url: `${SITE_URL}/`,
   logo: `${SITE_URL}/assets/brand/apple-touch-icon.png`,
@@ -17,6 +17,9 @@ export const BUSINESS_LD = {
   telephone: "+359876071570",
   email: "office@webmasters.bg",
   address: { "@type": "PostalAddress", addressLocality: "Варна", addressRegion: "Варна", addressCountry: "BG" },
+  // Google Business Profile (official share link) and social profiles: ties the site to the same entity.
+  hasMap: "https://share.google/4RPn33PomfQR7hgXd",
+  sameAs: ["https://www.facebook.com/webmastersstudio", "https://share.google/4RPn33PomfQR7hgXd"],
   areaServed: [
     { "@type": "City", name: "Варна" },
     { "@type": "City", name: "София" },
