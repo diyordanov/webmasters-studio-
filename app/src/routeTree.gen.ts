@@ -23,7 +23,6 @@ import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as KontaktiRouteImport } from './routes/kontakti'
 import { Route as IzrabotkaNaSaytVarnaRouteImport } from './routes/izrabotka-na-sayt-varna'
 import { Route as IzrabotkaNaOnlaynMagazinVarnaRouteImport } from './routes/izrabotka-na-onlayn-magazin-varna'
-import { Route as AppRouteImport } from './routes/app'
 import { Route as AiAgentsiyaVarnaRouteImport } from './routes/ai-agentsiya-varna'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -99,11 +98,6 @@ const IzrabotkaNaOnlaynMagazinVarnaRoute =
     path: '/izrabotka-na-onlayn-magazin-varna',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AppRoute = AppRouteImport.update({
-  id: '/app',
-  path: '/app',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AiAgentsiyaVarnaRoute = AiAgentsiyaVarnaRouteImport.update({
   id: '/ai-agentsiya-varna',
   path: '/ai-agentsiya-varna',
@@ -118,7 +112,6 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/ai-agentsiya-varna': typeof AiAgentsiyaVarnaRoute
-  '/app': typeof AppRoute
   '/izrabotka-na-onlayn-magazin-varna': typeof IzrabotkaNaOnlaynMagazinVarnaRoute
   '/izrabotka-na-sayt-varna': typeof IzrabotkaNaSaytVarnaRoute
   '/kontakti': typeof KontaktiRoute
@@ -137,7 +130,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ai-agentsiya-varna': typeof AiAgentsiyaVarnaRoute
-  '/app': typeof AppRoute
   '/izrabotka-na-onlayn-magazin-varna': typeof IzrabotkaNaOnlaynMagazinVarnaRoute
   '/izrabotka-na-sayt-varna': typeof IzrabotkaNaSaytVarnaRoute
   '/kontakti': typeof KontaktiRoute
@@ -157,7 +149,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/ai-agentsiya-varna': typeof AiAgentsiyaVarnaRoute
-  '/app': typeof AppRoute
   '/izrabotka-na-onlayn-magazin-varna': typeof IzrabotkaNaOnlaynMagazinVarnaRoute
   '/izrabotka-na-sayt-varna': typeof IzrabotkaNaSaytVarnaRoute
   '/kontakti': typeof KontaktiRoute
@@ -178,7 +169,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/ai-agentsiya-varna'
-    | '/app'
     | '/izrabotka-na-onlayn-magazin-varna'
     | '/izrabotka-na-sayt-varna'
     | '/kontakti'
@@ -197,7 +187,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/ai-agentsiya-varna'
-    | '/app'
     | '/izrabotka-na-onlayn-magazin-varna'
     | '/izrabotka-na-sayt-varna'
     | '/kontakti'
@@ -216,7 +205,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/ai-agentsiya-varna'
-    | '/app'
     | '/izrabotka-na-onlayn-magazin-varna'
     | '/izrabotka-na-sayt-varna'
     | '/kontakti'
@@ -236,7 +224,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AiAgentsiyaVarnaRoute: typeof AiAgentsiyaVarnaRoute
-  AppRoute: typeof AppRoute
   IzrabotkaNaOnlaynMagazinVarnaRoute: typeof IzrabotkaNaOnlaynMagazinVarnaRoute
   IzrabotkaNaSaytVarnaRoute: typeof IzrabotkaNaSaytVarnaRoute
   KontaktiRoute: typeof KontaktiRoute
@@ -353,13 +340,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IzrabotkaNaOnlaynMagazinVarnaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app': {
-      id: '/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AppRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/ai-agentsiya-varna': {
       id: '/ai-agentsiya-varna'
       path: '/ai-agentsiya-varna'
@@ -380,7 +360,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AiAgentsiyaVarnaRoute: AiAgentsiyaVarnaRoute,
-  AppRoute: AppRoute,
   IzrabotkaNaOnlaynMagazinVarnaRoute: IzrabotkaNaOnlaynMagazinVarnaRoute,
   IzrabotkaNaSaytVarnaRoute: IzrabotkaNaSaytVarnaRoute,
   KontaktiRoute: KontaktiRoute,

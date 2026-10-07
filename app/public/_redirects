@@ -105,3 +105,6 @@
 /obshti-uslovia             /obshti-uslovia/                 301
 /politika-za-biskvitki      /politika-za-biskvitki/          301
 /politika-za-poveritelnost-gdpr /politika-za-poveritelnost-gdpr/ 301
+
+# Leftover template page from the site generator, removed.
+/app                        /                                301
