@@ -19,6 +19,7 @@ import { Route as PolitikaZaPoveritelnostGdprRouteImport } from './routes/politi
 import { Route as PolitikaZaBiskvitkiRouteImport } from './routes/politika-za-biskvitki'
 import { Route as ObshtiUsloviaRouteImport } from './routes/obshti-uslovia'
 import { Route as MarketingAgentsiyaVarnaRouteImport } from './routes/marketing-agentsiya-varna'
+import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as KontaktiRouteImport } from './routes/kontakti'
 import { Route as IzrabotkaNaSaytVarnaRouteImport } from './routes/izrabotka-na-sayt-varna'
 import { Route as IzrabotkaNaOnlaynMagazinVarnaRouteImport } from './routes/izrabotka-na-onlayn-magazin-varna'
@@ -77,6 +78,11 @@ const MarketingAgentsiyaVarnaRoute = MarketingAgentsiyaVarnaRouteImport.update({
   path: '/marketing-agentsiya-varna',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
+  id: '/llms.txt',
+  path: '/llms.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KontaktiRoute = KontaktiRouteImport.update({
   id: '/kontakti',
   path: '/kontakti',
@@ -116,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/izrabotka-na-onlayn-magazin-varna': typeof IzrabotkaNaOnlaynMagazinVarnaRoute
   '/izrabotka-na-sayt-varna': typeof IzrabotkaNaSaytVarnaRoute
   '/kontakti': typeof KontaktiRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/marketing-agentsiya-varna': typeof MarketingAgentsiyaVarnaRoute
   '/obshti-uslovia': typeof ObshtiUsloviaRoute
   '/politika-za-biskvitki': typeof PolitikaZaBiskvitkiRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/izrabotka-na-onlayn-magazin-varna': typeof IzrabotkaNaOnlaynMagazinVarnaRoute
   '/izrabotka-na-sayt-varna': typeof IzrabotkaNaSaytVarnaRoute
   '/kontakti': typeof KontaktiRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/marketing-agentsiya-varna': typeof MarketingAgentsiyaVarnaRoute
   '/obshti-uslovia': typeof ObshtiUsloviaRoute
   '/politika-za-biskvitki': typeof PolitikaZaBiskvitkiRoute
@@ -153,6 +161,7 @@ export interface FileRoutesById {
   '/izrabotka-na-onlayn-magazin-varna': typeof IzrabotkaNaOnlaynMagazinVarnaRoute
   '/izrabotka-na-sayt-varna': typeof IzrabotkaNaSaytVarnaRoute
   '/kontakti': typeof KontaktiRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/marketing-agentsiya-varna': typeof MarketingAgentsiyaVarnaRoute
   '/obshti-uslovia': typeof ObshtiUsloviaRoute
   '/politika-za-biskvitki': typeof PolitikaZaBiskvitkiRoute
@@ -173,6 +182,7 @@ export interface FileRouteTypes {
     | '/izrabotka-na-onlayn-magazin-varna'
     | '/izrabotka-na-sayt-varna'
     | '/kontakti'
+    | '/llms.txt'
     | '/marketing-agentsiya-varna'
     | '/obshti-uslovia'
     | '/politika-za-biskvitki'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/izrabotka-na-onlayn-magazin-varna'
     | '/izrabotka-na-sayt-varna'
     | '/kontakti'
+    | '/llms.txt'
     | '/marketing-agentsiya-varna'
     | '/obshti-uslovia'
     | '/politika-za-biskvitki'
@@ -209,6 +220,7 @@ export interface FileRouteTypes {
     | '/izrabotka-na-onlayn-magazin-varna'
     | '/izrabotka-na-sayt-varna'
     | '/kontakti'
+    | '/llms.txt'
     | '/marketing-agentsiya-varna'
     | '/obshti-uslovia'
     | '/politika-za-biskvitki'
@@ -228,6 +240,7 @@ export interface RootRouteChildren {
   IzrabotkaNaOnlaynMagazinVarnaRoute: typeof IzrabotkaNaOnlaynMagazinVarnaRoute
   IzrabotkaNaSaytVarnaRoute: typeof IzrabotkaNaSaytVarnaRoute
   KontaktiRoute: typeof KontaktiRoute
+  LlmsDottxtRoute: typeof LlmsDottxtRoute
   MarketingAgentsiyaVarnaRoute: typeof MarketingAgentsiyaVarnaRoute
   ObshtiUsloviaRoute: typeof ObshtiUsloviaRoute
   PolitikaZaBiskvitkiRoute: typeof PolitikaZaBiskvitkiRoute
@@ -312,6 +325,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketingAgentsiyaVarnaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/llms.txt': {
+      id: '/llms.txt'
+      path: '/llms.txt'
+      fullPath: '/llms.txt'
+      preLoaderRoute: typeof LlmsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/kontakti': {
       id: '/kontakti'
       path: '/kontakti'
@@ -364,6 +384,7 @@ const rootRouteChildren: RootRouteChildren = {
   IzrabotkaNaOnlaynMagazinVarnaRoute: IzrabotkaNaOnlaynMagazinVarnaRoute,
   IzrabotkaNaSaytVarnaRoute: IzrabotkaNaSaytVarnaRoute,
   KontaktiRoute: KontaktiRoute,
+  LlmsDottxtRoute: LlmsDottxtRoute,
   MarketingAgentsiyaVarnaRoute: MarketingAgentsiyaVarnaRoute,
   ObshtiUsloviaRoute: ObshtiUsloviaRoute,
   PolitikaZaBiskvitkiRoute: PolitikaZaBiskvitkiRoute,

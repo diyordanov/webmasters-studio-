@@ -27,6 +27,60 @@ export const BUSINESS_LD = {
   knowsAbout: ["Изработка на уебсайт", "Онлайн магазини", "SEO оптимизация", "Google Ads", "Дигитален маркетинг", "Изкуствен интелект"],
 };
 
+/** The site itself (schema.org WebSite), so engines tie every page to one entity. */
+export const WEBSITE_LD = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  url: `${SITE_URL}/`,
+  name: "Уеб Мастърс Студио",
+  alternateName: "Webmasters",
+  inLanguage: "bg-BG",
+  publisher: { "@id": `${SITE_URL}/#business` },
+};
+
+/**
+ * Structured data for an inner page: a WebPage of the given type (AboutPage,
+ * ContactPage, CollectionPage, ...) plus its breadcrumb, linked to the business.
+ */
+export function innerPageLd(type: string, path: string, name: string, description: string, crumb: string, extra: object = {}) {
+  const url = `${SITE_URL}${path}`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": type,
+        "@id": `${url}#webpage`,
+        url,
+        name,
+        description,
+        inLanguage: "bg-BG",
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        about: { "@id": `${SITE_URL}/#business` },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        ...extra,
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Начало", item: `${SITE_URL}/` },
+          { "@type": "ListItem", position: 2, name: crumb, item: url },
+        ],
+      },
+    ],
+  };
+}
+
+/** FAQPage from [question, answer] pairs. */
+export function faqLd(items: ReadonlyArray<readonly [string, string]>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
+  };
+}
+
 export const siteHead = {
   meta: [{ name: "theme-color", content: "#0A1024" }],
   links: [

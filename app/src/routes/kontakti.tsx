@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { ContactSection } from "@/components/site/contact";
-import { FaqSection } from "@/components/site/faq";
+import { FAQ, FaqSection } from "@/components/site/faq";
+import { faqLd, innerPageLd } from "@/components/site/head";
 import { ConsultSection, PageHero, pageHead, SitePage } from "@/components/site/page-parts";
 import "@/components/site/site.css";
 
@@ -11,6 +12,10 @@ export const Route = createFileRoute("/kontakti")({
       "Контакти | Уеб Мастърс Студио, Варна",
       "Свържете се с Уеб Мастърс Студио: +359 876 071 570, office@webmasters.bg. Безплатна консултация за изработка на сайт, SEO и Google Ads.",
       "/kontakti/",
+      [
+        innerPageLd("ContactPage", "/kontakti/", "Контакти", "Телефон, имейл и форма за запитване към Уеб Мастърс Студио, Варна.", "Контакти"),
+        faqLd(FAQ),
+      ],
     ),
   component: KontaktiPage,
 });

@@ -4,8 +4,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ScrollScrub } from "@/components/scroll-scrub/scroll-scrub";
 import { AudienceSection } from "@/components/site/audience";
 import { ContactSection } from "@/components/site/contact";
-import { FaqSection } from "@/components/site/faq";
-import { BUSINESS_LD, OG_IMAGE, SITE_URL, siteHead } from "@/components/site/head";
+import { FAQ, FaqSection } from "@/components/site/faq";
+import { BUSINESS_LD, faqLd, OG_IMAGE, SITE_URL, siteHead, WEBSITE_LD } from "@/components/site/head";
 import { MobileJourney } from "@/components/site/mobile-journey";
 import { SitePage } from "@/components/site/page-parts";
 import { OfferSection, ProcessSection, ServicesSection, WorkSection } from "@/components/site/sections";
@@ -20,10 +20,15 @@ export const Route = createFileRoute("/")({
       ...siteHead.meta,
       { property: "og:url", content: `${SITE_URL}/` },
       { property: "og:locale", content: "bg_BG" },
+      { property: "og:site_name", content: "Уеб Мастърс Студио" },
       { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Уеб Мастърс Студио: изработка на сайт, SEO, маркетинг и AI във Варна" },
       { name: "twitter:image", content: OG_IMAGE },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
     ],
-    scripts: [{ type: "application/ld+json", children: JSON.stringify(BUSINESS_LD) }],
+    scripts: [BUSINESS_LD, WEBSITE_LD, faqLd(FAQ)].map((data) => ({ type: "application/ld+json", children: JSON.stringify(data) })),
   }),
   component: Index,
 });

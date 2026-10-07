@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { CONSULT_URL } from "@/components/site/chrome";
-import { FaqSection } from "@/components/site/faq";
+import { FAQ, FaqSection } from "@/components/site/faq";
+import { faqLd, innerPageLd } from "@/components/site/head";
 import { Related } from "@/components/site/local-page";
 import { PackagesSection, PageHero, pageHead, PillLink, SitePage } from "@/components/site/page-parts";
 import { OfferSection, ProcessSection, ServicesSection } from "@/components/site/sections";
@@ -13,6 +14,10 @@ export const Route = createFileRoute("/uslugi")({
       "Услуги: изработка на сайт, SEO и Google Ads | Уеб Мастърс Студио",
       "Изработка на сайт по поръчка, онлайн магазини, SEO оптимизация, Google Ads и абонаментна поддръжка от Уеб Мастърс Студио във Варна.",
       "/uslugi/",
+      [
+        innerPageLd("WebPage", "/uslugi/", "Услуги", "Изработка на сайт, онлайн магазини, SEO, Google Ads, AI решения и поддръжка.", "Услуги"),
+        faqLd(FAQ),
+      ],
     ),
   component: UslugiPage,
 });

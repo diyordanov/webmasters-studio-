@@ -6,7 +6,9 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         // Always list the production URLs (the preview host is not indexed).
         const origin = "https://webmasters.bg";
-        const today = new Date().toISOString().split("T")[0];
+        // A real "last changed" date, not today's: a lastmod that moves on every
+        // request teaches Google to ignore it. Bump it when page content changes.
+        const today = "2026-10-07";
         // Trailing-slash URLs, matching the canonical tags (and the old WordPress URLs).
         const pages: Array<[string, string, string]> = [
           ["/", "weekly", "1.0"],

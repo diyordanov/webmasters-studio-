@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { PageHero, pageHead, PillLink, SitePage, StatsSection, TeamSection, TestimonialsSection, ValuesSection } from "@/components/site/page-parts";
 import { OfferSection } from "@/components/site/sections";
+import { innerPageLd, SITE_URL } from "@/components/site/head";
+import { TEAM } from "@/components/site/pages-data";
 import "@/components/site/site.css";
 
 export const Route = createFileRoute("/za-nas")({
@@ -10,6 +12,14 @@ export const Route = createFileRoute("/za-nas")({
       "За нас: уеб агенция от Варна | Уеб Мастърс Студио",
       "Уеб Мастърс Студио е екип от Варна за уеб дизайн, изработка на сайтове, SEO и онлайн маркетинг. Запознайте се с хората и ценностите ни.",
       "/za-nas/",
+      [
+        innerPageLd("AboutPage", "/za-nas/", "За нас", "Екипът на Уеб Мастърс Студио от Варна: дизайн, разработка, SEO и маркетинг.", "За нас", {
+          mainEntity: {
+            "@id": `${SITE_URL}/#business`,
+            employee: TEAM.map((m) => ({ "@type": "Person", name: m.name, jobTitle: m.role, worksFor: { "@id": `${SITE_URL}/#business` } })),
+          },
+        }),
+      ],
     ),
   component: ZaNasPage,
 });

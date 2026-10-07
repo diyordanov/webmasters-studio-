@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { PageHero, pageHead, PillLink, ProjectsGrid, SitePage, StatsSection, TestimonialsSection } from "@/components/site/page-parts";
 import { OfferSection, WorkSection } from "@/components/site/sections";
+import { innerPageLd } from "@/components/site/head";
 import "@/components/site/site.css";
 
 export const Route = createFileRoute("/proekti")({
@@ -10,6 +11,7 @@ export const Route = createFileRoute("/proekti")({
       "Проекти: изработени сайтове и онлайн магазини | Уеб Мастърс Студио",
       "Портфолио на Уеб Мастърс Студио: над 50 изработени сайта, landing страници и онлайн магазини за бизнеси от България и Европа.",
       "/proekti/",
+      [innerPageLd("CollectionPage", "/proekti/", "Проекти", "Портфолио: изработени сайтове, landing страници и онлайн магазини.", "Проекти")],
     ),
   component: ProektiPage,
 });
