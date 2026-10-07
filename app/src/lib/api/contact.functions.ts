@@ -14,13 +14,14 @@ const leadSchema = z.object({
 
 type Lead = z.infer<typeof leadSchema>;
 
-// The office mailbox on Hostinger: the form sends from it, to it (as on the old site).
-const MAILBOX = "office@webmasters.bg";
+// Leads go to the office mailbox (hosted on Hostinger).
+const OFFICE = "office@webmasters.bg";
+// Sender on the domain verified in Resend. Hostinger SMTP can't be used: its
+// servers sit behind Cloudflare, and Workers may not open sockets to Cloudflare IPs.
+const SENDER = "Webmasters.bg - форма <forma@webmasters.bg>";
 
-/** Sends the contact request to office@webmasters.bg through Hostinger SMTP. */
-async function sendLeadEmail(lead: Lead, password: string) {
-  // Imported lazily: it needs `cloudflare:sockets`, which only the Workers runtime has.
-  const { WorkerMailer } = await import("worker-mailer");
+/** Sends the contact request to office@webmasters.bg through the Resend API. */
+async function sendLeadEmail(lead: Lead, apiKey: string) {
   const rows: Array<[string, string]> = [
     ["Име", lead.name],
     ["Имейл", lead.email],
@@ -28,39 +29,37 @@ async function sendLeadEmail(lead: Lead, password: string) {
     ["Услуга", lead.service || "-"],
   ];
   const text = [...rows.map(([k, v]) => `${k}: ${v}`), "", lead.message].join("\n");
-  await WorkerMailer.send(
-    {
-      host: "smtp.hostinger.com",
-      port: 465,
-      secure: true,
-      credentials: { username: MAILBOX, password },
-      authType: ["plain", "login"],
-    },
-    {
-      from: { name: "Webmasters.bg - форма", email: MAILBOX },
-      to: { email: MAILBOX },
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: SENDER,
+      to: [OFFICE],
       // "Reply" in the mail client answers the client directly.
-      reply: { name: lead.name, email: lead.email },
+      reply_to: `${lead.name} <${lead.email}>`,
       subject: `Ново запитване от ${lead.name}`,
       text,
-    },
-  );
+    }),
+  });
+  if (!response.ok) {
+    throw new Error(`Resend ${response.status}: ${await response.text()}`);
+  }
 }
 
 /** Emails a contact request to the office (and keeps a copy in D1 if a `DB` is bound). */
 export const submitLead = createServerFn({ method: "POST" })
   .validator(leadSchema)
   .handler(async ({ data }) => {
-    const { DB, SMTP_PASSWORD } = bindings();
-    if (!SMTP_PASSWORD) {
-      console.error("SMTP_PASSWORD secret is not set; cannot email the lead.");
-      return { ok: false as const, diag: "no-secret" };
+    const { DB, RESEND_API_KEY } = bindings();
+    if (!RESEND_API_KEY) {
+      console.error("RESEND_API_KEY secret is not set; cannot email the lead.");
+      return { ok: false as const };
     }
     try {
-      await sendLeadEmail(data, SMTP_PASSWORD);
+      await sendLeadEmail(data, RESEND_API_KEY);
     } catch (error) {
       console.error("Sending the lead email failed", error);
-      return { ok: false as const, diag: `len=${SMTP_PASSWORD.length} ${String(error).slice(0, 300)}` };
+      return { ok: false as const };
     }
     if (DB) {
       await DB.prepare(
