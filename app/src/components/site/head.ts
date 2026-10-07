@@ -2,7 +2,7 @@
 export const SITE_URL = "https://webmasters.bg";
 export const OG_IMAGE = `${SITE_URL}/assets/og/agentsiya.jpg`;
 
-/** The business as a local service (schema.org). Street address to be added once confirmed. */
+/** The business as a local service (schema.org). Must match the Google Business Profile. */
 export const BUSINESS_LD = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
@@ -16,7 +16,21 @@ export const BUSINESS_LD = {
   image: OG_IMAGE,
   telephone: "+359876071570",
   email: "office@webmasters.bg",
-  address: { "@type": "PostalAddress", addressLocality: "Варна", addressRegion: "Варна", addressCountry: "BG" },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "бул. „Цар Освободител“ 24",
+    addressLocality: "Варна",
+    addressRegion: "Варна",
+    addressCountry: "BG",
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:30",
+      closes: "18:30",
+    },
+  ],
   // Google Business Profile (official share link) and social profiles: ties the site to the same entity.
   hasMap: "https://share.google/4RPn33PomfQR7hgXd",
   sameAs: ["https://www.facebook.com/webmastersstudio", "https://share.google/4RPn33PomfQR7hgXd"],

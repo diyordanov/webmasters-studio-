@@ -153,7 +153,8 @@ export function SiteFooter() {
             <a href="https://share.google/4RPn33PomfQR7hgXd" target="_blank" rel="noopener">Google профил и отзиви</a>
             <h3 className="wm-foot__label wm-foot__label--gap">Студио</h3>
             <p className="wm-foot__ink">Уеб Мастърс Студио ЕООД · ЕИК 207299525</p>
-            <p className="wm-foot__ink">Варна, България</p>
+            <p className="wm-foot__ink">бул. „Цар Освободител“ 24, Варна</p>
+            <p>Понеделник – петък, 9:30 – 18:30</p>
             <p>Проекти във Варна, София, Пловдив и цялата страна</p>
           </div>
         </div>

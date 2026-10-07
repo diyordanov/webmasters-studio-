@@ -100,6 +100,16 @@ export function ContactSection({ title = "Разкажете ни за прое�
               <span className="wm-mono">Имейл</span>
               <a href={CONTACTS.email.href}>{CONTACTS.email.display}</a>
             </li>
+            <li>
+              <span className="wm-mono">Адрес</span>
+              <a href="https://share.google/4RPn33PomfQR7hgXd" target="_blank" rel="noopener">
+                бул. „Цар Освободител“ 24, Варна
+              </a>
+            </li>
+            <li>
+              <span className="wm-mono">Работно време</span>
+              <span>Понеделник – петък, 9:30 – 18:30</span>
+            </li>
           </ul>
         </div>
         <form className="wm-form" onSubmit={onSubmit} noValidate>

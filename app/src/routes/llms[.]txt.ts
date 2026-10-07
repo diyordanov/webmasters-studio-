@@ -8,7 +8,8 @@ const BODY = `# Уеб Мастърс Студио (webmasters.bg)
 
 - Телефон: +359 876 071 570
 - Имейл: office@webmasters.bg
-- Град: Варна, България
+- Адрес: бул. „Цар Освободител“ 24, Варна, България
+- Работно време: понеделник – петък, 9:30 – 18:30
 - Фирма: Уеб Мастърс Студио ЕООД
 - Facebook: https://www.facebook.com/webmastersstudio
 - Google профил и отзиви: https://share.google/4RPn33PomfQR7hgXd
