@@ -38,6 +38,18 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   });
 }
 
+// Old WordPress sections that had many URLs. Exact old pages are mapped in
+// public/_redirects (applied before the Worker runs); whatever is left under these
+// prefixes lands here. First match wins.
+const OLD_PREFIX_REDIRECTS: Array<[prefix: string, target: string]> = [
+  ["/en/portfolios/", "/proekti/"],
+  ["/en/categories/", "/proekti/"],
+  ["/en/", "/"],
+  ["/portfolios/", "/proekti/"],
+  ["/categories/", "/proekti/"],
+  ["/wp-admin/", "/"],
+];
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     // www.webmasters.bg -> webmasters.bg (the canonical host, as on the old site).
@@ -45,6 +57,10 @@ export default {
     if (url.hostname.startsWith("www.")) {
       url.hostname = url.hostname.slice(4);
       return Response.redirect(url.toString(), 301);
+    }
+    const old = OLD_PREFIX_REDIRECTS.find(([prefix]) => url.pathname.startsWith(prefix));
+    if (old) {
+      return Response.redirect(new URL(old[1], url.origin).toString(), 301);
     }
     try {
       const handler = await getServerEntry();
