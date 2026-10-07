@@ -471,7 +471,7 @@ function MotifBody({ m }: { m: Motif }) {
           </span>
           <div>
             <Lines n={2} />
-            <b className="lv-prod__price">49,90 лв.</b>
+            <b className="lv-prod__price">24,90 €</b>
             <span className="lv-btn lv-btn--s">
               <ShoppingCart size={13} /> Добави
             </span>
