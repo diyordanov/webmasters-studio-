@@ -9,7 +9,8 @@ export function applySecurityHeaders(response: Response): Response {
   headers.set(
     "Content-Security-Policy",
     "default-src 'self'; " +
-      "script-src 'self' 'unsafe-inline'; " +
+      // googletagmanager: GA4, loaded only after cookie consent (components/site/consent.tsx).
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; " +
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
       "font-src 'self' https://fonts.gstatic.com; " +
       // blob: — the home film and mobile frames are fetched, then played from object URLs.

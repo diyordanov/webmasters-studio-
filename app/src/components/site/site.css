@@ -1250,3 +1250,28 @@
   .wm-award__mark { height: 34px; }
   .wm-award__txt { font-size: 0.78rem; }
 }
+
+/* Cookie consent (GDPR): bottom-left card, full width on phones. */
+.wm-consent { position: fixed; left: 20px; bottom: 20px; z-index: 90; width: min(440px, calc(100% - 40px)); padding: 22px 22px 18px; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg2); color: var(--ink); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45); font-size: 0.9rem; line-height: 1.55; }
+.wm-consent__h { margin: 0 0 6px; font-size: 1.05rem; font-weight: 600; }
+.wm-consent__t { margin: 0; color: var(--muted); }
+.wm-consent__t a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.wm-consent__opts { display: grid; gap: 10px; margin-top: 14px; }
+.wm-consent__opt { display: flex; gap: 10px; align-items: flex-start; color: var(--muted); cursor: pointer; }
+.wm-consent__opt b { display: block; color: var(--ink); font-weight: 600; }
+.wm-consent__opt input { flex: none; width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--acc); }
+.wm-consent__btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.wm-consent__btn { flex: 1 1 auto; min-height: 42px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); font: inherit; font-weight: 500; cursor: pointer; transition: border-color 0.3s, background 0.3s; }
+.wm-consent__btn:hover { border-color: var(--acc); }
+.wm-consent__btn--acc { border-color: var(--acc); background: var(--acc); color: var(--acc-ink); }
+.wm-consent__btn--acc:hover { background: color-mix(in srgb, var(--acc) 85%, #fff); }
+@media (max-width: 560px) {
+  .wm-consent { left: 12px; right: 12px; bottom: 12px; width: auto; padding: 18px 16px 14px; }
+  .wm-consent__btn { flex: 1 1 100%; }
+}
+.wm .wm-foot__cookies { padding: 0; border: 0; background: none; color: var(--muted); font: inherit; cursor: pointer; transition: color 0.3s; }
+.wm .wm-foot__cookies:hover { color: var(--acc); }
+
+/* Animated headings are rows of inline-block words; iOS Safari's text-wrap: balance
+   then breaks them one word per line ("Уеб / дизайн, / SEO"). Wrap them normally. */
+.wm .wm-split { text-wrap: wrap; }

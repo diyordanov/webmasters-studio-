@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, typ
 import { ArrowUpRight, CalendarClock, Check, Quote } from "lucide-react";
 
 import { CONSULT_URL, NAV_LINKS, SiteFooter, SiteMotion, type NavHref } from "./chrome";
+import { CookieConsent } from "./consent";
 import { OG_IMAGE, SITE_URL, siteHead } from "./head";
 import { SiteHeader } from "./header";
 import { PACKAGES, PROJECT_CATS, PROJECTS, STATS, TEAM, TESTIMONIALS, VALUES, type ProjectCat } from "./pages-data";
@@ -16,6 +17,7 @@ export function SitePage({ current, children }: { current: NavHref | null; child
       <main>{children}</main>
       <SiteFooter />
       <SiteMotion />
+      <CookieConsent />
     </div>
   );
 }

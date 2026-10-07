@@ -1,6 +1,7 @@
 import { useEffect, type CSSProperties } from "react";
 import { ArrowRight, ArrowUpRight, CalendarDays, Mail, Phone } from "lucide-react";
 import { AwardBadge } from "./award";
+import { ConsentLink } from "./consent";
 import { SiteLink } from "./link";
 
 
@@ -160,6 +161,7 @@ export function SiteFooter() {
             <SiteLink href="/obshti-uslovia/">Общи условия</SiteLink>
             <SiteLink href="/politika-za-poveritelnost-gdpr/">Политика за поверителност</SiteLink>
             <SiteLink href="/politika-za-biskvitki/">Бисквитки</SiteLink>
+            <ConsentLink />
           </nav>
           <TopCta />
         </div>
