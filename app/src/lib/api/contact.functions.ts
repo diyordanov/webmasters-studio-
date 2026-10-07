@@ -54,13 +54,13 @@ export const submitLead = createServerFn({ method: "POST" })
     const { DB, SMTP_PASSWORD } = bindings();
     if (!SMTP_PASSWORD) {
       console.error("SMTP_PASSWORD secret is not set; cannot email the lead.");
-      return { ok: false as const };
+      return { ok: false as const, diag: "no-secret" };
     }
     try {
       await sendLeadEmail(data, SMTP_PASSWORD);
     } catch (error) {
       console.error("Sending the lead email failed", error);
-      return { ok: false as const };
+      return { ok: false as const, diag: `len=${SMTP_PASSWORD.length} ${String(error).slice(0, 300)}` };
     }
     if (DB) {
       await DB.prepare(
