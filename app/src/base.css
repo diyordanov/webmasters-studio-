@@ -6,7 +6,7 @@
 @import "tailwindcss/preflight.css";
 
 html { color-scheme: dark; }
-body { background: #0a1024; color: #eef1f8; font-family: "Geist", ui-sans-serif, system-ui, sans-serif; }
+body { background: #0a1024; color: #eef1f8; font-family: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif; }
 
 /* 404 and error pages (outside the site layout). */
 .wm-oops { display: grid; place-items: center; min-height: 100dvh; padding: 24px; text-align: center; }
