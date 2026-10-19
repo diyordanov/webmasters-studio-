@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 
+import { afterFirstInput } from "@/lib/after-first-input";
+
 import "./scroll-scrub.css";
 
 export interface ScrollScrubScene {
@@ -241,6 +243,8 @@ export function ScrollScrub({
     let viewportHeight = window.innerHeight;
     let layoutWidth = window.innerWidth;
     let userReady = false;
+    // Clips (MBs each) wait for the first scroll/touch or an idle page; the posters cover until then.
+    let netReady = false;
 
     const unloadClip = (segment: RuntimeSegment) => {
       segment.abort?.abort();
@@ -441,6 +445,7 @@ export function ScrollScrub({
         segment.layer.style.zIndex = index === currentIndex ? "2" : "1";
 
         if (
+          netReady &&
           y > segment.start - 1.5 * viewportHeight &&
           y < segment.end + 1.5 * viewportHeight
         ) {
@@ -552,6 +557,12 @@ export function ScrollScrub({
     window.addEventListener("touchstart", onFirstGesture, {
       once: true,
       passive: true,
+    });
+
+    void afterFirstInput().then(() => {
+      if (destroyed) return;
+      netReady = true;
+      dirty = true;
     });
 
     layout();

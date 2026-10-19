@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 
 import type { ScrollScrubScene } from "@/components/scroll-scrub/scroll-scrub";
+import { afterFirstInput } from "@/lib/after-first-input";
 
 const FRAMES = 192;
 /** Decoded frames kept in memory at once. Everything else stays as small compressed blobs. */
@@ -146,16 +147,15 @@ export function MobileJourney({ scenes, enabled }: { scenes: ScrollScrubScene[];
       for (let i = order.length - 1; i >= 0; i--) if (order[i] % 2 === 1) order.splice(i, 1);
     }
     const fetchAll = async () => {
-      // Let the page itself finish loading before the frames compete for bandwidth.
-      if (document.readyState !== "complete") {
-        await new Promise<void>((resolve) => window.addEventListener("load", () => resolve(), { once: true }));
-      }
+      // The poster already shows frame 1; fetch the rest once the visitor starts
+      // scrolling (or the page has been idle a while), at low priority.
+      await afterFirstInput();
       let next = 0;
       const worker = async () => {
         while (alive && next < order.length) {
           const i = order[next++];
           try {
-            const res = await fetch(frameSrc(i), { signal: abort.signal });
+            const res = await fetch(frameSrc(i), { signal: abort.signal, priority: "low" } as RequestInit);
             if (res.ok) blobs[i] = await res.blob();
           } catch {
             return;
