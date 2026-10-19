@@ -173,17 +173,31 @@ export function MobileJourney({ scenes, enabled }: { scenes: ScrollScrubScene[];
       drawn = -1;
     };
 
+    let lastY = NaN;
+    let lastVh = NaN;
+    let target = 0;
+    let p = 0;
+    let visible = true;
     const tick = () => {
       raf = requestAnimationFrame(tick);
-      const r = root.getBoundingClientRect();
       const vh = window.innerHeight;
-      if (r.bottom < 0 || r.top > vh) return;
-      const span = r.height - vh;
-      const p = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
-      const target = p * (FRAMES - 1);
+      // Layout is only read when the page actually scrolled or resized; otherwise the
+      // loop just eases toward the target and draws newly decoded frames.
+      const moved = window.scrollY !== lastY || vh !== lastVh;
+      if (moved) {
+        lastY = window.scrollY;
+        lastVh = vh;
+        const r = root.getBoundingClientRect();
+        visible = !(r.bottom < 0 || r.top > vh);
+        const span = r.height - vh;
+        p = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
+        target = p * (FRAMES - 1);
+      }
+      if (!visible) return;
       cur += (target - cur) * (reduce ? 1 : 0.2);
       want = Math.round(cur);
       draw();
+      if (!moved) return;
       if (bar) bar.style.transform = `scaleX(${p.toFixed(4)})`;
       let best = 0;
       let bd = Infinity;

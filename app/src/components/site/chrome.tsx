@@ -283,19 +283,43 @@ export function SiteMotion() {
       }
     }
 
+    // Every element whose position drives an effect. Their rects are read together at
+    // the start of a frame (one layout), before any style is written: interleaving
+    // reads and writes forced a full style/layout recalculation per element.
+    const svcParent = svcItems[0]?.parentElement ?? null;
+    const measured = [work, rail, offer, svcParent, ...pars, ...mocks, ...splits, ...fills, ...steps, ...svcItems, ...drift, ...mags].filter(
+      (el): el is HTMLElement => !!el,
+    );
+    const rects = new Map<Element, DOMRect>();
+    const R = (el: Element) => rects.get(el) ?? el.getBoundingClientRect();
+
+    // The loop only runs while something moves (scroll, pointer, resize) and briefly after,
+    // so the easing settles; an idle page costs nothing.
+    let awakeUntil = 0;
+    const wake = () => {
+      awakeUntil = performance.now() + 1500;
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+
     const tick = () => {
+      if (performance.now() > awakeUntil) {
+        raf = 0;
+        return;
+      }
       raf = requestAnimationFrame(tick);
       const vw = window.innerWidth;
       const vh = window.innerHeight;
+      rects.clear();
+      for (const el of measured) rects.set(el, el.getBoundingClientRect());
 
       if (work && track && dist > 0) {
-        const r = work.getBoundingClientRect();
+        const r = R(work);
         const span = r.height - vh;
         const p = span > 0 ? clamp01(-r.top / span) : 0;
         track.style.transform = `translate3d(${(-p * dist).toFixed(1)}px,0,0)`;
       }
       for (const el of pars) {
-        const r = el.getBoundingClientRect();
+        const r = R(el);
         if (r.bottom < -200 || r.top > vh + 200 || r.right < -200 || r.left > vw + 200) continue;
         const cx = (r.left + r.width / 2 - vw / 2) / vw;
         const cy = (r.top + r.height / 2 - vh / 2) / vh;
@@ -304,7 +328,7 @@ export function SiteMotion() {
       }
       // Project mockups: a 3D tilt that eases toward the viewer as the card nears the centre.
       for (const el of mocks) {
-        const r = el.getBoundingClientRect();
+        const r = R(el);
         if (r.bottom < -200 || r.top > vh + 200 || r.right < -200 || r.left > vw + 200) continue;
         const cx = Math.max(-1, Math.min(1, (r.left + r.width / 2 - vw / 2) / vw));
         const cy = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh));
@@ -312,30 +336,30 @@ export function SiteMotion() {
         setP(el, "--ty", Number(cy.toFixed(3)));
       }
       for (const el of splits) {
-        const r = el.getBoundingClientRect();
+        const r = R(el);
         if (r.top > vh + 80 || r.bottom < -80) continue;
         setP(el, "--p", clamp01((vh * 0.94 - r.top) / (vh * 0.42)));
       }
       for (const el of fills) {
-        const r = el.getBoundingClientRect();
+        const r = R(el);
         if (r.top > vh + 40 || r.bottom < -40) continue;
         setP(el, "--p", clamp01((vh * 0.9 - r.top) / (vh * 0.3)));
       }
       if (rail) {
-        const r = rail.getBoundingClientRect();
+        const r = R(rail);
         setP(rail, "--p", clamp01((vh * 0.62 - r.top) / Math.max(1, r.height)));
       }
       for (const el of steps) {
-        const active = el.getBoundingClientRect().top < vh * 0.62;
+        const active = R(el).top < vh * 0.62;
         if (el.classList.contains("is-active") !== active) el.classList.toggle("is-active", active);
       }
       if (svcItems.length) {
-        const parent = svcItems[0].parentElement?.getBoundingClientRect();
+        const parent = svcParent && R(svcParent);
         if (parent && parent.bottom > 0 && parent.top < vh) {
           let best = svcActive;
           let bestD = Infinity;
           svcItems.forEach((it, i) => {
-            const r = it.getBoundingClientRect();
+            const r = R(it);
             const d = Math.abs(r.top + r.height / 2 - vh * 0.5);
             if (d < bestD) {
               bestD = d;
@@ -356,7 +380,7 @@ export function SiteMotion() {
         }
       }
       if (offer) {
-        const r = offer.getBoundingClientRect();
+        const r = R(offer);
         if (r.top < vh + 100 && r.bottom > -100) {
           const p = clamp01((vh - r.top) / (vh * 0.7));
           const s = 0.9 + 0.1 * (1 - Math.pow(1 - p, 3));
@@ -374,7 +398,7 @@ export function SiteMotion() {
         peek.style.transform = `translate3d(${pk.x.toFixed(1)}px,${pk.y.toFixed(1)}px,0) translate(-50%,-50%) rotate(${Math.max(-12, Math.min(12, pk.vx * 0.6)).toFixed(2)}deg)`;
       }
       for (const el of drift) {
-        const r = el.getBoundingClientRect();
+        const r = R(el);
         if (r.bottom < 0 || r.top > vh) continue;
         const c = r.top + r.height / 2 - vh / 2;
         el.style.transform = `translate3d(0,${(c * Number(el.dataset.drift || 0)).toFixed(1)}px,0)`;
@@ -382,7 +406,7 @@ export function SiteMotion() {
       if (fine) {
         mags.forEach((el, i) => {
           const s = magState[i];
-          const r = el.getBoundingClientRect();
+          const r = R(el);
           const cx = r.left + r.width / 2 - s.x;
           const cy = r.top + r.height / 2 - s.y;
           const dx = mouse.x - cx;
@@ -396,7 +420,8 @@ export function SiteMotion() {
     };
 
     measure();
-    raf = requestAnimationFrame(tick);
+    for (const ev of ["scroll", "pointermove", "resize", "touchmove", "wheel"]) on(window, ev, wake);
+    wake();
     const imgs = track ? Array.from(track.querySelectorAll("img")) : [];
     imgs.forEach((i) => i.addEventListener("load", measure));
     window.addEventListener("resize", measure);
