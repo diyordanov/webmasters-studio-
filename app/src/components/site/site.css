@@ -1279,4 +1279,4 @@
 /* Sections below the first screen are laid out and painted only when they come near
    the viewport; "auto" remembers their real height once rendered. Cuts the first
    render (style + layout of the whole long page) that delayed the first paint on phones. */
-.wm .wm-sec, .wm .wm-lp-sec, .wm .wm-foot { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+.wm .wm-sec, .wm .wm-lp-sec, .wm .wm-work, .wm .wm-deckwrap, .wm .wm-foot { content-visibility: auto; contain-intrinsic-size: auto 900px; }
