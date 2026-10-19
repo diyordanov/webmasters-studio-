@@ -291,7 +291,10 @@ export function SiteMotion() {
       (el): el is HTMLElement => !!el,
     );
     const rects = new Map<Element, DOMRect>();
-    const R = (el: Element) => rects.get(el) ?? el.getBoundingClientRect();
+    // Only elements near the viewport are measured. Reading the rect of a far-away element
+    // would force the browser to lay out sections it otherwise skips (content-visibility).
+    const near = new Set<Element>();
+    const R = (el: Element) => rects.get(el);
 
     // The loop only runs while something moves (scroll, pointer, resize) and briefly after,
     // so the easing settles; an idle page costs nothing.
@@ -310,16 +313,18 @@ export function SiteMotion() {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       rects.clear();
-      for (const el of measured) rects.set(el, el.getBoundingClientRect());
+      for (const el of measured) if (near.has(el)) rects.set(el, el.getBoundingClientRect());
 
-      if (work && track && dist > 0) {
-        const r = R(work);
+      const wr = work && R(work);
+      if (wr && track && dist > 0) {
+        const r = wr;
         const span = r.height - vh;
         const p = span > 0 ? clamp01(-r.top / span) : 0;
         track.style.transform = `translate3d(${(-p * dist).toFixed(1)}px,0,0)`;
       }
       for (const el of pars) {
         const r = R(el);
+        if (!r) continue;
         if (r.bottom < -200 || r.top > vh + 200 || r.right < -200 || r.left > vw + 200) continue;
         const cx = (r.left + r.width / 2 - vw / 2) / vw;
         const cy = (r.top + r.height / 2 - vh / 2) / vh;
@@ -329,6 +334,7 @@ export function SiteMotion() {
       // Project mockups: a 3D tilt that eases toward the viewer as the card nears the centre.
       for (const el of mocks) {
         const r = R(el);
+        if (!r) continue;
         if (r.bottom < -200 || r.top > vh + 200 || r.right < -200 || r.left > vw + 200) continue;
         const cx = Math.max(-1, Math.min(1, (r.left + r.width / 2 - vw / 2) / vw));
         const cy = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh));
@@ -337,20 +343,25 @@ export function SiteMotion() {
       }
       for (const el of splits) {
         const r = R(el);
+        if (!r) continue;
         if (r.top > vh + 80 || r.bottom < -80) continue;
         setP(el, "--p", clamp01((vh * 0.94 - r.top) / (vh * 0.42)));
       }
       for (const el of fills) {
         const r = R(el);
+        if (!r) continue;
         if (r.top > vh + 40 || r.bottom < -40) continue;
         setP(el, "--p", clamp01((vh * 0.9 - r.top) / (vh * 0.3)));
       }
-      if (rail) {
-        const r = R(rail);
+      const rr = rail && R(rail);
+      if (rail && rr) {
+        const r = rr;
         setP(rail, "--p", clamp01((vh * 0.62 - r.top) / Math.max(1, r.height)));
       }
       for (const el of steps) {
-        const active = R(el).top < vh * 0.62;
+        const sr = R(el);
+        if (!sr) continue;
+        const active = sr.top < vh * 0.62;
         if (el.classList.contains("is-active") !== active) el.classList.toggle("is-active", active);
       }
       if (svcItems.length) {
@@ -360,6 +371,7 @@ export function SiteMotion() {
           let bestD = Infinity;
           svcItems.forEach((it, i) => {
             const r = R(it);
+            if (!r) return;
             const d = Math.abs(r.top + r.height / 2 - vh * 0.5);
             if (d < bestD) {
               bestD = d;
@@ -381,7 +393,7 @@ export function SiteMotion() {
       }
       if (offer) {
         const r = R(offer);
-        if (r.top < vh + 100 && r.bottom > -100) {
+        if (r && r.top < vh + 100 && r.bottom > -100) {
           const p = clamp01((vh - r.top) / (vh * 0.7));
           const s = 0.9 + 0.1 * (1 - Math.pow(1 - p, 3));
           tilt.x += (tilt.tx - tilt.x) * 0.1;
@@ -399,6 +411,7 @@ export function SiteMotion() {
       }
       for (const el of drift) {
         const r = R(el);
+        if (!r) continue;
         if (r.bottom < 0 || r.top > vh) continue;
         const c = r.top + r.height / 2 - vh / 2;
         el.style.transform = `translate3d(0,${(c * Number(el.dataset.drift || 0)).toFixed(1)}px,0)`;
@@ -407,17 +420,32 @@ export function SiteMotion() {
         mags.forEach((el, i) => {
           const s = magState[i];
           const r = R(el);
+          if (!r) return;
           const cx = r.left + r.width / 2 - s.x;
           const cy = r.top + r.height / 2 - s.y;
           const dx = mouse.x - cx;
           const dy = mouse.y - cy;
-          const near = Math.abs(dx) < r.width * 0.85 && Math.abs(dy) < r.height * 1.5;
-          s.x += ((near ? dx * 0.22 : 0) - s.x) * 0.14;
-          s.y += ((near ? dy * 0.3 : 0) - s.y) * 0.14;
+          const close = Math.abs(dx) < r.width * 0.85 && Math.abs(dy) < r.height * 1.5;
+          s.x += ((close ? dx * 0.22 : 0) - s.x) * 0.14;
+          s.y += ((close ? dy * 0.3 : 0) - s.y) * 0.14;
           el.style.transform = `translate3d(${s.x.toFixed(2)}px,${s.y.toFixed(2)}px,0)`;
         });
       }
     };
+
+    // Half a screen of margin, so effects are already in place when an element scrolls in.
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) near.add(e.target);
+          else near.delete(e.target);
+        }
+        wake();
+      },
+      { rootMargin: "50% 0px" },
+    );
+    for (const el of measured) io.observe(el);
+    offs.push(() => io.disconnect());
 
     measure();
     for (const ev of ["scroll", "pointermove", "resize", "touchmove", "wheel"]) on(window, ev, wake);

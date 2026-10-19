@@ -1275,3 +1275,8 @@
 /* Animated headings are rows of inline-block words; iOS Safari's text-wrap: balance
    then breaks them one word per line ("Уеб / дизайн, / SEO"). Wrap them normally. */
 .wm .wm-split { text-wrap: wrap; }
+
+/* Sections below the first screen are laid out and painted only when they come near
+   the viewport; "auto" remembers their real height once rendered. Cuts the first
+   render (style + layout of the whole long page) that delayed the first paint on phones. */
+.wm .wm-sec, .wm .wm-lp-sec, .wm .wm-foot { content-visibility: auto; contain-intrinsic-size: auto 900px; }
