@@ -328,7 +328,7 @@
 .wm-chat__bubble { max-width: 82%; margin: 0; padding: 14px 18px; border-radius: 20px; line-height: 1.55; animation: wm-pop 0.5s var(--ease) both; }
 .wm-chat__bubble--me { align-self: flex-end; border-bottom-right-radius: 6px; background: var(--acc); color: var(--bg); font-weight: 500; }
 .wm-chat__bubble--us { align-self: flex-start; border-bottom-left-radius: 6px; background: var(--bg); border: 1px solid var(--line); font-size: 1.05rem; }
-.wm-chat__bubble--us span { animation: wm-word 0.45s var(--ease) both; animation-delay: calc(var(--i) * 45ms); }
+.wm-chat__words > span { animation: wm-word 0.45s var(--ease) both; animation-delay: calc(var(--i) * 45ms); }
 .wm-chat__bubble--typing { align-self: flex-start; display: inline-flex; gap: 6px; padding: 18px 20px; border-bottom-left-radius: 6px; background: var(--bg); border: 1px solid var(--line); }
 .wm-chat__bubble--typing i { width: 8px; height: 8px; border-radius: 999px; background: var(--acc); animation: wm-dot 1s infinite ease-in-out; }
 .wm-chat__bubble--typing i:nth-child(2) { animation-delay: 0.15s; }

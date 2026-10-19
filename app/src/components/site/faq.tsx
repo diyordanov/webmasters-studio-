@@ -66,11 +66,15 @@ export function FaqSection() {
                       </p>
                     ) : (
                       <p className="wm-chat__bubble wm-chat__bubble--us" key={`m-${shown}`}>
-                        {FAQ[shown][1].split(" ").map((w, k) => (
-                          <span key={k} style={{ "--i": k } as CSSProperties}>
-                            {w}{" "}
-                          </span>
-                        ))}
+                        {/* Readable copy for screen readers; the word-by-word animation is decorative. */}
+                        <span className="wm-sr">{FAQ[shown][1]}</span>
+                        <span className="wm-chat__words" aria-hidden="true">
+                          {FAQ[shown][1].split(" ").map((w, k) => (
+                            <span key={k} style={{ "--i": k } as CSSProperties}>
+                              {w}{" "}
+                            </span>
+                          ))}
+                        </span>
                       </p>
                     )}
                   </div>
@@ -98,11 +102,14 @@ export function FaqSection() {
                 </p>
               ) : (
                 <p className="wm-chat__bubble wm-chat__bubble--us" key={`a-${shown}`}>
-                  {a.split(" ").map((w, i) => (
-                    <span key={i} style={{ "--i": i } as CSSProperties}>
-                      {w}{" "}
-                    </span>
-                  ))}
+                  <span className="wm-sr">{a}</span>
+                  <span className="wm-chat__words" aria-hidden="true">
+                    {a.split(" ").map((w, i) => (
+                      <span key={i} style={{ "--i": i } as CSSProperties}>
+                        {w}{" "}
+                      </span>
+                    ))}
+                  </span>
                 </p>
               )}
             </div>
