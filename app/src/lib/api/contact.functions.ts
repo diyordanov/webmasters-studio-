@@ -3,6 +3,10 @@ import { z } from "zod";
 
 import { bindings } from "../bindings.server";
 
+// No eval-based fast path: zod v4 probes `new Function()`, which the site's CSP
+// (rightly) blocks and Chrome reports as a security issue.
+z.config({ jitless: true });
+
 const leadSchema = z.object({
   name: z.string().trim().min(2).max(120),
   email: z.string().trim().email().max(200),
