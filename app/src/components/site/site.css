@@ -334,7 +334,7 @@
 .wm-chat__bubble--typing i:nth-child(2) { animation-delay: 0.15s; }
 .wm-chat__bubble--typing i:nth-child(3) { animation-delay: 0.3s; }
 @keyframes wm-pop { from { transform: translate3d(0, 14px, 0) scale(0.94); } to { transform: none; } }
-@keyframes wm-word { from { opacity: 0.08; filter: blur(4px); } to { opacity: 1; filter: none; } }
+@keyframes wm-word { from { opacity: 0.6; filter: blur(4px); } to { opacity: 1; filter: none; } }
 @keyframes wm-dot { 0%, 80%, 100% { transform: translateY(0); opacity: 0.4; } 40% { transform: translateY(-6px); opacity: 1; } }
 .wm-chat__foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 24px; border-top: 1px solid var(--line); color: var(--muted); }
 .wm-ask { display: inline-flex; align-items: center; gap: 8px; color: var(--acc); font-weight: 600; }
