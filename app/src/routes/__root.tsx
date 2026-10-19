@@ -8,10 +8,10 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
-import { button } from "@higgsfield/quanta/button";
-import { NotFound } from "@higgsfield/quanta/not-found";
 
-import appCss from "../styles.css?url";
+// Lean global CSS (reset + page colours). The template's styles.css (Tailwind +
+// Quanta) is no longer loaded: the site never used it and it blocked rendering.
+import appCss from "../base.css?url";
 import { reportHiggsfieldError } from "../lib/higgsfield-error-reporting";
 // Page metadata (browser <title>/favicon + social og: tags) committed into the
 // repo by the marketplace meta API and read at BUILD time — no runtime fetch.
@@ -104,18 +104,21 @@ function buildHead(meta: AppMeta) {
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-q-background-primary px-4">
-      <NotFound
-        className="mx-auto max-w-md"
-        icon={<span className="text-q-title-md-semi-bold text-q-text-primary">404</span>}
-        title="Page not found"
-        subtitle="The page you're looking for doesn't exist or has been moved."
-      >
-        <Link to="/" className={button({ variant: "primary", size: "md" }, "mt-3")}>
-          Go home
-        </Link>
-      </NotFound>
-    </div>
+    <main className="wm-oops">
+      <div className="wm-oops__box">
+        <span className="wm-oops__code">404</span>
+        <h1>Страницата не е намерена</h1>
+        <p>Адресът е грешен или страницата е преместена. Започнете от началото или ни пишете.</p>
+        <div className="wm-oops__btns">
+          <Link to="/" className="wm-oops__btn wm-oops__btn--acc">
+            Към началото
+          </Link>
+          <a href="/kontakti/" className="wm-oops__btn">
+            Контакти
+          </a>
+        </div>
+      </div>
+    </main>
   );
 }
 
@@ -127,28 +130,27 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-q-background-primary px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-q-title-lg-semi-bold text-q-text-primary">This page didn't load</h1>
-        <p className="mt-2 text-q-body-sm-regular text-q-text-secondary">
-          Something went wrong on our end. You can try refreshing or head back home.
-        </p>
-        <div className="mt-4 flex flex-wrap justify-center gap-2">
+    <main className="wm-oops">
+      <div className="wm-oops__box">
+        <h1>Страницата не се зареди</h1>
+        <p>Нещо се обърка от наша страна. Опитайте отново или се върнете към началото.</p>
+        <div className="wm-oops__btns">
           <button
+            type="button"
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className={button({ variant: "primary", size: "md" })}
+            className="wm-oops__btn wm-oops__btn--acc"
           >
-            Try again
+            Опитай отново
           </button>
-          <a href="/" className={button({ variant: "outline", size: "md" })}>
-            Go home
+          <a href="/" className="wm-oops__btn">
+            Към началото
           </a>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
@@ -170,7 +172,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="bg-q-background-primary text-q-text-primary">
+      <body>
         {children}
         <Scripts />
       </body>

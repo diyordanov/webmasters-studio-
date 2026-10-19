@@ -269,7 +269,7 @@
 .wm-mj__poster, .wm-mj__canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .wm-mj__canvas { z-index: 1; }
 .wm-mj__chapters { position: relative; z-index: 1; padding: 8px 20px 18svh; }
-.wm-mj__ch { display: flex; flex-direction: column; justify-content: center; min-height: 58svh; padding: 28px 0; opacity: 0.22; transform: translate3d(0, 18px, 0) scale(0.98); transform-origin: left center; transition: opacity 0.5s, transform 0.8s var(--ease); }
+.wm-mj__ch { display: flex; flex-direction: column; justify-content: center; min-height: 58svh; padding: 28px 0; opacity: 0.8; transform: translate3d(0, 18px, 0) scale(0.98); transform-origin: left center; transition: opacity 0.5s, transform 0.8s var(--ease); }
 .wm-mj__ch.is-active { opacity: 1; transform: none; }
 .wm-mj__title { margin: 0; font-size: clamp(2.2rem, 10vw, 3.3rem); font-weight: 600; line-height: 0.98; letter-spacing: -0.055em; }
 .wm-mj__body { margin: 14px 0 0; color: var(--muted); font-size: 1.02rem; line-height: 1.55; }
